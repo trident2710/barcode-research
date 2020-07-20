@@ -75,4 +75,9 @@ public final class GaloisFieldOverPrime implements GaloisField<GaloisFieldOverPr
     public int hashCode() {
         return Objects.hash(field);
     }
+
+    @Override
+    public String toString() {
+        return field.toString();
+    }
 }
