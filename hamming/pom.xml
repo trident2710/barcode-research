@@ -2,18 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>phdResearch</artifactId>
+        <groupId>com.trident</groupId>
+        <version>{project.version}</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.trident</groupId>
-    <artifactId>phdResearch</artifactId>
-    <packaging>pom</packaging>
-    <version>{project.version}</version>
-
-    <properties>
-        <project.version>1.0-SNAPSHOT</project.version>
-    </properties>
-
-    <modules>
-        <module>hamming</module>
-    </modules>
+    <artifactId>hamming-research</artifactId>
 </project>
