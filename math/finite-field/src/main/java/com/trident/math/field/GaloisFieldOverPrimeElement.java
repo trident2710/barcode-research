@@ -75,7 +75,7 @@ public class GaloisFieldOverPrimeElement implements GaloisFieldElement<GaloisFie
 
     @Override
     public int hashCode() {
-        return Objects.hash(field, value);
+        return Objects.hash(field, value());
     }
 
     @Override
