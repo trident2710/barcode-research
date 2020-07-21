@@ -3,6 +3,7 @@ package com.trident.matrix;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.trident.math.field.GaloisFieldOverPrime;
+import org.apache.commons.math3.linear.MatrixUtils;
 import org.junit.jupiter.api.Test;
 
 class FieldMatrixUtilTest {
@@ -10,23 +11,9 @@ class FieldMatrixUtilTest {
     private static final GaloisFieldOverPrime GF5 = new GaloisFieldOverPrime(5);
 
     @Test
-    void testIdentity() {
-        var identity = FieldMatrixUtil.identityMatrix(GF5.getOne(), 10);
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                if (i == j) {
-                    assertEquals(GF5.getOne(), identity.getEntry(i, j));
-                } else {
-                    assertEquals(GF5.getZero(), identity.getEntry(i, j));
-                }
-            }
-        }
-    }
-
-    @Test
     void testConcatRight() {
-        var first = FieldMatrixUtil.identityMatrix(GF5.getOne(), 5);
-        var second = FieldMatrixUtil.identityMatrix(GF5.getOne(), 5);
+        var first = MatrixUtils.createFieldIdentityMatrix(GF5, 5);
+        var second = MatrixUtils.createFieldIdentityMatrix(GF5, 5);
 
         var result = FieldMatrixUtil.concatRight(first, second);
 
