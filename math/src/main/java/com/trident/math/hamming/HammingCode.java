@@ -6,6 +6,8 @@ import com.trident.math.matrix.FieldMatrixUtil;
 import org.apache.commons.math3.linear.FieldMatrix;
 import org.apache.commons.math3.linear.MatrixUtils;
 
+import java.util.Objects;
+
 public class HammingCode<T extends GaloisFieldElement<T>> {
     private final FieldMatrix<T> generator;
 
@@ -37,5 +39,35 @@ public class HammingCode<T extends GaloisFieldElement<T>> {
         var correction = code.getSubMatrix(0, 0, messageLength, expectedLength - 1);
 
         return message.multiply(generatorT).subtract(correction);
+    }
+
+    private int totalLength() {
+        return generator.getRowDimension() + generator.getColumnDimension();
+    }
+
+    private int informationalLength() {
+        return generator.getColumnDimension();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        HammingCode<?> that = (HammingCode<?>) o;
+        return Objects.equals(generator, that.generator);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(generator);
+    }
+
+    @Override
+    public String toString() {
+        return "Hamming code (" + totalLength() + "," + informationalLength() + ")";
     }
 }
