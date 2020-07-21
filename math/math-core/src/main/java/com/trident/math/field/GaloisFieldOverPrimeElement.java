@@ -28,7 +28,7 @@ public class GaloisFieldOverPrimeElement implements GaloisFieldElement<GaloisFie
 
     @Override
     public GaloisFieldOverPrimeElement negate() {
-        return field.inv(this);
+        return field.neg(this);
     }
 
     @Override
@@ -54,6 +54,17 @@ public class GaloisFieldOverPrimeElement implements GaloisFieldElement<GaloisFie
     @Override
     public Field<GaloisFieldOverPrimeElement> getField() {
         return field;
+    }
+
+    @Override
+    public int compareTo(GaloisFieldOverPrimeElement o) {
+        if (this.value > o.value) {
+            return 1;
+        } else if (this.value < o.value) {
+            return -1;
+        } else {
+            return 0;
+        }
     }
 
     public long getAsLong() {

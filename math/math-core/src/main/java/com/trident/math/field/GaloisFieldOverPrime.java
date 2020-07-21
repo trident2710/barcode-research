@@ -40,6 +40,11 @@ public final class GaloisFieldOverPrime implements GaloisField<GaloisFieldOverPr
     }
 
     @Override
+    public GaloisFieldOverPrimeElement neg(GaloisFieldOverPrimeElement element) {
+        return new GaloisFieldOverPrimeElement(this, field.negate(element.value()));
+    }
+
+    @Override
     public long mod(long value) {
         return field.modulus(value);
     }
@@ -61,6 +66,14 @@ public final class GaloisFieldOverPrime implements GaloisField<GaloisFieldOverPr
 
     public GaloisFieldOverPrimeElement getOfValue(long value) {
         return new GaloisFieldOverPrimeElement(this, value);
+    }
+
+    public GaloisFieldOverPrimeElement getLast() {
+        return new GaloisFieldOverPrimeElement(this, modulus() - 1);
+    }
+
+    public long modulus() {
+        return field.modulus;
     }
 
     @Override

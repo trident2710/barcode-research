@@ -1,6 +1,7 @@
 package com.trident.math.hamming;
 
 import com.google.common.base.Preconditions;
+import com.trident.math.field.GaloisFieldOverPrime;
 import com.trident.math.field.GaloisFieldOverPrimeElement;
 import com.trident.math.matrix.FieldMatrixUtil;
 import org.apache.commons.math3.linear.FieldMatrix;
@@ -18,6 +19,10 @@ public class HammingCode {
 
     public FieldMatrix<GaloisFieldOverPrimeElement> getGenerator() {
         return generator;
+    }
+
+    public GaloisFieldOverPrime getField() {
+        return (GaloisFieldOverPrime) getGenerator().getField();
     }
 
     public FieldMatrix<GaloisFieldOverPrimeElement> encode(FieldMatrix<GaloisFieldOverPrimeElement> message) {
@@ -45,11 +50,11 @@ public class HammingCode {
         return message.multiply(generatorT).subtract(correction);
     }
 
-    private int totalLength() {
+    public int totalLength() {
         return generator.getRowDimension() + generator.getColumnDimension();
     }
 
-    private int informationalLength() {
+    public int informationalLength() {
         return generator.getColumnDimension();
     }
 
