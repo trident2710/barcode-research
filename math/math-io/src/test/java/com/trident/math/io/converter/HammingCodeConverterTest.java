@@ -37,4 +37,16 @@ class HammingCodeConverterTest {
                 .build();
         assertEquals(expected, HammingCodeConverter.toDto(HAMMING_CODE));
     }
+
+    @Test
+    void testFromDto() {
+        var dto = ImmutableHammingCodeDto.builder()
+                .fieldType(GF5)
+                .generatorMatrix(ImmutableNaturalMatrixDto.builder()
+                        .addMatrix(List.of(1L, 1L, 1L))
+                        .addMatrix(List.of(1L, 2L, 3L))
+                        .build())
+                .build();
+        assertEquals(HAMMING_CODE, HammingCodeConverter.fromDto(dto));
+    }
 }

@@ -1,8 +1,10 @@
 package com.trident.math.io.converter;
 
 import com.trident.math.field.GaloisFieldOverPrimeElement;
+import com.trident.math.field.GaloisFieldType;
 import com.trident.math.io.dto.ImmutableNaturalMatrixDto;
 import com.trident.math.io.dto.NaturalMatrixDto;
+import com.trident.math.matrix.FieldMatrixUtil;
 import org.apache.commons.math3.linear.FieldMatrix;
 
 import java.util.ArrayList;
@@ -21,5 +23,22 @@ public class GaloisFieldOverPrimeMatrixConverter {
         return ImmutableNaturalMatrixDto.builder()
                 .addAllMatrix(result)
                 .build();
+    }
+
+    public static FieldMatrix<GaloisFieldOverPrimeElement> fromDto(GaloisFieldType fieldType, NaturalMatrixDto dto) {
+        var elements = dto.matrix();
+        var field = fieldType.field();
+        FieldMatrix<GaloisFieldOverPrimeElement> result = null;
+        for (List<Long> row : elements) {
+            var rowArray = row.stream()
+                    .map(field::getOfValue)
+                    .toArray(GaloisFieldOverPrimeElement[]::new);
+            var matrixRow = FieldMatrixUtil.matrixRow(rowArray);
+            result = result == null
+                    ? matrixRow
+                    : FieldMatrixUtil.concatBottom(result, matrixRow);
+
+        }
+        return result;
     }
 }

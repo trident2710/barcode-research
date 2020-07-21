@@ -15,4 +15,9 @@ public class HammingCodeConverter {
                 .generatorMatrix(generatorMatrixDto)
                 .build();
     }
+
+    public static HammingCode fromDto(HammingCodeDto dto) {
+        var generatorMatrix = GaloisFieldOverPrimeMatrixConverter.fromDto(dto.fieldType(), dto.generatorMatrix());
+        return new HammingCode(generatorMatrix);
+    }
 }
