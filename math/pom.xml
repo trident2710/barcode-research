@@ -15,6 +15,22 @@
 
     <modules>
         <module>math-core</module>
+        <module>math-io</module>
     </modules>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>cc.redberry</groupId>
+                <artifactId>rings</artifactId>
+                <version>2.5.2</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-math3 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-math3</artifactId>
+                <version>3.6.1</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
