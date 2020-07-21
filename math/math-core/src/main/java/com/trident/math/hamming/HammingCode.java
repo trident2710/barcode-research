@@ -1,22 +1,26 @@
 package com.trident.math.hamming;
 
 import com.google.common.base.Preconditions;
-import com.trident.math.field.GaloisFieldElement;
+import com.trident.math.field.GaloisFieldOverPrimeElement;
 import com.trident.math.matrix.FieldMatrixUtil;
 import org.apache.commons.math3.linear.FieldMatrix;
 import org.apache.commons.math3.linear.MatrixUtils;
 
 import java.util.Objects;
 
-public class HammingCode<T extends GaloisFieldElement<T>> {
-    private final FieldMatrix<T> generator;
+public class HammingCode {
+    private final FieldMatrix<GaloisFieldOverPrimeElement> generator;
 
 
-    public HammingCode(FieldMatrix<T> generator) {
+    public HammingCode(FieldMatrix<GaloisFieldOverPrimeElement> generator) {
         this.generator = generator;
     }
 
-    public FieldMatrix<T> encode(FieldMatrix<T> message) {
+    public FieldMatrix<GaloisFieldOverPrimeElement> getGenerator() {
+        return generator;
+    }
+
+    public FieldMatrix<GaloisFieldOverPrimeElement> encode(FieldMatrix<GaloisFieldOverPrimeElement> message) {
         Preconditions.checkArgument(message.getRowDimension() == 1);
         Preconditions.checkArgument(message.getColumnDimension() == generator.getColumnDimension());
 
@@ -27,7 +31,7 @@ public class HammingCode<T extends GaloisFieldElement<T>> {
         return message.multiply(matrix);
     }
 
-    public FieldMatrix<T> syndrome(FieldMatrix<T> code) {
+    public FieldMatrix<GaloisFieldOverPrimeElement> syndrome(FieldMatrix<GaloisFieldOverPrimeElement> code) {
         Preconditions.checkArgument(code.getRowDimension() == 1);
 
         var generatorT = generator.transpose();
@@ -57,7 +61,7 @@ public class HammingCode<T extends GaloisFieldElement<T>> {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        HammingCode<?> that = (HammingCode<?>) o;
+        HammingCode that = (HammingCode) o;
         return Objects.equals(generator, that.generator);
     }
 

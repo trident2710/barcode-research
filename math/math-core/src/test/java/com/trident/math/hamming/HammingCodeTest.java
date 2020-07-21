@@ -21,7 +21,7 @@ class HammingCodeTest {
             matrixRow(ONE, TWO, THREE)
     );
 
-    private static final HammingCode<GaloisFieldOverPrimeElement> HAMMING_CODE = new HammingCode<>(GENERATOR);
+    private static final HammingCode HAMMING_CODE = new HammingCode(GENERATOR);
 
     @Test
     void testEncode() {
