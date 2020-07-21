@@ -1,20 +1,19 @@
 package com.trident.math;
 
+import static com.trident.math.field.GaloisFieldType.GF5;
 import static com.trident.math.matrix.FieldMatrixUtil.createMatrixOfRows;
 import static com.trident.math.matrix.FieldMatrixUtil.matrixColumn;
 import static com.trident.math.matrix.FieldMatrixUtil.matrixRow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.trident.math.field.GaloisFieldOverPrime;
 import com.trident.math.field.GaloisFieldOverPrimeElement;
 import org.junit.jupiter.api.Test;
 
 class MatrixTest {
-    private static final GaloisFieldOverPrime GF5 = new GaloisFieldOverPrime(5);
-    private static final GaloisFieldOverPrimeElement ONE = GF5.getOne();
-    private static final GaloisFieldOverPrimeElement TWO = GF5.getOfValue(2);
-    private static final GaloisFieldOverPrimeElement THREE = GF5.getOfValue(3);
-    private static final GaloisFieldOverPrimeElement FOUR = GF5.getOfValue(4);
+    private static final GaloisFieldOverPrimeElement ONE = GF5.field().getOne();
+    private static final GaloisFieldOverPrimeElement TWO = GF5.field().getOfValue(2);
+    private static final GaloisFieldOverPrimeElement THREE = GF5.field().getOfValue(3);
+    private static final GaloisFieldOverPrimeElement FOUR = GF5.field().getOfValue(4);
 
     @Test
     void testMultiply() {

@@ -1,22 +1,20 @@
 package com.trident.math.hamming;
 
+import static com.trident.math.field.GaloisFieldType.GF5;
 import static com.trident.math.matrix.FieldMatrixUtil.createMatrixOfRows;
 import static com.trident.math.matrix.FieldMatrixUtil.matrixRow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.trident.math.field.GaloisFieldOverPrime;
 import com.trident.math.field.GaloisFieldOverPrimeElement;
 import org.apache.commons.math3.linear.FieldMatrix;
 import org.junit.jupiter.api.Test;
 
 class HammingCodeTest {
-
-    private static final GaloisFieldOverPrime GF5 = new GaloisFieldOverPrime(5);
-    private static final GaloisFieldOverPrimeElement ZERO = GF5.getZero();
-    private static final GaloisFieldOverPrimeElement ONE = GF5.getOne();
-    private static final GaloisFieldOverPrimeElement TWO = GF5.getOfValue(2);
-    private static final GaloisFieldOverPrimeElement THREE = GF5.getOfValue(3);
-    private static final GaloisFieldOverPrimeElement FOUR = GF5.getOfValue(4);
+    private static final GaloisFieldOverPrimeElement ZERO = GF5.field().getZero();
+    private static final GaloisFieldOverPrimeElement ONE = GF5.field().getOne();
+    private static final GaloisFieldOverPrimeElement TWO = GF5.field().getOfValue(2);
+    private static final GaloisFieldOverPrimeElement THREE = GF5.field().getOfValue(3);
+    private static final GaloisFieldOverPrimeElement FOUR = GF5.field().getOfValue(4);
 
     private static final FieldMatrix<GaloisFieldOverPrimeElement> GENERATOR = createMatrixOfRows(
             matrixRow(ONE, ONE, ONE),
