@@ -46,17 +46,21 @@ public final class GaloisFieldOverPrime implements GaloisField<GaloisFieldOverPr
 
     @Override
     public GaloisFieldOverPrimeElement getZero() {
-        return new GaloisFieldOverPrimeElement(this, 0L);
+        return getOfValue(0L);
     }
 
     @Override
     public GaloisFieldOverPrimeElement getOne() {
-        return new GaloisFieldOverPrimeElement(this, 1L);
+        return getOfValue(1L);
     }
 
     @Override
     public Class<? extends FieldElement<GaloisFieldOverPrimeElement>> getRuntimeClass() {
         return GaloisFieldOverPrimeElement.class;
+    }
+
+    public GaloisFieldOverPrimeElement getOfValue(long value) {
+        return new GaloisFieldOverPrimeElement(this, value);
     }
 
     @Override

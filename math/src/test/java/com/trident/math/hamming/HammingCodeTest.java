@@ -1,27 +1,27 @@
 package com.trident.math.hamming;
 
+import static com.trident.math.matrix.FieldMatrixUtil.createMatrixOfRows;
 import static com.trident.math.matrix.FieldMatrixUtil.matrixRow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.trident.math.field.GaloisFieldOverPrime;
 import com.trident.math.field.GaloisFieldOverPrimeElement;
 import org.apache.commons.math3.linear.FieldMatrix;
-import org.apache.commons.math3.linear.MatrixUtils;
 import org.junit.jupiter.api.Test;
 
 class HammingCodeTest {
 
     private static final GaloisFieldOverPrime GF5 = new GaloisFieldOverPrime(5);
-    private static final GaloisFieldOverPrimeElement ZERO = new GaloisFieldOverPrimeElement(GF5, 0L);
-    private static final GaloisFieldOverPrimeElement ONE = new GaloisFieldOverPrimeElement(GF5, 1L);
-    private static final GaloisFieldOverPrimeElement TWO = new GaloisFieldOverPrimeElement(GF5, 2L);
-    private static final GaloisFieldOverPrimeElement THREE = new GaloisFieldOverPrimeElement(GF5, 3L);
-    private static final GaloisFieldOverPrimeElement FOUR = new GaloisFieldOverPrimeElement(GF5, 4L);
+    private static final GaloisFieldOverPrimeElement ZERO = GF5.getZero();
+    private static final GaloisFieldOverPrimeElement ONE = GF5.getOne();
+    private static final GaloisFieldOverPrimeElement TWO = GF5.getOfValue(2);
+    private static final GaloisFieldOverPrimeElement THREE = GF5.getOfValue(3);
+    private static final GaloisFieldOverPrimeElement FOUR = GF5.getOfValue(4);
 
-    private static final FieldMatrix<GaloisFieldOverPrimeElement> GENERATOR = MatrixUtils.createFieldMatrix(new GaloisFieldOverPrimeElement[][]{
-            new GaloisFieldOverPrimeElement[]{ONE, ONE, ONE},
-            new GaloisFieldOverPrimeElement[]{ONE, TWO, THREE}
-    });
+    private static final FieldMatrix<GaloisFieldOverPrimeElement> GENERATOR = createMatrixOfRows(
+            matrixRow(ONE, ONE, ONE),
+            matrixRow(ONE, TWO, THREE)
+    );
 
     private static final HammingCode<GaloisFieldOverPrimeElement> HAMMING_CODE = new HammingCode<>(GENERATOR);
 

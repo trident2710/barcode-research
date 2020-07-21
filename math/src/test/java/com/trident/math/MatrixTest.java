@@ -1,50 +1,42 @@
 package com.trident.math;
 
+import static com.trident.math.matrix.FieldMatrixUtil.createMatrixOfRows;
+import static com.trident.math.matrix.FieldMatrixUtil.matrixColumn;
+import static com.trident.math.matrix.FieldMatrixUtil.matrixRow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.trident.math.field.GaloisFieldOverPrime;
 import com.trident.math.field.GaloisFieldOverPrimeElement;
-import org.apache.commons.math3.linear.SparseFieldMatrix;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class MatrixTest {
-    private static final GaloisFieldOverPrime GF_5 = new GaloisFieldOverPrime(5L);
-    private static final GaloisFieldOverPrimeElement ONE = new GaloisFieldOverPrimeElement(GF_5, 1L);
-    private static final GaloisFieldOverPrimeElement TWO = new GaloisFieldOverPrimeElement(GF_5, 2L);
-    private static final GaloisFieldOverPrimeElement THREE = new GaloisFieldOverPrimeElement(GF_5, 3L);
-    private static final GaloisFieldOverPrimeElement FOUR = new GaloisFieldOverPrimeElement(GF_5, 4L);
+    private static final GaloisFieldOverPrime GF5 = new GaloisFieldOverPrime(5);
+    private static final GaloisFieldOverPrimeElement ONE = GF5.getOne();
+    private static final GaloisFieldOverPrimeElement TWO = GF5.getOfValue(2);
+    private static final GaloisFieldOverPrimeElement THREE = GF5.getOfValue(3);
+    private static final GaloisFieldOverPrimeElement FOUR = GF5.getOfValue(4);
 
     @Test
     void testMultiply() {
-        var row = new SparseFieldMatrix<>(GF_5, 1, 3);
-        row.addToEntry(0, 0, ONE);
-        row.addToEntry(0, 1, TWO);
-        row.addToEntry(0, 2, THREE);
-
-        var column = new SparseFieldMatrix<>(GF_5, 3, 1);
-        column.addToEntry(0, 0, TWO);
-        column.addToEntry(1, 0, TWO);
-        column.addToEntry(2, 0, TWO);
-
+        var row = matrixRow(ONE, TWO, THREE);
+        var column = matrixColumn(TWO, TWO, TWO);
         var multiply = row.multiply(column);
-        var expected = new SparseFieldMatrix<>(GF_5, 1, 1);
-        expected.addToEntry(0, 0, TWO);
-        Assertions.assertEquals(expected, multiply);
+        var expected = matrixRow(TWO);
+        assertEquals(expected, multiply);
     }
 
     @Test
     void testTranspose() {
-        var matrix = new SparseFieldMatrix<>(GF_5, 2, 2);
-        matrix.addToEntry(0, 0, ONE);
-        matrix.addToEntry(0, 1, TWO);
-        matrix.addToEntry(1, 0, THREE);
-        matrix.addToEntry(1, 1, FOUR);
+        var matrix = createMatrixOfRows(
+                matrixRow(ONE, TWO),
+                matrixRow(THREE, FOUR)
+        );
 
-        var expected = new SparseFieldMatrix<>(GF_5, 2, 2);
-        expected.addToEntry(0, 0, ONE);
-        expected.addToEntry(0, 1, THREE);
-        expected.addToEntry(1, 0, TWO);
-        expected.addToEntry(1, 1, FOUR);
+        var expected = createMatrixOfRows(
+                matrixRow(ONE, THREE),
+                matrixRow(TWO, FOUR)
+        );
 
-        Assertions.assertEquals(expected, matrix.transpose());
+        assertEquals(expected, matrix.transpose());
     }
 }
