@@ -56,6 +56,10 @@ public class GaloisFieldOverPrimeElement implements GaloisFieldElement<GaloisFie
         return field;
     }
 
+    public long getAsLong() {
+        return value();
+    }
+
     long value() {
         return field.mod(value);
     }
