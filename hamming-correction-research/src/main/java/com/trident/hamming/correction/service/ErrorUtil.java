@@ -1,6 +1,6 @@
 package com.trident.hamming.correction.service;
 
-import static com.trident.math.field.GaloisFieldOverPrimeUtil.randomElement;
+import static com.trident.math.field.GaloisFieldOverPrimeUtil.randomNonZero;
 import static com.trident.math.matrix.FieldMatrixUtil.matrixRowOfValue;
 
 import com.google.common.base.Preconditions;
@@ -23,7 +23,7 @@ public final class ErrorUtil {
         var errorPositions = errorPositions(number, codeSize);
         var error = matrixRowOfValue(field.getZero(), codeSize);
         errorPositions.forEach(position -> {
-            error.addToEntry(0, position, randomElement(field));
+            error.addToEntry(0, position, randomNonZero(field));
         });
         return error;
     }

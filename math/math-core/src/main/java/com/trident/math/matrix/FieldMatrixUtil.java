@@ -97,4 +97,26 @@ public final class FieldMatrixUtil {
         }
         return row;
     }
+
+    public static <T extends FieldElement<T>> boolean hasRow(FieldMatrix<T> matrix, FieldMatrix<T> row) {
+        Preconditions.checkArgument(row.getRowDimension() == 1);
+        for (int i = 0; i < matrix.getRowDimension(); i++) {
+            var column = matrix.getRowMatrix(i);
+            if (row.equals(column)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static <T extends FieldElement<T>> boolean hasColumn(FieldMatrix<T> matrix, FieldMatrix<T> row) {
+        Preconditions.checkArgument(row.getColumnDimension() == 1);
+        for (int i = 0; i < matrix.getColumnDimension(); i++) {
+            var column = matrix.getColumnMatrix(i);
+            if (row.equals(column)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

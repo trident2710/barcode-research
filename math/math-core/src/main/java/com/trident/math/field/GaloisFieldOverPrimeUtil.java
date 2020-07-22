@@ -15,6 +15,10 @@ public final class GaloisFieldOverPrimeUtil {
         return field.getOfValue(ThreadLocalRandom.current().nextLong(field.modulus()));
     }
 
+    public static GaloisFieldOverPrimeElement randomNonZero(GaloisFieldOverPrime field) {
+        return field.getOfValue(ThreadLocalRandom.current().nextLong(field.modulus() - 1)).add(field.getOne());
+    }
+
     public static FieldMatrix<GaloisFieldOverPrimeElement> randomRow(GaloisFieldOverPrime field, int size) {
         var array = new GaloisFieldOverPrimeElement[size];
         for (int i = 0; i < size; i++) {

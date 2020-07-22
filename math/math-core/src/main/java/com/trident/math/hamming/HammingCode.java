@@ -1,24 +1,31 @@
 package com.trident.math.hamming;
 
+import static com.trident.math.matrix.FieldMatrixUtil.concatRight;
+import static org.apache.commons.math3.linear.MatrixUtils.createFieldIdentityMatrix;
+
 import com.google.common.base.Preconditions;
 import com.trident.math.field.GaloisFieldOverPrime;
 import com.trident.math.field.GaloisFieldOverPrimeElement;
-import com.trident.math.matrix.FieldMatrixUtil;
 import org.apache.commons.math3.linear.FieldMatrix;
-import org.apache.commons.math3.linear.MatrixUtils;
 
 import java.util.Objects;
 
 public class HammingCode {
     private final FieldMatrix<GaloisFieldOverPrimeElement> generator;
+    private final FieldMatrix<GaloisFieldOverPrimeElement> fullMatrix;
 
 
     public HammingCode(FieldMatrix<GaloisFieldOverPrimeElement> generator) {
         this.generator = generator;
+        this.fullMatrix = concatRight(generator, createFieldIdentityMatrix(generator.getField(), generator.getRowDimension()));
     }
 
     public FieldMatrix<GaloisFieldOverPrimeElement> getGenerator() {
         return generator;
+    }
+
+    public FieldMatrix<GaloisFieldOverPrimeElement> getFullMatrix() {
+        return fullMatrix;
     }
 
     public GaloisFieldOverPrime getField() {
@@ -29,9 +36,9 @@ public class HammingCode {
         Preconditions.checkArgument(message.getRowDimension() == 1);
         Preconditions.checkArgument(message.getColumnDimension() == generator.getColumnDimension());
 
-        var identity = MatrixUtils.createFieldIdentityMatrix(generator.getField(), message.getColumnDimension());
+        var identity = createFieldIdentityMatrix(generator.getField(), message.getColumnDimension());
         var generatorT = generator.transpose();
-        var matrix = FieldMatrixUtil.concatRight(identity, generatorT);
+        var matrix = concatRight(identity, generatorT);
 
         return message.multiply(matrix);
     }
