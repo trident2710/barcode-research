@@ -13,7 +13,7 @@ public class HammingCorrectionResearch {
 
     public static void main(String[] args) throws Exception {
         var hammingCode = hammingCode();
-        var result = HammingCorrectionAnalyzer.analyzeHammingCodeCorrection(hammingCode, 1, 100);
+        var result = HammingCorrectionAnalyzer.analyzeHammingCodeCorrection(hammingCode, 2, 100000);
         System.out.println(result);
     }
 

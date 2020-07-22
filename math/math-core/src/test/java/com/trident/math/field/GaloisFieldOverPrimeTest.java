@@ -1,6 +1,6 @@
 package com.trident.math.field;
 
-import static com.trident.math.field.GaloisFieldType.GF5;
+import static com.trident.math.field.GaloisFieldOverPrimeType.GF5;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

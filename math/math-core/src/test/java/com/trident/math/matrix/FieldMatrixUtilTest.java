@@ -1,6 +1,6 @@
 package com.trident.math.matrix;
 
-import static com.trident.math.field.GaloisFieldType.GF5;
+import static com.trident.math.field.GaloisFieldOverPrimeType.GF5;
 import static com.trident.math.matrix.FieldMatrixUtil.concatBottom;
 import static com.trident.math.matrix.FieldMatrixUtil.concatRight;
 import static org.apache.commons.math3.linear.MatrixUtils.createFieldIdentityMatrix;

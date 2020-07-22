@@ -1,7 +1,7 @@
 package com.trident.math.io.converter;
 
 import com.trident.math.field.GaloisFieldOverPrimeElement;
-import com.trident.math.field.GaloisFieldType;
+import com.trident.math.field.GaloisFieldOverPrimeType;
 import com.trident.math.io.dto.ImmutableNaturalMatrixDto;
 import com.trident.math.io.dto.NaturalMatrixDto;
 import com.trident.math.matrix.FieldMatrixUtil;
@@ -25,7 +25,7 @@ public class GaloisFieldOverPrimeMatrixConverter {
                 .build();
     }
 
-    public static FieldMatrix<GaloisFieldOverPrimeElement> fromDto(GaloisFieldType fieldType, NaturalMatrixDto dto) {
+    public static FieldMatrix<GaloisFieldOverPrimeElement> fromDto(GaloisFieldOverPrimeType fieldType, NaturalMatrixDto dto) {
         var elements = dto.matrix();
         var field = fieldType.field();
         FieldMatrix<GaloisFieldOverPrimeElement> result = null;

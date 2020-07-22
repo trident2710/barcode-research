@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
-import com.trident.math.field.GaloisFieldType;
+import com.trident.math.field.GaloisFieldOverPrimeType;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -15,7 +15,7 @@ class HammingCodeDtoSerializationTest {
         var objectMapper = new ObjectMapper();
         objectMapper.registerModules(new GuavaModule());
         var hammingCode = ImmutableHammingCodeDto.builder()
-                .fieldType(GaloisFieldType.GF5)
+                .fieldType(GaloisFieldOverPrimeType.GF5)
                 .generatorMatrix(ImmutableNaturalMatrixDto.builder()
                         .addMatrix(List.of(1L, 2L, 3L))
                         .addMatrix(List.of(1L, 2L, 3L))
