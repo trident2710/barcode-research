@@ -1,7 +1,9 @@
 package com.trident.hamming.correction;
 
+import static com.trident.hamming.correction.service.HammingCorrectionAnalyzerService.analyzeHammingCodeCorrection;
+import static com.trident.hamming.correction.service.HammingCorrectionReportWriter.writeToString;
+
 import com.trident.hamming.correction.service.HammingCodeReader;
-import com.trident.hamming.correction.service.HammingCorrectionAnalyzerService;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
@@ -31,7 +33,7 @@ public class HammingCorrectionAnalyzer {
         String hammingCodePath = commandLine.getOptionValue("c");
 
         var hammingCode = HammingCodeReader.read(hammingCodePath);
-        var result = HammingCorrectionAnalyzerService.analyzeHammingCodeCorrection(hammingCode, errorLevel, iterations);
-        System.out.println(result);
+        var result = analyzeHammingCodeCorrection(hammingCode, errorLevel, iterations);
+        System.out.println(writeToString(result));
     }
 }
