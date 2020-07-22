@@ -3,6 +3,7 @@ package com.trident.math.field;
 import com.trident.math.matrix.FieldMatrixUtil;
 import org.apache.commons.math3.linear.FieldMatrix;
 
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 public final class GaloisFieldOverPrimeUtil {
@@ -22,16 +23,16 @@ public final class GaloisFieldOverPrimeUtil {
         return FieldMatrixUtil.matrixRow(array);
     }
 
-    public static GaloisFieldOverPrimeElement getMaxElement(FieldMatrix<GaloisFieldOverPrimeElement> matrix) {
-        GaloisFieldOverPrimeElement max = matrix.getEntry(0, 0);
+    public static Optional<GaloisFieldOverPrimeElement> getFirstNonZero(FieldMatrix<GaloisFieldOverPrimeElement> matrix) {
+        var zero = matrix.getField().getZero();
         for (int i = 0; i < matrix.getRowDimension(); i++) {
             for (int j = 0; j < matrix.getColumnDimension(); j++) {
                 var element = matrix.getEntry(i, j);
-                if (element.compareTo(max) > 0) {
-                    max = element;
+                if (element.compareTo(zero) > 0) {
+                    return Optional.of(element);
                 }
             }
         }
-        return max;
+        return Optional.empty();
     }
 }
