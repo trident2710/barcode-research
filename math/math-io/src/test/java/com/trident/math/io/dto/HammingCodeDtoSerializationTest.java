@@ -3,6 +3,7 @@ package com.trident.math.io.dto;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.trident.math.field.GaloisFieldType;
 import org.junit.jupiter.api.Test;
 
@@ -12,6 +13,7 @@ class HammingCodeDtoSerializationTest {
     @Test
     void test() throws Exception {
         var objectMapper = new ObjectMapper();
+        objectMapper.registerModules(new GuavaModule());
         var hammingCode = ImmutableHammingCodeDto.builder()
                 .fieldType(GaloisFieldType.GF5)
                 .generatorMatrix(ImmutableNaturalMatrixDto.builder()
@@ -20,6 +22,9 @@ class HammingCodeDtoSerializationTest {
                         .build())
                 .build();
         var serialized = objectMapper.writeValueAsString(hammingCode);
-        assertEquals("{\"fieldType\":\"GF5\",\"generatorMatrix\":{\"matrix\":[[1,2,3],[1,2,3]]}}", serialized);
+        String expected = "{\"fieldType\":\"GF5\",\"generatorMatrix\":{\"matrix\":[[1,2,3],[1,2,3]]}}";
+        assertEquals(expected, serialized);
+        var deserialized = objectMapper.readValue(serialized, HammingCodeDto.class);
+        assertEquals(hammingCode, deserialized);
     }
 }
