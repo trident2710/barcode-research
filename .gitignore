@@ -9,3 +9,6 @@
 
 ### Maven ###
 target/
+
+# ignore poms created by flatten-maven-plugin
+**/.flattened-pom.xml
