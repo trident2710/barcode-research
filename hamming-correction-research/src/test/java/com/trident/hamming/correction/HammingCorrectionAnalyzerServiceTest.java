@@ -1,6 +1,6 @@
 package com.trident.hamming.correction;
 
-import static com.trident.hamming.correction.service.HammingCorrectionAnalyzer.analyzeHammingCodeCorrection;
+import static com.trident.hamming.correction.service.HammingCorrectionAnalyzerService.analyzeHammingCodeCorrection;
 import static com.trident.math.field.GaloisFieldOverPrimeType.GF5;
 import static com.trident.math.matrix.FieldMatrixUtil.createMatrixOfRows;
 import static com.trident.math.matrix.FieldMatrixUtil.matrixRow;
@@ -13,7 +13,7 @@ import com.trident.math.io.converter.HammingCodeConverter;
 import org.apache.commons.math3.linear.FieldMatrix;
 import org.junit.jupiter.api.Test;
 
-public class HammingCorrectionAnalyzerTest {
+public class HammingCorrectionAnalyzerServiceTest {
 
     private static final GaloisFieldOverPrimeElement ONE = GF5.field().getOne();
     private static final GaloisFieldOverPrimeElement TWO = GF5.field().getOfValue(2);

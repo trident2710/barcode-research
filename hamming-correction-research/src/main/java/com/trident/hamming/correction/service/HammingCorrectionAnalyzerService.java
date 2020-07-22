@@ -10,7 +10,7 @@ import com.trident.hamming.correction.report.ImmutableHammingCorrectionReport;
 import com.trident.math.hamming.HammingCode;
 import com.trident.math.io.converter.HammingCodeConverter;
 
-public final class HammingCorrectionAnalyzer {
+public final class HammingCorrectionAnalyzerService {
 
     public static HammingCorrectionReport analyzeHammingCodeCorrection(HammingCode hammingCode, int errorLevel, int iterations) {
         var message = randomRow(hammingCode.getField(), hammingCode.informationalLength());
