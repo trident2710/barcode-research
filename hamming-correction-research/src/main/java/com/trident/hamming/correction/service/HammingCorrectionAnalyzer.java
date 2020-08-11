@@ -1,10 +1,5 @@
 package com.trident.hamming.correction.service;
 
-import static com.trident.math.field.GaloisFieldOverPrimeUtil.randomRow;
-import static com.trident.math.hamming.HammingSyndromeUtil.calculateErrorPosition;
-import static com.trident.math.hamming.HammingSyndromeUtil.calculateErrorValue;
-import static com.trident.math.hamming.HammingSyndromeUtil.canCorrectError;
-
 import com.trident.hamming.correction.report.HammingCorrectionReport;
 import com.trident.hamming.correction.report.ImmutableHammingCorrectionReport;
 import com.trident.math.field.GaloisFieldOverPrimeElement;
@@ -12,18 +7,26 @@ import com.trident.math.hamming.HammingCode;
 import com.trident.math.io.converter.HammingCodeConverter;
 import org.apache.commons.math3.linear.FieldMatrix;
 
-public final class HammingCorrectionAnalyzer {
-    private HammingCodeErrorProvider errorProvider;
+import java.io.PrintWriter;
 
-    public HammingCorrectionAnalyzer(HammingCodeErrorProvider errorProvider) {
+import static com.trident.math.field.GaloisFieldOverPrimeUtil.randomRow;
+import static com.trident.math.hamming.HammingSyndromeUtil.*;
+import static com.trident.math.io.FieldMatrixIOUtil.writeAsString;
+
+public final class HammingCorrectionAnalyzer {
+
+    private final HammingCodeErrorProvider errorProvider;
+    private final PrintWriter writer;
+
+    public HammingCorrectionAnalyzer(HammingCodeErrorProvider errorProvider, PrintWriter writer) {
         this.errorProvider = errorProvider;
+        this.writer = writer;
     }
 
     public HammingCorrectionReport analyzeHammingCodeCorrection(HammingCode hammingCode, FieldMatrix<GaloisFieldOverPrimeElement> message) {
         var code = hammingCode.encode(message);
-
-        System.out.println("Message: " + message);
-        System.out.println("Code: " + code);
+        writer.println(String.format("Start analyzing: %s", writeAsString(message)));
+        writer.println(String.format("Encoded message: %s", writeAsString(code)));
 
         int corrected = 0;
         int detected = 0;
@@ -32,34 +35,40 @@ public final class HammingCorrectionAnalyzer {
         int errorLevel = errorProvider.errorLevel();
 
         while (errorProvider.hasNext()) {
-            System.out.println("\n\n");
+            writer.println();
             var error = errorProvider.next();
-            System.out.println("Error: " + error);
             var codeWithError = code.add(error);
-            System.out.println("Code with error: " + codeWithError);
             var syndrome = hammingCode.syndrome(codeWithError);
-            System.out.println("Syndrome: " + syndrome);
+
+            writer.println(String.format("\tAdding error: %s", writeAsString(error)));
+            writer.println(String.format("\tCode with error: %s", writeAsString(codeWithError)));
+            writer.println(String.format("\tSyndrome: %s", writeAsString(syndrome)));
 
             var valueOptional = calculateErrorValue(syndrome);
             if (valueOptional.isPresent()) {
                 var errorValue = valueOptional.get();
-                System.out.println("Error value: " + errorValue);
                 var errorPosition = calculateErrorPosition(syndrome, errorValue);
-                System.out.println("Error position: " + errorPosition);
+
+                writer.println(String.format("\tError value: %s", errorValue));
+                writer.println(String.format("\tError position: %s", writeAsString(errorPosition)));
 
                 if (canCorrectError(errorPosition, hammingCode.getFullMatrix())) {
-                    System.out.println("Corrected");
+                    writer.println("\tResult: Corrected");
                     corrected++;
                 } else {
-                    System.out.println("Detected");
+                    writer.println("\tResult: Detected");
                     detected++;
                 }
             } else {
+                writer.println("\tResult: No error");
                 noErrors++;
             }
             iterations++;
         }
-        return buildReport(hammingCode, iterations, errorLevel, corrected, detected, noErrors);
+        var result = buildReport(hammingCode, iterations, errorLevel, corrected, detected, noErrors);
+        writer.println(String.format("Final result: %s", HammingCorrectionReportWriter.writeToString(result)));
+
+        return result;
     }
 
     public HammingCorrectionReport analyzeHammingCodeCorrection(HammingCode hammingCode) {

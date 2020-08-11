@@ -5,7 +5,11 @@ import com.trident.hamming.correction.report.HammingCorrectionReport;
 
 public class HammingCorrectionReportWriter {
 
-    public static String writeToString(HammingCorrectionReport report) throws Exception {
-        return new ObjectMapper().writeValueAsString(report);
+    public static String writeToString(HammingCorrectionReport report) {
+        try {
+            return new ObjectMapper().writeValueAsString(report);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
     }
 }

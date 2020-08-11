@@ -1,16 +1,7 @@
 package com.trident.hamming.correction;
 
-import static com.trident.math.field.GaloisFieldOverPrimeType.GF5;
-import static com.trident.math.matrix.FieldMatrixUtil.createMatrixOfRows;
-import static com.trident.math.matrix.FieldMatrixUtil.matrixRow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import com.trident.hamming.correction.report.ImmutableHammingCorrectionReport;
-import com.trident.hamming.correction.service.HammingCodeAllErrorsProvider;
-import com.trident.hamming.correction.service.HammingCodeCustomErrorProvider;
-import com.trident.hamming.correction.service.HammingCodeRandomErrorProvider;
-import com.trident.hamming.correction.service.HammingCorrectionAnalyzer;
+import com.trident.hamming.correction.service.*;
 import com.trident.math.field.GaloisFieldOverPrimeElement;
 import com.trident.math.hamming.HammingCode;
 import com.trident.math.io.converter.HammingCodeConverter;
@@ -18,6 +9,11 @@ import org.apache.commons.math3.linear.FieldMatrix;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+
+import static com.trident.math.field.GaloisFieldOverPrimeType.GF5;
+import static com.trident.math.matrix.FieldMatrixUtil.createMatrixOfRows;
+import static com.trident.math.matrix.FieldMatrixUtil.matrixRow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HammingCorrectionAnalyzerTest {
 
@@ -45,53 +41,8 @@ public class HammingCorrectionAnalyzerTest {
                 .iterations(320)
                 .build();
         var errorProvider = new HammingCodeRandomErrorProvider(HAMMING_CODE, 1, 320);
-        var analyzer = new HammingCorrectionAnalyzer(errorProvider);
+        var analyzer = new HammingCorrectionAnalyzer(errorProvider, EmptyWriter.getInstance());
         assertEquals(expected, analyzer.analyzeHammingCodeCorrection(HAMMING_CODE));
-    }
-
-    @Test
-    void test2LevelErrors() {
-        var errorProvider = new HammingCodeAllErrorsProvider(2, HAMMING_CODE, 160);
-        var analyzer = new HammingCorrectionAnalyzer(errorProvider);
-        var message = matrixRow(FOUR, ZERO, THREE);
-        var result = analyzer.analyzeHammingCodeCorrection(HAMMING_CODE, message);
-        System.out.println(result);
-        assertTrue(true);
-    }
-
-    @Test
-    void test3LevelErrors() {
-        var errorProvider = new HammingCodeAllErrorsProvider(3, HAMMING_CODE, 320);
-        var analyzer = new HammingCorrectionAnalyzer(errorProvider);
-        var message = matrixRow(FOUR, ZERO, THREE);
-        var result = analyzer.analyzeHammingCodeCorrection(HAMMING_CODE, message);
-        System.out.println(result);
-        assertTrue(true);
-    }
-
-    @Test
-    void testCustom2LevelErrors() {
-        var errorProvider = new HammingCodeCustomErrorProvider(HAMMING_CODE, 2, List.of(
-                matrixRow(ONE, ONE, ZERO, ZERO, ZERO),
-                matrixRow(ONE, ZERO, ONE, ZERO, ZERO),
-                matrixRow(ONE, ZERO, ZERO, ONE, ZERO),
-                matrixRow(ONE, ZERO, ZERO, ZERO, ONE),
-                matrixRow(ZERO, ONE, ONE, ZERO, ZERO),
-                matrixRow(ZERO, ONE, ZERO, ONE, ZERO),
-                matrixRow(ZERO, ONE, ZERO, ZERO, ONE),
-                matrixRow(ZERO, ZERO, ONE, ONE, ZERO),
-                matrixRow(ZERO, ZERO, ONE, ZERO, ONE),
-                matrixRow(ZERO, ZERO, ZERO, ONE, ONE),
-                matrixRow(TWO, TWO, ZERO, ZERO, ZERO),
-                matrixRow(TWO, ZERO, TWO, ZERO, ZERO),
-                matrixRow(TWO, ZERO, ZERO, TWO, ZERO)
-
-        ));
-        var message = matrixRow(FOUR, ZERO, THREE);
-        var analyzer = new HammingCorrectionAnalyzer(errorProvider);
-        var result = analyzer.analyzeHammingCodeCorrection(HAMMING_CODE, message);
-        System.out.println(result);
-        assertTrue(true);
     }
 
     @Test
@@ -102,9 +53,30 @@ public class HammingCorrectionAnalyzerTest {
                 matrixRow(THREE, ZERO, ZERO, ZERO, ZERO)
         ));
         var message = matrixRow(FOUR, ZERO, THREE);
-        var analyzer = new HammingCorrectionAnalyzer(errorProvider);
-        analyzer.analyzeHammingCodeCorrection(HAMMING_CODE, message);
+        var analyzer = new HammingCorrectionAnalyzer(errorProvider, EmptyWriter.getInstance());
+        var result = analyzer.analyzeHammingCodeCorrection(HAMMING_CODE, message);
 
-        assertTrue(true);
+        assertEquals(3, result.corrected());
+    }
+
+    @Test
+    void test2LevelErrors() {
+        var errorProvider = new HammingCodeAllErrorsProvider(2, HAMMING_CODE, 160);
+        var analyzer = new HammingCorrectionAnalyzer(errorProvider, EmptyWriter.getInstance());
+        var message = matrixRow(FOUR, ZERO, THREE);
+        var result = analyzer.analyzeHammingCodeCorrection(HAMMING_CODE, message);
+        assertEquals(40, result.detected());
+        assertEquals(120, result.corrected());
+    }
+
+    @Test
+    void test3LevelErrors() {
+        var errorProvider = new HammingCodeAllErrorsProvider(3, HAMMING_CODE, 640);
+        var analyzer = new HammingCorrectionAnalyzer(errorProvider, EmptyWriter.getInstance());
+        var message = matrixRow(FOUR, ZERO, THREE);
+        var result = analyzer.analyzeHammingCodeCorrection(HAMMING_CODE, message);
+        assertEquals(40, result.noErrors());
+        assertEquals(80, result.detected());
+        assertEquals(520, result.corrected());
     }
 }

@@ -2,6 +2,7 @@ package com.trident.hamming.correction;
 
 import static com.trident.hamming.correction.service.HammingCorrectionReportWriter.writeToString;
 
+import com.trident.hamming.correction.service.EmptyWriter;
 import com.trident.hamming.correction.service.HammingCodeRandomErrorProvider;
 import com.trident.hamming.correction.service.HammingCodeReader;
 import com.trident.hamming.correction.service.HammingCorrectionAnalyzer;
@@ -35,7 +36,7 @@ public class Runner {
 
         var hammingCode = HammingCodeReader.read(hammingCodePath);
         var errorProvider = new HammingCodeRandomErrorProvider(hammingCode, errorLevel, iterations);
-        var analyzer = new HammingCorrectionAnalyzer(errorProvider);
+        var analyzer = new HammingCorrectionAnalyzer(errorProvider, EmptyWriter.getInstance());
         var result = analyzer.analyzeHammingCodeCorrection(hammingCode);
         System.out.println(writeToString(result));
     }
