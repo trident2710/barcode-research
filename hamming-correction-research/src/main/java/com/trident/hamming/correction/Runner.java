@@ -1,7 +1,5 @@
 package com.trident.hamming.correction;
 
-import static com.trident.hamming.correction.service.HammingCorrectionReportWriter.writeToString;
-
 import com.trident.hamming.correction.service.EmptyWriter;
 import com.trident.hamming.correction.service.HammingCodeRandomErrorProvider;
 import com.trident.hamming.correction.service.HammingCodeReader;
@@ -10,7 +8,8 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
+
+import static com.trident.hamming.correction.service.HammingCorrectionReportWriter.writeToString;
 
 public class Runner {
 
@@ -23,7 +22,7 @@ public class Runner {
         try {
             var cmd = new DefaultParser().parse(OPTIONS, args);
             run(cmd);
-        } catch (ParseException ex) {
+        } catch (Exception ex) {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("HammingCorrectionResearch", OPTIONS);
         }

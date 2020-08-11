@@ -3,21 +3,24 @@ package com.trident.hamming.correction.service;
 import com.trident.math.field.GaloisFieldOverPrimeElement;
 import com.trident.math.hamming.HammingCode;
 import org.apache.commons.math3.linear.FieldMatrix;
+import org.apache.commons.math3.util.Combinations;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class HammingCodeAllErrorsProvider implements HammingCodeErrorProvider {
+public class HammingCodeRandomErrorsDiscreteProvider implements HammingCodeErrorProvider {
     private final int errorLevel;
     private final HammingCode hammingCode;
     private List<FieldMatrix<GaloisFieldOverPrimeElement>> errors;
     private final int totalErrors;
     private int iteration = 0;
+    private Combinations combinations;
 
-    public HammingCodeAllErrorsProvider(int errorLevel, HammingCode hammingCode, int totalErrors) {
+    public HammingCodeRandomErrorsDiscreteProvider(int errorLevel, HammingCode hammingCode, int totalErrors) {
         this.errorLevel = errorLevel;
         this.hammingCode = hammingCode;
+        this.combinations = new Combinations(hammingCode.totalLength(), errorLevel);
         this.totalErrors = totalErrors;
         this.errors = List.copyOf(generateErrors());
     }
