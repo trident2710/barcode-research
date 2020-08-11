@@ -1,5 +1,5 @@
 {
-	"fieldType": "GF5",
+	"gfp": 5,
 	"generatorMatrix": {
 		"matrix": [
 			[1, 1, 1],

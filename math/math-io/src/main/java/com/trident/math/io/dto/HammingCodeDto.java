@@ -9,7 +9,7 @@ import org.immutables.value.Value;
 @JsonSerialize(as = ImmutableHammingCodeDto.class)
 @JsonDeserialize(as = ImmutableHammingCodeDto.class)
 public interface HammingCodeDto {
-    GaloisFieldOverPrimeType fieldType();
+    long gfp();
 
     NaturalMatrixDto generatorMatrix();
 }

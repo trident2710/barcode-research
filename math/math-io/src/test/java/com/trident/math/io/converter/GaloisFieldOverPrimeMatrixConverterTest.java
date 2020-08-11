@@ -45,6 +45,6 @@ class GaloisFieldOverPrimeMatrixConverterTest {
                 matrixRow(ONE, ONE, ONE),
                 matrixRow(ONE, ONE, ONE));
 
-        assertEquals(expected, GaloisFieldOverPrimeMatrixConverter.fromDto(GF5, matrix));
+        assertEquals(expected, GaloisFieldOverPrimeMatrixConverter.fromDto(5, matrix));
     }
 }

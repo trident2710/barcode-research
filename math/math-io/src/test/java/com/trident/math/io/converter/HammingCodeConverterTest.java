@@ -29,7 +29,7 @@ class HammingCodeConverterTest {
     @Test
     void testToDto() {
         var expected = ImmutableHammingCodeDto.builder()
-                .fieldType(GF5)
+                .gfp(5)
                 .generatorMatrix(ImmutableNaturalMatrixDto.builder()
                         .addMatrix(List.of(1L, 1L, 1L))
                         .addMatrix(List.of(1L, 2L, 3L))
@@ -41,7 +41,7 @@ class HammingCodeConverterTest {
     @Test
     void testFromDto() {
         var dto = ImmutableHammingCodeDto.builder()
-                .fieldType(GF5)
+                .gfp(5)
                 .generatorMatrix(ImmutableNaturalMatrixDto.builder()
                         .addMatrix(List.of(1L, 1L, 1L))
                         .addMatrix(List.of(1L, 2L, 3L))
