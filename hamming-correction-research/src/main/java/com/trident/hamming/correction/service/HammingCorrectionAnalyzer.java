@@ -66,8 +66,7 @@ public final class HammingCorrectionAnalyzer {
             iterations++;
         }
         var result = buildReport(hammingCode, iterations, errorLevel, corrected, detected, noErrors);
-        writer.println(String.format("Final result: %s", HammingCorrectionReportWriter.writeToString(result)));
-
+        writer.flush();
         return result;
     }
 
