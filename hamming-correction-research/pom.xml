@@ -53,7 +53,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.trident.hamming.correction.HammingCorrectionAnalyzer</mainClass>
+                            <mainClass>com.trident.hamming.correction.Runner</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

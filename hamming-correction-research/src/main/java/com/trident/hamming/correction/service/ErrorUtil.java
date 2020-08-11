@@ -30,7 +30,7 @@ public final class ErrorUtil {
 
     private static List<Integer> errorPositions(int number, int codeSize) {
         Preconditions.checkArgument(number <= codeSize);
-        var errorPositions = IntStream.range(0, codeSize - 1)
+        var errorPositions = IntStream.range(0, codeSize)
                 .boxed()
                 .collect(Collectors.toList());
         Collections.shuffle(errorPositions);
