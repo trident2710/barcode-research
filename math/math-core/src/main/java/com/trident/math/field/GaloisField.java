@@ -16,5 +16,5 @@ public interface GaloisField<T extends FieldElement<T>> extends Field<T> {
 
     T neg(T element);
 
-    long mod(long value);
+    T mod(T element);
 }

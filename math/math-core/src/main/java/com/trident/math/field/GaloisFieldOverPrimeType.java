@@ -1,9 +1,5 @@
 package com.trident.math.field;
 
-import org.apache.commons.math3.Field;
-
-import java.util.Arrays;
-
 public enum GaloisFieldOverPrimeType {
     GF3(new GaloisFieldOverPrime(3)),
     GF5(new GaloisFieldOverPrime(5)),
@@ -39,12 +35,5 @@ public enum GaloisFieldOverPrimeType {
 
     public GaloisFieldOverPrime field() {
         return field;
-    }
-
-    public static GaloisFieldOverPrimeType getForField(Field<GaloisFieldOverPrimeElement> field) {
-        return Arrays.stream(values())
-                .filter(type -> type.field().equals(field))
-                .findFirst()
-                .orElse(null);
     }
 }

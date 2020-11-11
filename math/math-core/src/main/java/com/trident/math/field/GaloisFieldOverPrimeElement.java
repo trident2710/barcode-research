@@ -13,7 +13,7 @@ public class GaloisFieldOverPrimeElement implements GaloisFieldElement<GaloisFie
 
     public GaloisFieldOverPrimeElement(GaloisFieldOverPrime field, long value) {
         this.field = field;
-        this.value = value;
+        this.value = value % field.modulus();
     }
 
     @Override
@@ -33,7 +33,11 @@ public class GaloisFieldOverPrimeElement implements GaloisFieldElement<GaloisFie
 
     @Override
     public GaloisFieldOverPrimeElement multiply(int n) {
-        return field.mul(this, new GaloisFieldOverPrimeElement(field, n));
+        var res = this;
+        for (int i = 1; i < n; i++) {
+            res = this.add(res);
+        }
+        return res;
     }
 
     @Override
@@ -72,7 +76,7 @@ public class GaloisFieldOverPrimeElement implements GaloisFieldElement<GaloisFie
     }
 
     long value() {
-        return field.mod(value);
+        return value;
     }
 
     @Override
