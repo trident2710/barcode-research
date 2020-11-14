@@ -11,9 +11,9 @@ public class GaloisFieldOverPrimeElement implements GaloisFieldElement<GaloisFie
     private final GaloisFieldOverPrime field;
     private final long value;
 
-    public GaloisFieldOverPrimeElement(GaloisFieldOverPrime field, long value) {
+    GaloisFieldOverPrimeElement(GaloisFieldOverPrime field, long value) {
         this.field = field;
-        this.value = value % field.modulus();
+        this.value = value;
     }
 
     @Override
@@ -33,11 +33,7 @@ public class GaloisFieldOverPrimeElement implements GaloisFieldElement<GaloisFie
 
     @Override
     public GaloisFieldOverPrimeElement multiply(int n) {
-        var res = this;
-        for (int i = 1; i < n; i++) {
-            res = this.add(res);
-        }
-        return res;
+        return field.mul(this, n);
     }
 
     @Override
@@ -65,7 +61,6 @@ public class GaloisFieldOverPrimeElement implements GaloisFieldElement<GaloisFie
         return Long.compare(this.value, o.value);
     }
 
-    @Override
     public long value() {
         return value;
     }
@@ -79,13 +74,13 @@ public class GaloisFieldOverPrimeElement implements GaloisFieldElement<GaloisFie
             return false;
         }
         GaloisFieldOverPrimeElement that = (GaloisFieldOverPrimeElement) o;
-        return value() == that.value()
+        return value == that.value
                 && Objects.equals(field, that.field);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(field, value());
+        return Objects.hash(field, value);
     }
 
     @Override

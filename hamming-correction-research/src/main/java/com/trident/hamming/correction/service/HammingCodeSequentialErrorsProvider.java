@@ -19,7 +19,7 @@ public class HammingCodeSequentialErrorsProvider implements HammingCodeErrorProv
         this.errorLevel = errorLevel;
         this.hammingCode = hammingCode;
         this.positionsIterator = new Combinations(hammingCode.totalLength(), errorLevel).iterator();
-        this.errorsIterator = new SequentialVectorIterator(errorLevel, hammingCode.getField().getOne().value(), hammingCode.getField().modulus());
+        this.errorsIterator = new SequentialVectorIterator(errorLevel, 1, hammingCode.getField().modulus());
         this.currentPositions = positionsIterator.next();
     }
 
@@ -41,7 +41,7 @@ public class HammingCodeSequentialErrorsProvider implements HammingCodeErrorProv
 
         if (!errorsIterator.hasNext()) {
             currentPositions = positionsIterator.next();
-            errorsIterator = new SequentialVectorIterator(errorLevel, hammingCode.getField().getOne().value(), hammingCode.getField().modulus());
+            errorsIterator = new SequentialVectorIterator(errorLevel, 1, hammingCode.getField().modulus());
         }
 
         var errors = errorsIterator.next();
@@ -50,10 +50,10 @@ public class HammingCodeSequentialErrorsProvider implements HammingCodeErrorProv
     }
 
     private FieldMatrix<GaloisFieldOverPrimeElement> createErrorVector(int[] positions, long[] errorValues) {
-        var erorr = FieldMatrixUtil.matrixRowOfValue(hammingCode.getField().getZero(), hammingCode.totalLength());
+        var error = FieldMatrixUtil.matrixRowOfValue(hammingCode.getField().getZero(), hammingCode.totalLength());
         for (int i = 0; i < positions.length; i++) {
-            erorr.addToEntry(0, positions[i], new GaloisFieldOverPrimeElement(hammingCode.getField(), errorValues[i]));
+            error.addToEntry(0, positions[i], hammingCode.getField().getOfValue(errorValues[i]));
         }
-        return erorr;
+        return error;
     }
 }

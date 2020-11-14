@@ -1,19 +1,18 @@
 package com.trident.math.field;
 
-import static com.trident.math.field.GaloisFieldOverPrimeType.GF5;
+import org.junit.jupiter.api.Test;
+
+import static com.trident.math.field.GaloisFieldOverPoly.GF4;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.jupiter.api.Test;
-
-class GaloisFieldOverPrimeTest {
-    private static final GaloisFieldOverPrimeElement ZERO = GF5.field().getZero();
-    private static final GaloisFieldOverPrimeElement ONE = GF5.field().getOne();
-    private static final GaloisFieldOverPrimeElement TWO = GF5.field().getOfValue(2);
-    private static final GaloisFieldOverPrimeElement THREE = GF5.field().getOfValue(3);
-    private static final GaloisFieldOverPrimeElement FOUR = GF5.field().getOfValue(4);
-    private static final GaloisFieldOverPrimeElement FIVE = GF5.field().getOfValue(5);
-    private static final GaloisFieldOverPrimeElement TWENTY_THREE = GF5.field().getOfValue(23);
+public class GaloisFieldOverPolyTest {
+    private static final GaloisFieldOverPolyElement ZERO = GF4.getZero();
+    private static final GaloisFieldOverPolyElement ONE = GF4.getOne();
+    private static final GaloisFieldOverPolyElement TWO = GF4.getOfValue(2);
+    private static final GaloisFieldOverPolyElement THREE = GF4.getOfValue(3);
+    private static final GaloisFieldOverPolyElement FOUR = GF4.getOfValue(4);
+    private static final GaloisFieldOverPolyElement FIVE = GF4.getOfValue(5);
 
     @Test
     void testMultiplyOnZero() {
@@ -34,12 +33,12 @@ class GaloisFieldOverPrimeTest {
 
     @Test
     void testMultiplyOnOne() {
-        assertEquals(TWENTY_THREE, TWENTY_THREE.multiply(ONE));
+        assertEquals(TWO, TWO.multiply(ONE));
     }
 
     @Test
     void testDivideOnOne() {
-        assertEquals(TWENTY_THREE, TWENTY_THREE.divide(ONE));
+        assertEquals(TWO, TWO.divide(ONE));
     }
 
     @Test
@@ -50,18 +49,18 @@ class GaloisFieldOverPrimeTest {
 
     @Test
     void testDivide() {
-        assertEquals(TWO, FOUR.divide(TWO));
+        assertEquals(TWO, THREE.divide(TWO));
     }
 
     @Test
     void testAdd() {
-        assertEquals(ZERO, TWO.add(THREE));
+        assertEquals(ONE, THREE.add(TWO));
     }
 
     @Test
     void testModulo() {
-        assertEquals(ZERO, FIVE);
-        assertEquals(THREE, TWENTY_THREE);
+        assertEquals(ONE, FOUR);
+        assertEquals(TWO, FIVE);
     }
 
     @Test

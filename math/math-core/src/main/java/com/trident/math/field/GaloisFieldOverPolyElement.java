@@ -5,33 +5,29 @@ import org.apache.commons.math3.Field;
 import org.apache.commons.math3.exception.MathArithmeticException;
 import org.apache.commons.math3.exception.NullArgumentException;
 
+import java.util.Objects;
+
 public class GaloisFieldOverPolyElement implements GaloisFieldElement<GaloisFieldOverPolyElement> {
 
     private final GaloisFieldOverPoly field;
-    private final long[] params;
+    private final UnivariatePolynomialZp64 value;
 
-    public GaloisFieldOverPolyElement(GaloisFieldOverPoly field, long[] params) {
+    GaloisFieldOverPolyElement(GaloisFieldOverPoly field, UnivariatePolynomialZp64 value) {
         this.field = field;
-        this.params = params;
+        this.value = value;
     }
 
-    public static GaloisFieldOverPolyElement from(GaloisFieldOverPoly field, UnivariatePolynomialZp64 value) {
-        return new GaloisFieldOverPolyElement(field, value.stream().toArray());
+    static GaloisFieldOverPolyElement from(GaloisFieldOverPoly field, UnivariatePolynomialZp64 value) {
+        return new GaloisFieldOverPolyElement(field, value);
     }
 
-    UnivariatePolynomialZp64 internalValue() {
-        return UnivariatePolynomialZp64.create(field.getPower(), params);
-    }
-
-    @Override
-    public long value() {
-        // TODO: implement
-        return 0;
+    UnivariatePolynomialZp64 getValue() {
+        return value;
     }
 
     @Override
     public int compareTo(GaloisFieldOverPolyElement o) {
-        return internalValue().compareTo(o.internalValue());
+        return value.compareTo(o.value);
     }
 
     @Override
@@ -51,11 +47,7 @@ public class GaloisFieldOverPolyElement implements GaloisFieldElement<GaloisFiel
 
     @Override
     public GaloisFieldOverPolyElement multiply(int n) {
-        var res = this;
-        for (int i = 1; i < n; i++) {
-            res = this.add(res);
-        }
-        return res;
+        return field.mul(this, n);
     }
 
     @Override
@@ -76,5 +68,24 @@ public class GaloisFieldOverPolyElement implements GaloisFieldElement<GaloisFiel
     @Override
     public Field<GaloisFieldOverPolyElement> getField() {
         return field;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GaloisFieldOverPolyElement that = (GaloisFieldOverPolyElement) o;
+        return Objects.equals(field, that.field) &&
+                Objects.equals(value, that.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(field, value);
+    }
+
+    @Override
+    public String toString() {
+        return value.toString();
     }
 }

@@ -12,11 +12,14 @@ public final class GaloisFieldOverPrimeUtil {
     }
 
     public static GaloisFieldOverPrimeElement randomElement(GaloisFieldOverPrime field) {
-        return field.getOfValue(ThreadLocalRandom.current().nextLong(field.modulus()));
+        return field.getOfValue(ThreadLocalRandom.current().nextLong());
     }
 
     public static GaloisFieldOverPrimeElement randomNonZero(GaloisFieldOverPrime field) {
-        return field.getOfValue(ThreadLocalRandom.current().nextLong(field.modulus() - 1)).add(field.getOne());
+        var value = field.getOfValue(ThreadLocalRandom.current().nextLong());
+        return value.equals(field.getZero())
+                ? value.add(field.getOne())
+                : value;
     }
 
     public static FieldMatrix<GaloisFieldOverPrimeElement> randomRow(GaloisFieldOverPrime field, int size) {
