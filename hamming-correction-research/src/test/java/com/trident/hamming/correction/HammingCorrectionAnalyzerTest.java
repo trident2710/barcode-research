@@ -4,6 +4,7 @@ import com.trident.hamming.correction.report.ImmutableHammingCorrectionReport;
 import com.trident.hamming.correction.service.EmptyWriter;
 import com.trident.hamming.correction.service.HammingCodeSequentialErrorsProvider;
 import com.trident.hamming.correction.service.HammingCorrectionAnalyzer;
+import com.trident.math.field.GaloisFieldOverPrime;
 import com.trident.math.field.GaloisFieldOverPrimeElement;
 import com.trident.math.hamming.HammingCode;
 import com.trident.math.io.converter.HammingCodeConverter;
@@ -17,18 +18,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HammingCorrectionAnalyzerTest {
 
-    private static final GaloisFieldOverPrimeElement ZERO = GF5.field().getZero();
     private static final GaloisFieldOverPrimeElement ONE = GF5.field().getOne();
     private static final GaloisFieldOverPrimeElement TWO = GF5.field().getOfValue(2);
     private static final GaloisFieldOverPrimeElement THREE = GF5.field().getOfValue(3);
-    private static final GaloisFieldOverPrimeElement FOUR = GF5.field().getOfValue(4);
 
     private static final FieldMatrix<GaloisFieldOverPrimeElement> GENERATOR = createMatrixOfRows(
             matrixRow(ONE, ONE, ONE),
             matrixRow(ONE, TWO, THREE)
     );
 
-    private static final HammingCode HAMMING_CODE = new HammingCode(GENERATOR);
+    private static final HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> HAMMING_CODE = new HammingCode<>(GENERATOR);
 
     @Test
     void testErrorLevel1() {

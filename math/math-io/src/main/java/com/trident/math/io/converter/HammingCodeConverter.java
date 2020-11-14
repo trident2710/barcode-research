@@ -1,12 +1,14 @@
 package com.trident.math.io.converter;
 
+import com.trident.math.field.GaloisFieldOverPrime;
+import com.trident.math.field.GaloisFieldOverPrimeElement;
 import com.trident.math.hamming.HammingCode;
 import com.trident.math.io.dto.HammingCodeDto;
 import com.trident.math.io.dto.ImmutableHammingCodeDto;
 
 public class HammingCodeConverter {
 
-    public static HammingCodeDto toDto(HammingCode hammingCode) {
+    public static HammingCodeDto toDto(HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> hammingCode) {
         var gfp = hammingCode.getField().modulus();
         var generatorMatrixDto = GaloisFieldOverPrimeMatrixConverter.toDto(hammingCode.getGenerator());
         return ImmutableHammingCodeDto.builder()
@@ -15,8 +17,8 @@ public class HammingCodeConverter {
                 .build();
     }
 
-    public static HammingCode fromDto(HammingCodeDto dto) {
+    public static HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> fromDto(HammingCodeDto dto) {
         var generatorMatrix = GaloisFieldOverPrimeMatrixConverter.fromDto(dto.gfp(), dto.generatorMatrix());
-        return new HammingCode(generatorMatrix);
+        return new HammingCode<>(generatorMatrix);
     }
 }

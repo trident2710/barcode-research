@@ -1,5 +1,6 @@
 package com.trident.hamming.correction.service;
 
+import com.trident.math.field.GaloisFieldOverPrime;
 import com.trident.math.field.GaloisFieldOverPrimeElement;
 import com.trident.math.hamming.HammingCode;
 import org.apache.commons.math3.linear.FieldMatrix;
@@ -21,7 +22,7 @@ class HammingCodeSequentialErrorsProviderTest {
             matrixRow(ONE, TWO, THREE)
     );
 
-    private static final HammingCode HAMMING_CODE = new HammingCode(GENERATOR);
+    private static final HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> HAMMING_CODE = new HammingCode<>(GENERATOR);
 
     @Test
     void testErrorsLevel1() {

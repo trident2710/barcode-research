@@ -1,5 +1,6 @@
 package com.trident.hamming.correction.service;
 
+import com.trident.math.field.GaloisFieldOverPrime;
 import com.trident.math.field.GaloisFieldOverPrimeElement;
 import com.trident.math.hamming.HammingCode;
 import com.trident.math.matrix.FieldMatrixUtil;
@@ -10,12 +11,12 @@ import java.util.Iterator;
 
 public class HammingCodeSequentialErrorsProvider implements HammingCodeErrorProvider {
     private final int errorLevel;
-    private final HammingCode hammingCode;
+    private final HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> hammingCode;
     private final Iterator<int[]> positionsIterator;
     private Iterator<long[]> errorsIterator;
     private int[] currentPositions;
 
-    public HammingCodeSequentialErrorsProvider(int errorLevel, HammingCode hammingCode) {
+    public HammingCodeSequentialErrorsProvider(int errorLevel, HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> hammingCode) {
         this.errorLevel = errorLevel;
         this.hammingCode = hammingCode;
         this.positionsIterator = new Combinations(hammingCode.totalLength(), errorLevel).iterator();

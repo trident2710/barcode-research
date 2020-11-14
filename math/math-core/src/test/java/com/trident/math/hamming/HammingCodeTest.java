@@ -1,13 +1,14 @@
 package com.trident.math.hamming;
 
+import com.trident.math.field.GaloisFieldOverPrime;
+import com.trident.math.field.GaloisFieldOverPrimeElement;
+import org.apache.commons.math3.linear.FieldMatrix;
+import org.junit.jupiter.api.Test;
+
 import static com.trident.math.field.GaloisFieldOverPrimeType.GF5;
 import static com.trident.math.matrix.FieldMatrixUtil.createMatrixOfRows;
 import static com.trident.math.matrix.FieldMatrixUtil.matrixRow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import com.trident.math.field.GaloisFieldOverPrimeElement;
-import org.apache.commons.math3.linear.FieldMatrix;
-import org.junit.jupiter.api.Test;
 
 class HammingCodeTest {
     private static final GaloisFieldOverPrimeElement ZERO = GF5.field().getZero();
@@ -21,7 +22,7 @@ class HammingCodeTest {
             matrixRow(ONE, TWO, THREE)
     );
 
-    private static final HammingCode HAMMING_CODE = new HammingCode(GENERATOR);
+    private static final HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> HAMMING_CODE = new HammingCode<>(GENERATOR);
 
     @Test
     void testEncode() {

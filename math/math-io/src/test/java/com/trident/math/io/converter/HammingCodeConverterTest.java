@@ -1,10 +1,6 @@
 package com.trident.math.io.converter;
 
-import static com.trident.math.field.GaloisFieldOverPrimeType.GF5;
-import static com.trident.math.matrix.FieldMatrixUtil.createMatrixOfRows;
-import static com.trident.math.matrix.FieldMatrixUtil.matrixRow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import com.trident.math.field.GaloisFieldOverPrime;
 import com.trident.math.field.GaloisFieldOverPrimeElement;
 import com.trident.math.hamming.HammingCode;
 import com.trident.math.io.dto.ImmutableHammingCodeDto;
@@ -13,6 +9,11 @@ import org.apache.commons.math3.linear.FieldMatrix;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+
+import static com.trident.math.field.GaloisFieldOverPrimeType.GF5;
+import static com.trident.math.matrix.FieldMatrixUtil.createMatrixOfRows;
+import static com.trident.math.matrix.FieldMatrixUtil.matrixRow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HammingCodeConverterTest {
     private static final GaloisFieldOverPrimeElement ONE = GF5.field().getOne();
@@ -24,7 +25,7 @@ class HammingCodeConverterTest {
             matrixRow(ONE, TWO, THREE)
     );
 
-    private static final HammingCode HAMMING_CODE = new HammingCode(GENERATOR);
+    private static final HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> HAMMING_CODE = new HammingCode<>(GENERATOR);
 
     @Test
     void testToDto() {
