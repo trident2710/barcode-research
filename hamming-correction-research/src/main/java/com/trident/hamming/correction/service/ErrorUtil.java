@@ -1,6 +1,6 @@
 package com.trident.hamming.correction.service;
 
-import static com.trident.math.field.GaloisFieldOverPrimeUtil.randomNonZero;
+import static com.trident.math.field.GaloisFieldElementUtil.randomNonZero;
 import static com.trident.math.matrix.FieldMatrixUtil.matrixRowOfValue;
 
 import com.google.common.base.Preconditions;

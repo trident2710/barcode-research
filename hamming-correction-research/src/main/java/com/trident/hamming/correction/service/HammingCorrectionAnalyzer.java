@@ -10,7 +10,7 @@ import org.apache.commons.math3.linear.FieldMatrix;
 
 import java.io.PrintWriter;
 
-import static com.trident.math.field.GaloisFieldOverPrimeUtil.randomRow;
+import static com.trident.math.field.GaloisFieldElementUtil.randomRow;
 import static com.trident.math.hamming.HammingSyndromeUtil.calculateErrorPosition;
 import static com.trident.math.hamming.HammingSyndromeUtil.calculateErrorValue;
 import static com.trident.math.hamming.HammingSyndromeUtil.canCorrectError;
@@ -74,7 +74,7 @@ public final class HammingCorrectionAnalyzer {
     }
 
     public HammingCorrectionReport analyzeHammingCodeCorrection(HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> hammingCode) {
-        var message = randomRow(hammingCode.getField(), hammingCode.informationalLength());
+        var message = randomRow(hammingCode.getField(), hammingCode.informationalLength(), new GaloisFieldOverPrimeElement[0]);
         return analyzeHammingCodeCorrection(hammingCode, message);
     }
 

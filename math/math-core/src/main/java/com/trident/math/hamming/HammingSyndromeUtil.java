@@ -2,7 +2,7 @@ package com.trident.math.hamming;
 
 import com.google.common.base.Preconditions;
 import com.trident.math.field.GaloisFieldOverPrimeElement;
-import com.trident.math.field.GaloisFieldOverPrimeUtil;
+import com.trident.math.field.GaloisFieldElementUtil;
 import com.trident.math.matrix.FieldMatrixUtil;
 import org.apache.commons.math3.linear.FieldMatrix;
 
@@ -15,7 +15,7 @@ public final class HammingSyndromeUtil {
 
     public static Optional<GaloisFieldOverPrimeElement> calculateErrorValue(FieldMatrix<GaloisFieldOverPrimeElement> syndrome) {
         Preconditions.checkArgument(syndrome.getRowDimension() == 1);
-        return GaloisFieldOverPrimeUtil.getFirstNonZero(syndrome);
+        return GaloisFieldElementUtil.getFirstNonZero(syndrome);
     }
 
     public static FieldMatrix<GaloisFieldOverPrimeElement> calculateErrorPosition(FieldMatrix<GaloisFieldOverPrimeElement> syndrome,
