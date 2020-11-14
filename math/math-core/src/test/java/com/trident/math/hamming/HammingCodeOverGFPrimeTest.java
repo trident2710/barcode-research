@@ -10,7 +10,7 @@ import static com.trident.math.matrix.FieldMatrixUtil.createMatrixOfRows;
 import static com.trident.math.matrix.FieldMatrixUtil.matrixRow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class HammingCodeTest {
+class HammingCodeOverGFPrimeTest {
     private static final GaloisFieldOverPrimeElement ZERO = GF5.field().getZero();
     private static final GaloisFieldOverPrimeElement ONE = GF5.field().getOne();
     private static final GaloisFieldOverPrimeElement TWO = GF5.field().getOfValue(2);
