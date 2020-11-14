@@ -62,20 +62,11 @@ public class GaloisFieldOverPrimeElement implements GaloisFieldElement<GaloisFie
 
     @Override
     public int compareTo(GaloisFieldOverPrimeElement o) {
-        if (this.value > o.value) {
-            return 1;
-        } else if (this.value < o.value) {
-            return -1;
-        } else {
-            return 0;
-        }
+        return Long.compare(this.value, o.value);
     }
 
-    public long getAsLong() {
-        return value();
-    }
-
-    long value() {
+    @Override
+    public long value() {
         return value;
     }
 

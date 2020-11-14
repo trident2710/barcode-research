@@ -19,7 +19,7 @@ public class HammingCodeSequentialErrorsProvider implements HammingCodeErrorProv
         this.errorLevel = errorLevel;
         this.hammingCode = hammingCode;
         this.positionsIterator = new Combinations(hammingCode.totalLength(), errorLevel).iterator();
-        this.errorsIterator = new SequentialVectorIterator(errorLevel, hammingCode.getField().getOne().getAsLong(), hammingCode.getField().modulus());
+        this.errorsIterator = new SequentialVectorIterator(errorLevel, hammingCode.getField().getOne().value(), hammingCode.getField().modulus());
         this.currentPositions = positionsIterator.next();
     }
 
@@ -41,7 +41,7 @@ public class HammingCodeSequentialErrorsProvider implements HammingCodeErrorProv
 
         if (!errorsIterator.hasNext()) {
             currentPositions = positionsIterator.next();
-            errorsIterator = new SequentialVectorIterator(errorLevel, hammingCode.getField().getOne().getAsLong(), hammingCode.getField().modulus());
+            errorsIterator = new SequentialVectorIterator(errorLevel, hammingCode.getField().getOne().value(), hammingCode.getField().modulus());
         }
 
         var errors = errorsIterator.next();

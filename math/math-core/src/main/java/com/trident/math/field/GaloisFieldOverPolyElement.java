@@ -19,14 +19,19 @@ public class GaloisFieldOverPolyElement implements GaloisFieldElement<GaloisFiel
         return new GaloisFieldOverPolyElement(field, value.stream().toArray());
     }
 
-    UnivariatePolynomialZp64 value() {
+    UnivariatePolynomialZp64 internalValue() {
         return UnivariatePolynomialZp64.create(field.getPower(), params);
     }
 
     @Override
-    public int compareTo(GaloisFieldOverPolyElement o) {
+    public long value() {
         // TODO: implement
         return 0;
+    }
+
+    @Override
+    public int compareTo(GaloisFieldOverPolyElement o) {
+        return internalValue().compareTo(o.internalValue());
     }
 
     @Override

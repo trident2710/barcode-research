@@ -46,7 +46,7 @@ public final class GaloisFieldOverPrime implements GaloisField<GaloisFieldOverPr
 
     @Override
     public GaloisFieldOverPrimeElement mod(GaloisFieldOverPrimeElement value) {
-        return new GaloisFieldOverPrimeElement(this, field.modulus(value.getAsLong()));
+        return new GaloisFieldOverPrimeElement(this, field.modulus(value.value()));
     }
 
     @Override

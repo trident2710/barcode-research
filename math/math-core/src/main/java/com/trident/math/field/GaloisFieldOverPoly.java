@@ -15,37 +15,37 @@ public class GaloisFieldOverPoly implements GaloisField<GaloisFieldOverPolyEleme
 
     @Override
     public GaloisFieldOverPolyElement add(GaloisFieldOverPolyElement first, GaloisFieldOverPolyElement second) {
-        return GaloisFieldOverPolyElement.from(this, field.add(first.value(), second.value()));
+        return GaloisFieldOverPolyElement.from(this, field.add(first.internalValue(), second.internalValue()));
     }
 
     @Override
     public GaloisFieldOverPolyElement sub(GaloisFieldOverPolyElement first, GaloisFieldOverPolyElement second) {
-        return GaloisFieldOverPolyElement.from(this, field.subtract(first.value(), second.value()));
+        return GaloisFieldOverPolyElement.from(this, field.subtract(first.internalValue(), second.internalValue()));
     }
 
     @Override
     public GaloisFieldOverPolyElement mul(GaloisFieldOverPolyElement first, GaloisFieldOverPolyElement second) {
-        return GaloisFieldOverPolyElement.from(this, field.multiply(first.value(), second.value()));
+        return GaloisFieldOverPolyElement.from(this, field.multiply(first.internalValue(), second.internalValue()));
     }
 
     @Override
     public GaloisFieldOverPolyElement div(GaloisFieldOverPolyElement first, GaloisFieldOverPolyElement second) {
-        return GaloisFieldOverPolyElement.from(this, field.divideExact(first.value(), second.value()));
+        return GaloisFieldOverPolyElement.from(this, field.divideExact(first.internalValue(), second.internalValue()));
     }
 
     @Override
     public GaloisFieldOverPolyElement inv(GaloisFieldOverPolyElement element) {
-        return GaloisFieldOverPolyElement.from(this, field.reciprocal(element.value()));
+        return GaloisFieldOverPolyElement.from(this, field.reciprocal(element.internalValue()));
     }
 
     @Override
     public GaloisFieldOverPolyElement neg(GaloisFieldOverPolyElement element) {
-        return GaloisFieldOverPolyElement.from(this, field.negate(element.value()));
+        return GaloisFieldOverPolyElement.from(this, field.negate(element.internalValue()));
     }
 
     @Override
     public GaloisFieldOverPolyElement mod(GaloisFieldOverPolyElement element) {
-        return GaloisFieldOverPolyElement.from(this, field.valueOf(element.value()));
+        return GaloisFieldOverPolyElement.from(this, field.valueOf(element.internalValue()));
     }
 
     @Override

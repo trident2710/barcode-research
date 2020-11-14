@@ -16,7 +16,7 @@ public class GaloisFieldOverPrimeMatrixConverter {
         for (int i = 0; i < matrix.getRowDimension(); i++) {
             var row = new ArrayList<Long>();
             for (int j = 0; j < matrix.getColumnDimension(); j++) {
-                row.add(matrix.getEntry(i, j).getAsLong());
+                row.add(matrix.getEntry(i, j).value());
             }
             result.add(row);
         }
