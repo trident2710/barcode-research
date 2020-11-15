@@ -44,7 +44,7 @@ public class HammingCodeOverGFPolyTest {
         var syndrome = HAMMING_CODE.syndrome(code);
         var expected = matrixRow(ZERO, ZERO, ZERO);
 
-        assertEquals(expected, syndrome);
+        assertEquals(expected, syndrome.getSyndromeRow());
     }
 
     @Test
@@ -56,6 +56,6 @@ public class HammingCodeOverGFPolyTest {
         var syndrome = HAMMING_CODE.syndrome(codeWithError);
         var expectedSyndrome = matrixRow(ZERO, ONE, ONE);
 
-        assertEquals(expectedSyndrome, syndrome);
+        assertEquals(expectedSyndrome, syndrome.getSyndromeRow());
     }
 }

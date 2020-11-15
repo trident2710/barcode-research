@@ -11,9 +11,6 @@ import org.apache.commons.math3.linear.FieldMatrix;
 import java.io.PrintWriter;
 
 import static com.trident.math.field.GaloisFieldElementUtil.randomRow;
-import static com.trident.math.hamming.HammingSyndromeUtil.calculateErrorPosition;
-import static com.trident.math.hamming.HammingSyndromeUtil.calculateErrorValue;
-import static com.trident.math.hamming.HammingSyndromeUtil.canCorrectError;
 import static com.trident.math.io.FieldMatrixIOUtil.writeAsString;
 
 public final class HammingCorrectionAnalyzer {
@@ -45,17 +42,17 @@ public final class HammingCorrectionAnalyzer {
 
             writer.println(String.format("\tAdding error: %s", writeAsString(error)));
             writer.println(String.format("\tCode with error: %s", writeAsString(codeWithError)));
-            writer.println(String.format("\tSyndrome: %s", writeAsString(syndrome)));
+            writer.println(String.format("\tSyndrome: %s", syndrome));
 
-            var valueOptional = calculateErrorValue(syndrome);
-            if (valueOptional.isPresent()) {
-                var errorValue = valueOptional.get();
-                var errorPosition = calculateErrorPosition(syndrome, errorValue);
+            if (syndrome.hasError()) {
+                var errorValue = syndrome.getErrorValue().get();
+                var errorPosition = syndrome.getErrorPosition().get();
 
                 writer.println(String.format("\tError value: %s", errorValue));
                 writer.println(String.format("\tError position: %s", writeAsString(errorPosition)));
 
-                if (canCorrectError(errorPosition, hammingCode.getFullMatrix())) {
+                boolean canCorrectError = syndrome.canCorrectError();
+                if (canCorrectError) {
                     writer.println("\tResult: Corrected");
                     corrected++;
                 } else {

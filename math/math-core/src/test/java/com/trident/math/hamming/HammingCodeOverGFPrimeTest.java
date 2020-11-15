@@ -40,7 +40,7 @@ class HammingCodeOverGFPrimeTest {
         var syndrome = HAMMING_CODE.syndrome(code);
         var expected = matrixRow(ZERO, ZERO);
 
-        assertEquals(expected, syndrome);
+        assertEquals(expected, syndrome.getSyndromeRow());
     }
 
     @Test
@@ -52,6 +52,6 @@ class HammingCodeOverGFPrimeTest {
         var syndrome = HAMMING_CODE.syndrome(codeWithError);
         var expectedSyndrome = matrixRow(ONE, ONE);
 
-        assertEquals(expectedSyndrome, syndrome);
+        assertEquals(expectedSyndrome, syndrome.getSyndromeRow());
     }
 }

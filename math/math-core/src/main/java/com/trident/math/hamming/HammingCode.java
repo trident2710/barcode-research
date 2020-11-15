@@ -42,7 +42,7 @@ public class HammingCode<T extends GaloisFieldElement<T>, K extends GaloisField<
         return message.multiply(matrix);
     }
 
-    public FieldMatrix<T> syndrome(FieldMatrix<T> code) {
+    public HammingCodeSyndrome<T> syndrome(FieldMatrix<T> code) {
         Preconditions.checkArgument(code.getRowDimension() == 1);
 
         var generatorT = generator.transpose();
@@ -53,7 +53,7 @@ public class HammingCode<T extends GaloisFieldElement<T>, K extends GaloisField<
         var message = code.getSubMatrix(0, 0, 0, messageLength - 1);
         var correction = code.getSubMatrix(0, 0, messageLength, expectedLength - 1);
 
-        return message.multiply(generatorT).subtract(correction);
+        return new HammingCodeSyndrome<>(message.multiply(generatorT).subtract(correction), this);
     }
 
     public int totalLength() {
