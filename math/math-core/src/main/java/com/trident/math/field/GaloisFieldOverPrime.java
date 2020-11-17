@@ -16,37 +16,37 @@ public final class GaloisFieldOverPrime implements GaloisField<GaloisFieldOverPr
 
     @Override
     public GaloisFieldOverPrimeElement add(GaloisFieldOverPrimeElement first, GaloisFieldOverPrimeElement second) {
-        return new GaloisFieldOverPrimeElement(this, field.add(first.value(), second.value()));
+        return new GaloisFieldOverPrimeElement(this, field.add(first.digitalRepresentation(), second.digitalRepresentation()));
     }
 
     @Override
     public GaloisFieldOverPrimeElement sub(GaloisFieldOverPrimeElement first, GaloisFieldOverPrimeElement second) {
-        return new GaloisFieldOverPrimeElement(this, field.subtract(first.value(), second.value()));
+        return new GaloisFieldOverPrimeElement(this, field.subtract(first.digitalRepresentation(), second.digitalRepresentation()));
     }
 
     @Override
     public GaloisFieldOverPrimeElement mul(GaloisFieldOverPrimeElement first, GaloisFieldOverPrimeElement second) {
-        return new GaloisFieldOverPrimeElement(this, field.multiply(first.value(), second.value()));
+        return new GaloisFieldOverPrimeElement(this, field.multiply(first.digitalRepresentation(), second.digitalRepresentation()));
     }
 
     @Override
     public GaloisFieldOverPrimeElement div(GaloisFieldOverPrimeElement first, GaloisFieldOverPrimeElement second) {
-        return new GaloisFieldOverPrimeElement(this, field.divide(first.value(), second.value()));
+        return new GaloisFieldOverPrimeElement(this, field.divide(first.digitalRepresentation(), second.digitalRepresentation()));
     }
 
     @Override
     public GaloisFieldOverPrimeElement inv(GaloisFieldOverPrimeElement element) {
-        return new GaloisFieldOverPrimeElement(this, field.reciprocal(element.value()));
+        return new GaloisFieldOverPrimeElement(this, field.reciprocal(element.digitalRepresentation()));
     }
 
     @Override
     public GaloisFieldOverPrimeElement neg(GaloisFieldOverPrimeElement element) {
-        return new GaloisFieldOverPrimeElement(this, field.negate(element.value()));
+        return new GaloisFieldOverPrimeElement(this, field.negate(element.digitalRepresentation()));
     }
 
     @Override
     public GaloisFieldOverPrimeElement mod(GaloisFieldOverPrimeElement value) {
-        return new GaloisFieldOverPrimeElement(this, field.modulus(value.value()));
+        return new GaloisFieldOverPrimeElement(this, field.modulus(value.digitalRepresentation()));
     }
 
     @Override
@@ -69,7 +69,8 @@ public final class GaloisFieldOverPrime implements GaloisField<GaloisFieldOverPr
         return new GaloisFieldOverPrimeElement(this, field.modulus(value));
     }
 
-    public long modulus() {
+    @Override
+    public long prime() {
         return field.modulus;
     }
 

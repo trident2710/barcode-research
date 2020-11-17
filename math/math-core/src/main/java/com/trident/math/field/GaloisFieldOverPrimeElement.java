@@ -61,7 +61,8 @@ public class GaloisFieldOverPrimeElement implements GaloisFieldElement<GaloisFie
         return Long.compare(this.value, o.value);
     }
 
-    public long value() {
+    @Override
+    public long digitalRepresentation() {
         return value;
     }
 

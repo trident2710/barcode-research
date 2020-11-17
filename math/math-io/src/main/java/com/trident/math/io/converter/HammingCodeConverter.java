@@ -9,7 +9,7 @@ import com.trident.math.io.dto.ImmutableHammingCodeDto;
 public class HammingCodeConverter {
 
     public static HammingCodeDto toDto(HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> hammingCode) {
-        var gfp = hammingCode.getField().modulus();
+        var gfp = hammingCode.getField().prime();
         var generatorMatrixDto = GaloisFieldOverPrimeMatrixConverter.toDto(hammingCode.getGenerator());
         return ImmutableHammingCodeDto.builder()
                 .gfp(gfp)

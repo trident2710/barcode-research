@@ -39,4 +39,6 @@ public interface GaloisField<T extends FieldElement<T>> extends Field<T> {
     //  ...
     //  n -> x^(n-1) = x^(n-1) % field_irreducible_poly
     T getOfValue(long value);
+
+    long prime();
 }
