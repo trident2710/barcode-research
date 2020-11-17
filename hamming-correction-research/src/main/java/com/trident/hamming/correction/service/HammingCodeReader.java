@@ -15,7 +15,7 @@ public class HammingCodeReader {
     public static HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> read(String path) throws Exception {
         File file = new File(path);
         var dto = objectMapper().readValue(file, HammingCodeDto.class);
-        return HammingCodeConverter.fromDto(dto);
+        return HammingCodeConverter.fromDto(dto, GaloisFieldOverPrime.class, new GaloisFieldOverPrimeElement[0]);
     }
 
     private static ObjectMapper objectMapper() {

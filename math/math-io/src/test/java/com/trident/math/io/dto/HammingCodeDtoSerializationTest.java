@@ -14,14 +14,17 @@ class HammingCodeDtoSerializationTest {
         var objectMapper = new ObjectMapper();
         objectMapper.registerModules(new GuavaModule());
         var hammingCode = ImmutableHammingCodeDto.builder()
-                .gfp(5)
+                .field(ImmutableGaloisFieldDto.builder()
+                        .type(GaloisFieldDto.Type.GFP)
+                        .prime(5)
+                        .build())
                 .generatorMatrix(ImmutableNaturalMatrixDto.builder()
                         .addMatrix(List.of(1L, 2L, 3L))
                         .addMatrix(List.of(1L, 2L, 3L))
                         .build())
                 .build();
         var serialized = objectMapper.writeValueAsString(hammingCode);
-        String expected = "{\"gfp\":5,\"generatorMatrix\":{\"matrix\":[[1,2,3],[1,2,3]]}}";
+        String expected = "{\"field\":{\"type\":\"GFP\",\"prime\":5,\"exponent\":null,\"irreduciblePoly\":null},\"generatorMatrix\":{\"matrix\":[[1,2,3],[1,2,3]]}}";
         assertEquals(expected, serialized);
         var deserialized = objectMapper.readValue(serialized, HammingCodeDto.class);
         assertEquals(hammingCode, deserialized);

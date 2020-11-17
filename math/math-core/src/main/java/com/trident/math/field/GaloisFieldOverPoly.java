@@ -18,7 +18,7 @@ public class GaloisFieldOverPoly implements GaloisField<GaloisFieldOverPolyEleme
 
     private final FiniteField<UnivariatePolynomialZp64> field;
     private final long prime;
-    private final long exponent;
+    private final int exponent;
     private final long[] irreduciblePoly;
 
     public GaloisFieldOverPoly(long prime, int exponent, long[] irreduciblePoly) {
@@ -81,6 +81,14 @@ public class GaloisFieldOverPoly implements GaloisField<GaloisFieldOverPolyEleme
     @Override
     public long prime() {
         return prime;
+    }
+
+    public int exponent() {
+        return exponent;
+    }
+
+    public long[] irreduciblePoly() {
+        return Arrays.copyOf(irreduciblePoly, irreduciblePoly.length);
     }
 
     @Override
