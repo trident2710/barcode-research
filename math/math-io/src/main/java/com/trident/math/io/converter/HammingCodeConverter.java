@@ -10,7 +10,7 @@ public class HammingCodeConverter {
 
     public static HammingCodeDto toDto(HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> hammingCode) {
         var gfp = hammingCode.getField().prime();
-        var generatorMatrixDto = GaloisFieldOverPrimeMatrixConverter.toDto(hammingCode.getGenerator());
+        var generatorMatrixDto = GaloisFieldMatrixConverter.toDto(hammingCode.getGenerator());
         return ImmutableHammingCodeDto.builder()
                 .gfp(gfp)
                 .generatorMatrix(generatorMatrixDto)
@@ -18,7 +18,8 @@ public class HammingCodeConverter {
     }
 
     public static HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> fromDto(HammingCodeDto dto) {
-        var generatorMatrix = GaloisFieldOverPrimeMatrixConverter.fromDto(dto.gfp(), dto.generatorMatrix());
+        var field = new GaloisFieldOverPrime(dto.gfp());
+        var generatorMatrix = GaloisFieldMatrixConverter.fromDto(field, dto.generatorMatrix(), new GaloisFieldOverPrimeElement[0]);
         return new HammingCode<>(generatorMatrix);
     }
 }

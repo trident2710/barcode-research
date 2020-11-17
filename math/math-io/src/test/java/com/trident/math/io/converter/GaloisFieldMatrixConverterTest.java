@@ -11,7 +11,7 @@ import static com.trident.math.matrix.FieldMatrixUtil.createMatrixOfRows;
 import static com.trident.math.matrix.FieldMatrixUtil.matrixRow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class GaloisFieldOverPrimeMatrixConverterTest {
+class GaloisFieldMatrixConverterTest {
 
     private static final GaloisFieldOverPrimeElement ONE = GF5.getOne();
 
@@ -28,7 +28,7 @@ class GaloisFieldOverPrimeMatrixConverterTest {
                         List.of(1L, 1L, 1L),
                         List.of(1L, 1L, 1L)))
                 .build();
-        assertEquals(expected, GaloisFieldOverPrimeMatrixConverter.toDto(matrix));
+        assertEquals(expected, GaloisFieldMatrixConverter.toDto(matrix));
     }
 
     @Test
@@ -45,6 +45,6 @@ class GaloisFieldOverPrimeMatrixConverterTest {
                 matrixRow(ONE, ONE, ONE),
                 matrixRow(ONE, ONE, ONE));
 
-        assertEquals(expected, GaloisFieldOverPrimeMatrixConverter.fromDto(5, matrix));
+        assertEquals(expected, GaloisFieldMatrixConverter.fromDto(GF5, matrix, new GaloisFieldOverPrimeElement[0]));
     }
 }

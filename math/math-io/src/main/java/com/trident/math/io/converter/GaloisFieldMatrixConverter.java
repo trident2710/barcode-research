@@ -1,7 +1,7 @@
 package com.trident.math.io.converter;
 
-import com.trident.math.field.GaloisFieldOverPrime;
-import com.trident.math.field.GaloisFieldOverPrimeElement;
+import com.trident.math.field.GaloisField;
+import com.trident.math.field.GaloisFieldElement;
 import com.trident.math.io.dto.ImmutableNaturalMatrixDto;
 import com.trident.math.io.dto.NaturalMatrixDto;
 import com.trident.math.matrix.FieldMatrixUtil;
@@ -9,9 +9,10 @@ import org.apache.commons.math3.linear.FieldMatrix;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class GaloisFieldOverPrimeMatrixConverter {
-    public static NaturalMatrixDto toDto(FieldMatrix<GaloisFieldOverPrimeElement> matrix) {
+public class GaloisFieldMatrixConverter {
+    public static <GFElement extends GaloisFieldElement<GFElement>> NaturalMatrixDto toDto(FieldMatrix<GFElement> matrix) {
         var result = new ArrayList<List<Long>>();
         for (int i = 0; i < matrix.getRowDimension(); i++) {
             var row = new ArrayList<Long>();
@@ -25,14 +26,14 @@ public class GaloisFieldOverPrimeMatrixConverter {
                 .build();
     }
 
-    public static FieldMatrix<GaloisFieldOverPrimeElement> fromDto(long gfp, NaturalMatrixDto dto) {
+    public static <GFElement extends GaloisFieldElement<GFElement>> FieldMatrix<GFElement> fromDto(GaloisField<GFElement> field, NaturalMatrixDto dto, GFElement[] arrayRef) {
         var elements = dto.matrix();
-        var field = new GaloisFieldOverPrime(gfp);
-        FieldMatrix<GaloisFieldOverPrimeElement> result = null;
+        FieldMatrix<GFElement> result = null;
         for (List<Long> row : elements) {
             var rowArray = row.stream()
                     .map(field::getOfValue)
-                    .toArray(GaloisFieldOverPrimeElement[]::new);
+                    .collect(Collectors.toList())
+                    .toArray(arrayRef);
             var matrixRow = FieldMatrixUtil.matrixRow(rowArray);
             result = result == null
                     ? matrixRow

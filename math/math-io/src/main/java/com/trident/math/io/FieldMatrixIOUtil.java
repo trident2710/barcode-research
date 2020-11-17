@@ -11,7 +11,7 @@ public final class FieldMatrixIOUtil {
     public static <T extends FieldElement<T>> String writeAsString(FieldMatrix<T> matrix) {
         final int nRows = matrix.getRowDimension();
         final int nCols = matrix.getColumnDimension();
-        final StringBuffer res = new StringBuffer();
+        final var res = new StringBuilder();
         res.append("(");
         for (int i = 0; i < nRows; ++i) {
             if (i > 0) {
