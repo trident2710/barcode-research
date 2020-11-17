@@ -24,7 +24,7 @@ class HammingCodeDtoSerializationTest {
                         .build())
                 .build();
         var serialized = objectMapper.writeValueAsString(hammingCode);
-        String expected = "{\"field\":{\"type\":\"GFP\",\"prime\":5,\"exponent\":null,\"irreduciblePoly\":null},\"generatorMatrix\":{\"matrix\":[[1,2,3],[1,2,3]]}}";
+        String expected = "{\"field\":{\"type\":\"GFP\",\"prime\":5},\"generatorMatrix\":{\"matrix\":[[1,2,3],[1,2,3]]}}";
         assertEquals(expected, serialized);
         var deserialized = objectMapper.readValue(serialized, HammingCodeDto.class);
         assertEquals(hammingCode, deserialized);
