@@ -42,7 +42,7 @@ public final class HammingCorrectionAnalyzer {
 
             writer.println(String.format("\tAdding error: %s", writeAsString(error)));
             writer.println(String.format("\tCode with error: %s", writeAsString(codeWithError)));
-            writer.println(String.format("\tSyndrome: %s", syndrome));
+            writer.println(String.format("\tSyndrome: %s", writeAsString(syndrome.getSyndromeRow())));
 
             if (syndrome.hasError()) {
                 var errorValue = syndrome.getErrorValue().get();

@@ -74,14 +74,4 @@ public class HammingCodeSyndrome<GFElement extends GaloisFieldElement<GFElement>
     public int hashCode() {
         return Objects.hash(syndrome, errorValue, errorPosition, canCorrectError);
     }
-
-    @Override
-    public String toString() {
-        return "HammingCodeSyndrome{" +
-                "syndrome=" + syndrome +
-                ", errorValue=" + errorValue +
-                ", errorPosition=" + errorPosition +
-                ", canCorrectError=" + canCorrectError +
-                '}';
-    }
 }
