@@ -10,28 +10,28 @@ import java.util.Objects;
 import static com.trident.math.matrix.FieldMatrixUtil.concatRight;
 import static org.apache.commons.math3.linear.MatrixUtils.createFieldIdentityMatrix;
 
-public class HammingCode<T extends GaloisFieldElement<T>, K extends GaloisField<T>> {
-    private final FieldMatrix<T> generator;
-    private final FieldMatrix<T> fullMatrix;
+public class HammingCode<GFElement extends GaloisFieldElement<GFElement>, GF extends GaloisField<GFElement>> {
+    private final FieldMatrix<GFElement> generator;
+    private final FieldMatrix<GFElement> fullMatrix;
 
-    public HammingCode(FieldMatrix<T> generator) {
+    public HammingCode(FieldMatrix<GFElement> generator) {
         this.generator = generator;
         this.fullMatrix = concatRight(generator, createFieldIdentityMatrix(generator.getField(), generator.getRowDimension()));
     }
 
-    public FieldMatrix<T> getGenerator() {
+    public FieldMatrix<GFElement> getGenerator() {
         return generator;
     }
 
-    public FieldMatrix<T> getFullMatrix() {
+    public FieldMatrix<GFElement> getFullMatrix() {
         return fullMatrix;
     }
 
-    public K getField() {
-        return (K) getGenerator().getField();
+    public GF getField() {
+        return (GF) getGenerator().getField();
     }
 
-    public FieldMatrix<T> encode(FieldMatrix<T> message) {
+    public FieldMatrix<GFElement> encode(FieldMatrix<GFElement> message) {
         Preconditions.checkArgument(message.getRowDimension() == 1);
         Preconditions.checkArgument(message.getColumnDimension() == generator.getColumnDimension());
 
@@ -42,7 +42,7 @@ public class HammingCode<T extends GaloisFieldElement<T>, K extends GaloisField<
         return message.multiply(matrix);
     }
 
-    public HammingCodeSyndrome<T> syndrome(FieldMatrix<T> code) {
+    public HammingCodeSyndrome<GFElement> syndrome(FieldMatrix<GFElement> code) {
         Preconditions.checkArgument(code.getRowDimension() == 1);
 
         var generatorT = generator.transpose();

@@ -1,19 +1,19 @@
 package com.trident.math.io.converter;
 
-import static com.trident.math.field.GaloisFieldOverPrimeType.GF5;
-import static com.trident.math.matrix.FieldMatrixUtil.createMatrixOfRows;
-import static com.trident.math.matrix.FieldMatrixUtil.matrixRow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import com.trident.math.field.GaloisFieldOverPrimeElement;
 import com.trident.math.io.dto.ImmutableNaturalMatrixDto;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static com.trident.math.field.GaloisFieldOverPrime.GF5;
+import static com.trident.math.matrix.FieldMatrixUtil.createMatrixOfRows;
+import static com.trident.math.matrix.FieldMatrixUtil.matrixRow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 class GaloisFieldOverPrimeMatrixConverterTest {
 
-    private static final GaloisFieldOverPrimeElement ONE = GF5.field().getOne();
+    private static final GaloisFieldOverPrimeElement ONE = GF5.getOne();
 
     @Test
     void testToDto() {

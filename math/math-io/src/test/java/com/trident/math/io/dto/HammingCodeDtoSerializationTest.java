@@ -1,13 +1,12 @@
 package com.trident.math.io.dto;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
-import com.trident.math.field.GaloisFieldOverPrimeType;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HammingCodeDtoSerializationTest {
     @Test

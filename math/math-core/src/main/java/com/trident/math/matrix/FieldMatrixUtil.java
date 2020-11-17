@@ -12,7 +12,7 @@ public final class FieldMatrixUtil {
         throw new IllegalStateException("Cannot be instantiated");
     }
 
-    public static <T extends FieldElement<T>> FieldMatrix<T> concatRight(FieldMatrix<T> first, FieldMatrix<T> second) {
+    public static <FieldElem extends FieldElement<FieldElem>> FieldMatrix<FieldElem> concatRight(FieldMatrix<FieldElem> first, FieldMatrix<FieldElem> second) {
         Preconditions.checkArgument(first.getRowDimension() == second.getRowDimension());
         int columns = first.getColumnDimension() + second.getColumnDimension();
         int rows = first.getRowDimension();
@@ -30,7 +30,7 @@ public final class FieldMatrixUtil {
         return matrix;
     }
 
-    public static <T extends FieldElement<T>> FieldMatrix<T> concatBottom(FieldMatrix<T> first, FieldMatrix<T> second) {
+    public static <FieldElem extends FieldElement<FieldElem>> FieldMatrix<FieldElem> concatBottom(FieldMatrix<FieldElem> first, FieldMatrix<FieldElem> second) {
         Preconditions.checkArgument(first.getColumnDimension() == second.getColumnDimension());
         int rows = first.getRowDimension() + second.getRowDimension();
         int columns = first.getColumnDimension();
@@ -49,10 +49,10 @@ public final class FieldMatrixUtil {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T extends FieldElement<T>> FieldMatrix<T> createMatrixOfRows(FieldMatrix<T>... rows) {
+    public static <FieldElem extends FieldElement<FieldElem>> FieldMatrix<FieldElem> createMatrixOfRows(FieldMatrix<FieldElem>... rows) {
         Preconditions.checkArgument(rows != null && rows.length > 0);
-        FieldMatrix<T> result = null;
-        for (FieldMatrix<T> row : rows) {
+        FieldMatrix<FieldElem> result = null;
+        for (FieldMatrix<FieldElem> row : rows) {
             result = result == null
                     ? row
                     : concatBottom(result, row);
@@ -61,10 +61,10 @@ public final class FieldMatrixUtil {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T extends FieldElement<T>> FieldMatrix<T> createMatrixOfColumns(FieldMatrix<T>... columns) {
+    public static <FieldElem extends FieldElement<FieldElem>> FieldMatrix<FieldElem> createMatrixOfColumns(FieldMatrix<FieldElem>... columns) {
         Preconditions.checkArgument(columns != null && columns.length > 0);
-        FieldMatrix<T> result = null;
-        for (FieldMatrix<T> column : columns) {
+        FieldMatrix<FieldElem> result = null;
+        for (FieldMatrix<FieldElem> column : columns) {
             result = result == null
                     ? column
                     : concatRight(result, column);
@@ -73,16 +73,16 @@ public final class FieldMatrixUtil {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T extends FieldElement<T>> FieldMatrix<T> matrixRow(T... elements) {
+    public static <FieldElem extends FieldElement<FieldElem>> FieldMatrix<FieldElem> matrixRow(FieldElem... elements) {
         return MatrixUtils.createRowFieldMatrix(elements);
     }
 
     @SuppressWarnings("unchecked")
-    public static <T extends FieldElement<T>> FieldMatrix<T> matrixColumn(T... elements) {
+    public static <FieldElem extends FieldElement<FieldElem>> FieldMatrix<FieldElem> matrixColumn(FieldElem... elements) {
         return MatrixUtils.createColumnFieldMatrix(elements);
     }
 
-    public static <T extends FieldElement<T>> FieldMatrix<T> matrixRowOfValue(T value, int size) {
+    public static <FieldElem extends FieldElement<FieldElem>> FieldMatrix<FieldElem> matrixRowOfValue(FieldElem value, int size) {
         var row = new Array2DRowFieldMatrix<>(value.getField(), 1, size);
         for (int i = 0; i < size; i++) {
             row.addToEntry(0, i, value);
@@ -90,7 +90,7 @@ public final class FieldMatrixUtil {
         return row;
     }
 
-    public static <T extends FieldElement<T>> FieldMatrix<T> matrixColumnOfValue(T value, int size) {
+    public static <FieldElem extends FieldElement<FieldElem>> FieldMatrix<FieldElem> matrixColumnOfValue(FieldElem value, int size) {
         var row = new Array2DRowFieldMatrix<>(value.getField(), size, 1);
         for (int i = 0; i < size; i++) {
             row.addToEntry(i, 0, value);
@@ -98,7 +98,7 @@ public final class FieldMatrixUtil {
         return row;
     }
 
-    public static <T extends FieldElement<T>> boolean hasRow(FieldMatrix<T> matrix, FieldMatrix<T> row) {
+    public static <FieldElem extends FieldElement<FieldElem>> boolean hasRow(FieldMatrix<FieldElem> matrix, FieldMatrix<FieldElem> row) {
         Preconditions.checkArgument(row.getRowDimension() == 1);
         for (int i = 0; i < matrix.getRowDimension(); i++) {
             var column = matrix.getRowMatrix(i);
@@ -109,7 +109,7 @@ public final class FieldMatrixUtil {
         return false;
     }
 
-    public static <T extends FieldElement<T>> boolean hasColumn(FieldMatrix<T> matrix, FieldMatrix<T> row) {
+    public static <FieldElem extends FieldElement<FieldElem>> boolean hasColumn(FieldMatrix<FieldElem> matrix, FieldMatrix<FieldElem> row) {
         Preconditions.checkArgument(row.getColumnDimension() == 1);
         for (int i = 0; i < matrix.getColumnDimension(); i++) {
             var column = matrix.getColumnMatrix(i);

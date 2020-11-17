@@ -1,19 +1,20 @@
 package com.trident.math.field;
 
-import static com.trident.math.field.GaloisFieldOverPrimeType.GF5;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import static com.trident.math.field.GaloisFieldOverPrime.GF5;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 class GaloisFieldOverPrimeTest {
-    private static final GaloisFieldOverPrimeElement ZERO = GF5.field().getZero();
-    private static final GaloisFieldOverPrimeElement ONE = GF5.field().getOne();
-    private static final GaloisFieldOverPrimeElement TWO = GF5.field().getOfValue(2);
-    private static final GaloisFieldOverPrimeElement THREE = GF5.field().getOfValue(3);
-    private static final GaloisFieldOverPrimeElement FOUR = GF5.field().getOfValue(4);
-    private static final GaloisFieldOverPrimeElement FIVE = GF5.field().getOfValue(5);
-    private static final GaloisFieldOverPrimeElement TWENTY_THREE = GF5.field().getOfValue(23);
+    private static final GaloisFieldOverPrimeElement ZERO = GF5.getZero();
+    private static final GaloisFieldOverPrimeElement ONE = GF5.getOne();
+    private static final GaloisFieldOverPrimeElement TWO = GF5.getOfValue(2);
+    private static final GaloisFieldOverPrimeElement THREE = GF5.getOfValue(3);
+    private static final GaloisFieldOverPrimeElement FOUR = GF5.getOfValue(4);
+    private static final GaloisFieldOverPrimeElement FIVE = GF5.getOfValue(5);
+    private static final GaloisFieldOverPrimeElement TWENTY_THREE = GF5.getOfValue(23);
 
     @Test
     void testMultiplyOnZero() {
