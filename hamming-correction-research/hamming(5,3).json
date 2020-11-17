@@ -1,5 +1,8 @@
 {
-	"gfp": 5,
+	"field": {
+		"type": "GFP",
+		"prime": 5
+	},
 	"generatorMatrix": {
 		"matrix": [
 			[1, 1, 1],
