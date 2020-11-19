@@ -41,7 +41,7 @@ public class Runner {
         boolean verbose = verbose(commandLine);
 
         var analyzer = analyzer(errorLevel, hammingCode, writer, verbose);
-        analyzer.analyzeHammingCodeCorrection(hammingCode);
+        analyzer.analyzeHammingCodeCorrection();
     }
 
     private static boolean verbose(CommandLine commandLine) {
@@ -70,9 +70,9 @@ public class Runner {
         return new PrintStream(file);
     }
 
-    private static HammingCorrectionAnalyzer analyzer(int errorLevel, HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> hammingCode, PrintStream writer, boolean verbose) {
-        var errorProvider = new HammingCodeSequentialErrorsProvider(errorLevel, hammingCode);
+    private static HammingCorrectionAnalyzer<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> analyzer(int errorLevel, HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> hammingCode, PrintStream writer, boolean verbose) {
+        var errorProvider = new HammingCodeSequentialErrorsProvider<>(errorLevel, hammingCode);
         var reportWriter = new HammingCorrectionReportWriter(writer, verbose);
-        return new HammingCorrectionAnalyzer(errorProvider, reportWriter);
+        return new HammingCorrectionAnalyzer<>(errorProvider, reportWriter, hammingCode, new GaloisFieldOverPrimeElement[0]);
     }
 }

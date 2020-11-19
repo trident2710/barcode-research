@@ -3,27 +3,33 @@ package com.trident.hamming.correction.service;
 import com.trident.hamming.correction.report.HammingCorrectionReport;
 import com.trident.hamming.correction.report.HammingCorrectionReportWriter;
 import com.trident.hamming.correction.report.ImmutableHammingCorrectionReport;
-import com.trident.math.field.GaloisFieldOverPrime;
-import com.trident.math.field.GaloisFieldOverPrimeElement;
+import com.trident.math.field.GaloisField;
+import com.trident.math.field.GaloisFieldElement;
 import com.trident.math.hamming.HammingCode;
 import com.trident.math.io.converter.HammingCodeConverter;
 import org.apache.commons.math3.linear.FieldMatrix;
+
+import java.util.Arrays;
 
 import static com.trident.hamming.correction.report.HammingCorrectionReportWriter.reportToString;
 import static com.trident.math.field.GaloisFieldElementUtil.randomRow;
 import static com.trident.math.io.FieldMatrixIOUtil.writeAsString;
 
-public final class HammingCorrectionAnalyzer {
+public final class HammingCorrectionAnalyzer<GFElement extends GaloisFieldElement<GFElement>, GF extends GaloisField<GFElement>> {
 
-    private final HammingCodeErrorProvider errorProvider;
+    private final HammingCodeErrorProvider<GFElement> errorProvider;
     private final HammingCorrectionReportWriter writer;
+    private final HammingCode<GFElement, GF> hammingCode;
+    private final GFElement[] sample;
 
-    public HammingCorrectionAnalyzer(HammingCodeErrorProvider errorProvider, HammingCorrectionReportWriter writer) {
+    public HammingCorrectionAnalyzer(HammingCodeErrorProvider<GFElement> errorProvider, HammingCorrectionReportWriter writer, HammingCode<GFElement, GF> hammingCode, GFElement[] sample) {
         this.errorProvider = errorProvider;
         this.writer = writer;
+        this.hammingCode = hammingCode;
+        this.sample = Arrays.copyOf(sample, sample.length);
     }
 
-    public HammingCorrectionReport analyzeHammingCodeCorrection(HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> hammingCode, FieldMatrix<GaloisFieldOverPrimeElement> message) {
+    public HammingCorrectionReport analyzeHammingCodeCorrection(FieldMatrix<GFElement> message) {
         var code = hammingCode.encode(message);
         writer.info(String.format("Start analyzing: %s%n", writeAsString(message)));
         writer.info(String.format("Encoded message: %s%n", writeAsString(code)));
@@ -71,12 +77,12 @@ public final class HammingCorrectionAnalyzer {
         return result;
     }
 
-    public HammingCorrectionReport analyzeHammingCodeCorrection(HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> hammingCode) {
-        var message = randomRow(hammingCode.getField(), hammingCode.informationalLength(), new GaloisFieldOverPrimeElement[0]);
-        return analyzeHammingCodeCorrection(hammingCode, message);
+    public HammingCorrectionReport analyzeHammingCodeCorrection() {
+        var message = randomRow(hammingCode.getField(), hammingCode.informationalLength(), sample);
+        return analyzeHammingCodeCorrection(message);
     }
 
-    private static HammingCorrectionReport buildReport(HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> hammingCode, int iterations, int errorLevel, int corrected, int detected, int noErrors) {
+    private HammingCorrectionReport buildReport(HammingCode<GFElement, GF> hammingCode, int iterations, int errorLevel, int corrected, int detected, int noErrors) {
         return ImmutableHammingCorrectionReport.builder()
                 .hammingCode(HammingCodeConverter.toDto(hammingCode))
                 .iterations(iterations)

@@ -26,7 +26,7 @@ class HammingCodeSequentialErrorsProviderTest {
 
     @Test
     void testErrorsLevel1() {
-        var iterator = new HammingCodeSequentialErrorsProvider(1, HAMMING_CODE);
+        var iterator = new HammingCodeSequentialErrorsProvider<>(1, HAMMING_CODE);
         int count = 0;
         while (iterator.hasNext()) {
             iterator.next();
@@ -37,7 +37,7 @@ class HammingCodeSequentialErrorsProviderTest {
 
     @Test
     void testErrorsLevel2() {
-        var iterator = new HammingCodeSequentialErrorsProvider(2, HAMMING_CODE);
+        var iterator = new HammingCodeSequentialErrorsProvider<>(2, HAMMING_CODE);
         int count = 0;
         while (iterator.hasNext()) {
             iterator.next();
@@ -48,7 +48,7 @@ class HammingCodeSequentialErrorsProviderTest {
 
     @Test
     void testErrorsLevel3() {
-        var iterator = new HammingCodeSequentialErrorsProvider(3, HAMMING_CODE);
+        var iterator = new HammingCodeSequentialErrorsProvider<>(3, HAMMING_CODE);
         int count = 0;
         while (iterator.hasNext()) {
             iterator.next();
@@ -59,7 +59,7 @@ class HammingCodeSequentialErrorsProviderTest {
 
     @Test
     void testErrorsLevel4() {
-        var iterator = new HammingCodeSequentialErrorsProvider(4, HAMMING_CODE);
+        var iterator = new HammingCodeSequentialErrorsProvider<>(4, HAMMING_CODE);
         int count = 0;
         while (iterator.hasNext()) {
             iterator.next();
@@ -67,5 +67,4 @@ class HammingCodeSequentialErrorsProviderTest {
         }
         assertEquals(1280, count);
     }
-
 }
