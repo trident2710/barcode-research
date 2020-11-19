@@ -22,7 +22,7 @@ public class HammingCodeSequentialErrorsProvider<GFElement extends GaloisFieldEl
         this.errorLevel = errorLevel;
         this.hammingCode = hammingCode;
         this.positionsIterator = new Combinations(hammingCode.totalLength(), errorLevel).iterator();
-        this.errorsIterator = new SequentialVectorIterator(errorLevel, 1, hammingCode.getField().prime());
+        this.errorsIterator = new SequentialVectorIterator(errorLevel, 1, hammingCode.getField().elementsCount());
         this.currentPositions = positionsIterator.next();
     }
 
@@ -44,7 +44,7 @@ public class HammingCodeSequentialErrorsProvider<GFElement extends GaloisFieldEl
 
         if (!errorsIterator.hasNext()) {
             currentPositions = positionsIterator.next();
-            errorsIterator = new SequentialVectorIterator(errorLevel, 1, hammingCode.getField().prime());
+            errorsIterator = new SequentialVectorIterator(errorLevel, 1, hammingCode.getField().elementsCount());
         }
 
         var errors = errorsIterator.next();

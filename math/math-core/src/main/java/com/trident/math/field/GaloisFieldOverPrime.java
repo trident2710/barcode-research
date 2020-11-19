@@ -77,6 +77,11 @@ public final class GaloisFieldOverPrime implements GaloisField<GaloisFieldOverPr
     }
 
     @Override
+    public long elementsCount() {
+        return prime();
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

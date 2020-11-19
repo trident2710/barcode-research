@@ -41,4 +41,6 @@ public interface GaloisField<T extends FieldElement<T>> extends Field<T> {
     T getOfValue(long value);
 
     long prime();
+
+    long elementsCount();
 }

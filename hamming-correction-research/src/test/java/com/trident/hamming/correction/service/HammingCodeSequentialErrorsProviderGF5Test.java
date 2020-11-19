@@ -11,7 +11,7 @@ import static com.trident.math.matrix.FieldMatrixUtil.createMatrixOfRows;
 import static com.trident.math.matrix.FieldMatrixUtil.matrixRow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class HammingCodeSequentialErrorsProviderTest {
+class HammingCodeSequentialErrorsProviderGF5Test {
 
     private static final GaloisFieldOverPrimeElement ONE = GF5.getOne();
     private static final GaloisFieldOverPrimeElement TWO = GF5.getOfValue(2);
