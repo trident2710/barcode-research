@@ -12,10 +12,10 @@ import java.io.File;
 
 public class HammingCodeReader {
 
-    public static HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> read(String path) throws Exception {
+    public static HammingCodeDto read(String path) throws Exception {
         File file = new File(path);
         var dto = objectMapper().readValue(file, HammingCodeDto.class);
-        return HammingCodeConverter.fromDto(dto, GaloisFieldOverPrime.class, new GaloisFieldOverPrimeElement[0]);
+        return dto;
     }
 
     private static ObjectMapper objectMapper() {

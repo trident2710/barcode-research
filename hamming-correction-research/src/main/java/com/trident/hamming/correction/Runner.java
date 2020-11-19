@@ -4,9 +4,14 @@ import com.trident.hamming.correction.report.HammingCorrectionReportWriter;
 import com.trident.hamming.correction.service.HammingCodeReader;
 import com.trident.hamming.correction.service.HammingCodeSequentialErrorsProvider;
 import com.trident.hamming.correction.service.HammingCorrectionAnalyzer;
+import com.trident.math.field.GaloisFieldOverPoly;
+import com.trident.math.field.GaloisFieldOverPolyElement;
 import com.trident.math.field.GaloisFieldOverPrime;
 import com.trident.math.field.GaloisFieldOverPrimeElement;
 import com.trident.math.hamming.HammingCode;
+import com.trident.math.io.converter.HammingCodeConverter;
+import com.trident.math.io.dto.GaloisFieldDto;
+import com.trident.math.io.dto.HammingCodeDto;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
@@ -52,7 +57,7 @@ public class Runner {
         return Integer.parseInt(commandLine.getOptionValue("l"));
     }
 
-    private static HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> hammingCode(CommandLine commandLine) throws Exception {
+    private static HammingCodeDto hammingCode(CommandLine commandLine) throws Exception {
         var path = commandLine.getOptionValue("c");
         return HammingCodeReader.read(path);
     }
@@ -70,9 +75,21 @@ public class Runner {
         return new PrintStream(file);
     }
 
-    private static HammingCorrectionAnalyzer<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> analyzer(int errorLevel, HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> hammingCode, PrintStream writer, boolean verbose) {
+    private static HammingCorrectionAnalyzer<?, ?> analyzer(int errorLevel, HammingCodeDto hammingCodeDto, PrintStream writer, boolean verbose) {
+        return hammingCodeDto.field().type() == GaloisFieldDto.Type.GFP
+                ? hammingCodeGFPAnalyzer(errorLevel, HammingCodeConverter.fromDto(hammingCodeDto, GaloisFieldOverPrime.class, new GaloisFieldOverPrimeElement[0]), writer, verbose)
+                : hammingCodeGFPolyAnalyzer(errorLevel, HammingCodeConverter.fromDto(hammingCodeDto, GaloisFieldOverPoly.class, new GaloisFieldOverPolyElement[0]), writer, verbose);
+    }
+
+    private static HammingCorrectionAnalyzer<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> hammingCodeGFPAnalyzer(int errorLevel, HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> hammingCode, PrintStream writer, boolean verbose) {
         var errorProvider = new HammingCodeSequentialErrorsProvider<>(errorLevel, hammingCode);
         var reportWriter = new HammingCorrectionReportWriter(writer, verbose);
         return new HammingCorrectionAnalyzer<>(errorProvider, reportWriter, hammingCode, new GaloisFieldOverPrimeElement[0]);
+    }
+
+    private static HammingCorrectionAnalyzer<GaloisFieldOverPolyElement, GaloisFieldOverPoly> hammingCodeGFPolyAnalyzer(int errorLevel, HammingCode<GaloisFieldOverPolyElement, GaloisFieldOverPoly> hammingCode, PrintStream writer, boolean verbose) {
+        var errorProvider = new HammingCodeSequentialErrorsProvider<>(errorLevel, hammingCode);
+        var reportWriter = new HammingCorrectionReportWriter(writer, verbose);
+        return new HammingCorrectionAnalyzer<>(errorProvider, reportWriter, hammingCode, new GaloisFieldOverPolyElement[0]);
     }
 }
