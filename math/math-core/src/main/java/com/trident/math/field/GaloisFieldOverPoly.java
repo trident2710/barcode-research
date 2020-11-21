@@ -85,7 +85,7 @@ public class GaloisFieldOverPoly implements GaloisField<GaloisFieldOverPolyEleme
 
     @Override
     public long elementsCount() {
-        return prime() * exponent();
+        return (long) Math.pow(prime(), exponent());
     }
 
     public int exponent() {
