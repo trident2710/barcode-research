@@ -1,9 +1,9 @@
 package com.trident.hamming.correction;
 
+import com.google.common.base.Preconditions;
 import com.trident.hamming.correction.report.HammingCorrectionReportWriter;
+import com.trident.hamming.correction.service.HammingCodeAnalyzer;
 import com.trident.hamming.correction.service.HammingCodeReader;
-import com.trident.hamming.correction.service.HammingCodeSequentialErrorsProvider;
-import com.trident.hamming.correction.service.HammingCorrectionAnalyzer;
 import com.trident.math.field.GaloisFieldOverPoly;
 import com.trident.math.field.GaloisFieldOverPolyElement;
 import com.trident.math.field.GaloisFieldOverPrime;
@@ -23,9 +23,7 @@ import java.io.PrintStream;
 public class Runner {
 
     private static final Options OPTIONS = new Options()
-            .addOption("l", "errorLevel", true, "Error level")
-            .addOption("c", "hammingCode", true, "Hamming code description file path")
-            .addOption("n", "fileOutputName", true, "File output name")
+            .addOption("c", "hammingCodes", true, "Directory with hamming codes")
             .addOption("v", "verbose", false, "Verbose mode");
 
     public static void main(String[] args) {
@@ -40,56 +38,58 @@ public class Runner {
     }
 
     private static void run(CommandLine commandLine) throws Exception {
-        int errorLevel = errorLevel(commandLine);
-        var hammingCode = hammingCode(commandLine);
-        var writer = writer(commandLine);
+        var hammingCodeDir = hammingCodeDir(commandLine);
         boolean verbose = verbose(commandLine);
 
-        var analyzer = analyzer(errorLevel, hammingCode, writer, verbose);
-        analyzer.analyzeHammingCodeCorrection();
+        run(hammingCodeDir, verbose);
+    }
+
+    private static void run(File hammingCodesDir, boolean verbose) throws Exception {
+        Preconditions.checkArgument(hammingCodesDir.isDirectory());
+        var hammingCodes = hammingCodesDir.listFiles();
+        for (File hammingCode : hammingCodes) {
+            analyzeHammingCode(hammingCode, verbose);
+        }
+    }
+
+    private static void analyzeHammingCode(File hammingCode, boolean verbose) throws Exception {
+        var dto = HammingCodeReader.read(hammingCode.getAbsolutePath());
+        var fileWriter = writer(hammingCode.getName());
+        var analyzer = analyzer(dto, fileWriter, verbose);
+        analyzer.analyzeHammingCode();
     }
 
     private static boolean verbose(CommandLine commandLine) {
         return commandLine.hasOption("v");
     }
 
-    private static int errorLevel(CommandLine commandLine) {
-        return Integer.parseInt(commandLine.getOptionValue("l"));
-    }
-
-    private static HammingCodeDto hammingCode(CommandLine commandLine) throws Exception {
+    private static File hammingCodeDir(CommandLine commandLine) {
         var path = commandLine.getOptionValue("c");
-        return HammingCodeReader.read(path);
+        return new File(path);
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    private static PrintStream writer(CommandLine commandLine) throws Exception {
+    private static PrintStream writer(String hammingCodeName) throws Exception {
         var dir = new File("output");
         dir.mkdir();
-        var fileName = commandLine.hasOption("n")
-                ? commandLine.getOptionValue("n")
-                : System.currentTimeMillis();
-        var file = new File("output/" + fileName);
+        var file = new File("output/" + hammingCodeName);
         file.createNewFile();
-        System.out.println(file.getAbsoluteFile());
         return new PrintStream(file);
     }
 
-    private static HammingCorrectionAnalyzer<?, ?> analyzer(int errorLevel, HammingCodeDto hammingCodeDto, PrintStream writer, boolean verbose) {
+    private static HammingCodeAnalyzer<?, ?> analyzer(HammingCodeDto hammingCodeDto, PrintStream writer, boolean verbose) {
         return hammingCodeDto.field().type() == GaloisFieldDto.Type.GFP
-                ? hammingCodeGFPAnalyzer(errorLevel, HammingCodeConverter.fromDto(hammingCodeDto, GaloisFieldOverPrime.class, new GaloisFieldOverPrimeElement[0]), writer, verbose)
-                : hammingCodeGFPolyAnalyzer(errorLevel, HammingCodeConverter.fromDto(hammingCodeDto, GaloisFieldOverPoly.class, new GaloisFieldOverPolyElement[0]), writer, verbose);
+                ? hammingCodeGFPAnalyzer(HammingCodeConverter.fromDto(hammingCodeDto, GaloisFieldOverPrime.class, new GaloisFieldOverPrimeElement[0]), writer, verbose)
+                : hammingCodeGFPolyAnalyzer(HammingCodeConverter.fromDto(hammingCodeDto, GaloisFieldOverPoly.class, new GaloisFieldOverPolyElement[0]), writer, verbose);
     }
 
-    private static HammingCorrectionAnalyzer<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> hammingCodeGFPAnalyzer(int errorLevel, HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> hammingCode, PrintStream writer, boolean verbose) {
-        var errorProvider = new HammingCodeSequentialErrorsProvider<>(errorLevel, hammingCode);
+    private static HammingCodeAnalyzer<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> hammingCodeGFPAnalyzer(HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> hammingCode, PrintStream writer, boolean verbose) {
         var reportWriter = new HammingCorrectionReportWriter(writer, verbose);
-        return new HammingCorrectionAnalyzer<>(errorProvider, reportWriter, hammingCode, new GaloisFieldOverPrimeElement[0]);
+        return new HammingCodeAnalyzer<>(hammingCode, reportWriter, new GaloisFieldOverPrimeElement[0]);
     }
 
-    private static HammingCorrectionAnalyzer<GaloisFieldOverPolyElement, GaloisFieldOverPoly> hammingCodeGFPolyAnalyzer(int errorLevel, HammingCode<GaloisFieldOverPolyElement, GaloisFieldOverPoly> hammingCode, PrintStream writer, boolean verbose) {
-        var errorProvider = new HammingCodeSequentialErrorsProvider<>(errorLevel, hammingCode);
+    private static HammingCodeAnalyzer<GaloisFieldOverPolyElement, GaloisFieldOverPoly> hammingCodeGFPolyAnalyzer(HammingCode<GaloisFieldOverPolyElement, GaloisFieldOverPoly> hammingCode, PrintStream writer, boolean verbose) {
         var reportWriter = new HammingCorrectionReportWriter(writer, verbose);
-        return new HammingCorrectionAnalyzer<>(errorProvider, reportWriter, hammingCode, new GaloisFieldOverPolyElement[0]);
+        return new HammingCodeAnalyzer<>(hammingCode, reportWriter, new GaloisFieldOverPolyElement[0]);
     }
 }

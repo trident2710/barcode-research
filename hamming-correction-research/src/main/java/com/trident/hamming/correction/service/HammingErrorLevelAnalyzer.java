@@ -15,24 +15,25 @@ import static com.trident.hamming.correction.report.HammingCorrectionReportWrite
 import static com.trident.math.field.GaloisFieldElementUtil.randomRow;
 import static com.trident.math.io.FieldMatrixIOUtil.writeAsString;
 
-public final class HammingCorrectionAnalyzer<GFElement extends GaloisFieldElement<GFElement>, GF extends GaloisField<GFElement>> {
+public final class HammingErrorLevelAnalyzer<GFElement extends GaloisFieldElement<GFElement>, GF extends GaloisField<GFElement>> {
 
     private final HammingCodeErrorProvider<GFElement> errorProvider;
     private final HammingCorrectionReportWriter writer;
     private final HammingCode<GFElement, GF> hammingCode;
     private final GFElement[] sample;
 
-    public HammingCorrectionAnalyzer(HammingCodeErrorProvider<GFElement> errorProvider, HammingCorrectionReportWriter writer, HammingCode<GFElement, GF> hammingCode, GFElement[] sample) {
+    public HammingErrorLevelAnalyzer(HammingCodeErrorProvider<GFElement> errorProvider, HammingCorrectionReportWriter writer, HammingCode<GFElement, GF> hammingCode, GFElement[] sample) {
         this.errorProvider = errorProvider;
         this.writer = writer;
         this.hammingCode = hammingCode;
         this.sample = Arrays.copyOf(sample, sample.length);
     }
 
-    public HammingCorrectionReport analyzeHammingCodeCorrection(FieldMatrix<GFElement> message) {
+    public HammingCorrectionReport analyzeHammingCodeErrorLevel(FieldMatrix<GFElement> message) {
         var code = hammingCode.encode(message);
+        writer.info("------------------------------------------------------");
         writer.info(String.format("Start analyzing: %s%n", writeAsString(message)));
-        writer.info(String.format("Encoded message: %s%n", writeAsString(code)));
+        writer.info(String.format("Error level: %s", errorProvider.errorLevel()));
 
         int corrected = 0;
         int detected = 0;
@@ -72,14 +73,13 @@ public final class HammingCorrectionAnalyzer<GFElement extends GaloisFieldElemen
             iterations++;
         }
         var result = buildReport(hammingCode, iterations, errorLevel, corrected, detected, noErrors);
-        writer.info("------------------------------------------------------");
         writer.info(String.format("Final result: %s%n", reportToString(result)));
         return result;
     }
 
-    public HammingCorrectionReport analyzeHammingCodeCorrection() {
+    public HammingCorrectionReport analyzeHammingCodeErrorLevel() {
         var message = randomRow(hammingCode.getField(), hammingCode.informationalLength(), sample);
-        return analyzeHammingCodeCorrection(message);
+        return analyzeHammingCodeErrorLevel(message);
     }
 
     private HammingCorrectionReport buildReport(HammingCode<GFElement, GF> hammingCode, int iterations, int errorLevel, int corrected, int detected, int noErrors) {

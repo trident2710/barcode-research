@@ -3,7 +3,7 @@ package com.trident.hamming.correction;
 import com.trident.hamming.correction.report.HammingCorrectionReportWriter;
 import com.trident.hamming.correction.report.ImmutableHammingCorrectionReport;
 import com.trident.hamming.correction.service.HammingCodeSequentialErrorsProvider;
-import com.trident.hamming.correction.service.HammingCorrectionAnalyzer;
+import com.trident.hamming.correction.service.HammingErrorLevelAnalyzer;
 import com.trident.math.field.GaloisFieldOverPrime;
 import com.trident.math.field.GaloisFieldOverPrimeElement;
 import com.trident.math.hamming.HammingCode;
@@ -45,8 +45,8 @@ public class HammingGF5AnalyzerTest {
                 .iterations(20)
                 .build();
         var errorProvider = new HammingCodeSequentialErrorsProvider<>(1, HAMMING_CODE);
-        var analyzer = new HammingCorrectionAnalyzer<>(errorProvider, WRITER, HAMMING_CODE, new GaloisFieldOverPrimeElement[0]);
-        assertEquals(expected, analyzer.analyzeHammingCodeCorrection());
+        var analyzer = new HammingErrorLevelAnalyzer<>(errorProvider, WRITER, HAMMING_CODE, new GaloisFieldOverPrimeElement[0]);
+        assertEquals(expected, analyzer.analyzeHammingCodeErrorLevel());
     }
 
     @Test
@@ -60,8 +60,8 @@ public class HammingGF5AnalyzerTest {
                 .iterations(160)
                 .build();
         var errorProvider = new HammingCodeSequentialErrorsProvider<>(2, HAMMING_CODE);
-        var analyzer = new HammingCorrectionAnalyzer<>(errorProvider, WRITER, HAMMING_CODE, new GaloisFieldOverPrimeElement[0]);
-        assertEquals(expected, analyzer.analyzeHammingCodeCorrection());
+        var analyzer = new HammingErrorLevelAnalyzer<>(errorProvider, WRITER, HAMMING_CODE, new GaloisFieldOverPrimeElement[0]);
+        assertEquals(expected, analyzer.analyzeHammingCodeErrorLevel());
     }
 
     @Test
@@ -75,8 +75,8 @@ public class HammingGF5AnalyzerTest {
                 .iterations(640)
                 .build();
         var errorProvider = new HammingCodeSequentialErrorsProvider<>(3, HAMMING_CODE);
-        var analyzer = new HammingCorrectionAnalyzer<>(errorProvider, WRITER, HAMMING_CODE, new GaloisFieldOverPrimeElement[0]);
-        assertEquals(expected, analyzer.analyzeHammingCodeCorrection());
+        var analyzer = new HammingErrorLevelAnalyzer<>(errorProvider, WRITER, HAMMING_CODE, new GaloisFieldOverPrimeElement[0]);
+        assertEquals(expected, analyzer.analyzeHammingCodeErrorLevel());
     }
 
     @Test
@@ -90,8 +90,8 @@ public class HammingGF5AnalyzerTest {
                 .iterations(1280)
                 .build();
         var errorProvider = new HammingCodeSequentialErrorsProvider<>(4, HAMMING_CODE);
-        var analyzer = new HammingCorrectionAnalyzer<>(errorProvider, WRITER, HAMMING_CODE, new GaloisFieldOverPrimeElement[0]);
-        assertEquals(expected, analyzer.analyzeHammingCodeCorrection());
+        var analyzer = new HammingErrorLevelAnalyzer<>(errorProvider, WRITER, HAMMING_CODE, new GaloisFieldOverPrimeElement[0]);
+        assertEquals(expected, analyzer.analyzeHammingCodeErrorLevel());
     }
 
     @Test
@@ -105,7 +105,7 @@ public class HammingGF5AnalyzerTest {
                 .iterations(1024)
                 .build();
         var errorProvider = new HammingCodeSequentialErrorsProvider<>(5, HAMMING_CODE);
-        var analyzer = new HammingCorrectionAnalyzer<>(errorProvider, WRITER, HAMMING_CODE, new GaloisFieldOverPrimeElement[0]);
-        assertEquals(expected, analyzer.analyzeHammingCodeCorrection());
+        var analyzer = new HammingErrorLevelAnalyzer<>(errorProvider, WRITER, HAMMING_CODE, new GaloisFieldOverPrimeElement[0]);
+        assertEquals(expected, analyzer.analyzeHammingCodeErrorLevel());
     }
 }
