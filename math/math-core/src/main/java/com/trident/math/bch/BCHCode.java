@@ -6,16 +6,17 @@ import com.trident.math.field.GaloisFieldElement;
 import com.trident.math.matrix.FieldMatrixUtil;
 import org.apache.commons.math3.linear.FieldMatrix;
 
+import static com.trident.math.matrix.FieldMatrixUtil.concatRight;
+import static org.apache.commons.math3.linear.MatrixUtils.createFieldIdentityMatrix;
+
 public class BCHCode<GFElement extends GaloisFieldElement<GFElement>, GF extends GaloisField<GFElement>> {
     private final FieldMatrix<GFElement> generator;
     private final FieldMatrix<GFElement> fullMatrix;
-    private final int size;
 
     public BCHCode(FieldMatrix<GFElement> generator, int size) {
         Preconditions.checkArgument(generator.getRowDimension() == 1);
         Preconditions.checkArgument(size > generator.getColumnDimension());
         this.generator = generator;
-        this.size = size;
         this.fullMatrix = createFullMatrix(generator, size);
     }
 
@@ -32,10 +33,9 @@ public class BCHCode<GFElement extends GaloisFieldElement<GFElement>, GF extends
     }
 
     private FieldMatrix<GFElement> createFullMatrix(FieldMatrix<GFElement> generator, int size) {
-        var columns = size;
         var rows = size - generator.getColumnDimension() + 1;
 
-        var row = FieldMatrixUtil.matrixRowBuffered(columns, generator.getRow(0));
+        var row = FieldMatrixUtil.matrixRowBuffered(size, generator.getRow(0));
         var result = row;
 
         for (int i = 1; i < rows; i++) {
@@ -44,5 +44,11 @@ public class BCHCode<GFElement extends GaloisFieldElement<GFElement>, GF extends
             row = shifted;
         }
         return result;
+    }
+
+    public FieldMatrix<GFElement> encode(FieldMatrix<GFElement> message) {
+        Preconditions.checkArgument(message.getRowDimension() == 1);
+        Preconditions.checkArgument(message.getColumnDimension() == fullMatrix.getRowDimension());
+        return message.multiply(fullMatrix);
     }
 }

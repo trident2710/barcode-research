@@ -20,4 +20,21 @@ class BCHCodeTest {
         assertEquals(expectedFullMatrix, bch_8_3.getFullMatrix());
     }
 
+    @Test
+    void testEncode() {
+        // 2 0 1 1 2 1
+        var generator = matrixRow(GF3.getOfValue(2), GF3.getOfValue(0), GF3.getOfValue(1), GF3.getOfValue(1), GF3.getOfValue(2), GF3.getOfValue(1));
+        var bch_8_3 = new BCHCode<>(generator, 8);
+
+        // 0 1 2
+        var message = matrixRow(GF3.getOfValue(0), GF3.getOfValue(1), GF3.getOfValue(2));
+
+        var encoded = bch_8_3.encode(message);
+
+        // 0 2 1 1 0 1 2 2
+        var expected = matrixRow(GF3.getOfValue(0), GF3.getOfValue(2), GF3.getOfValue(1), GF3.getOfValue(1), GF3.getOfValue(0), GF3.getOfValue(1), GF3.getOfValue(2), GF3.getOfValue(2));
+
+        assertEquals(expected, encoded);
+    }
+
 }
