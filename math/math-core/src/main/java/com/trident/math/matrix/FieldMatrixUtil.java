@@ -77,6 +77,19 @@ public final class FieldMatrixUtil {
         return MatrixUtils.createRowFieldMatrix(elements);
     }
 
+    /**
+     * Creates matrix row with given elements and appends with zeros if size > elements.length
+     */
+    public static <FieldElem extends FieldElement<FieldElem>> FieldMatrix<FieldElem> matrixRowBuffered(int size, FieldElem... elements) {
+        Preconditions.checkArgument(elements.length <= size);
+        Preconditions.checkArgument(size > 0);
+        var row = matrixRowOfValue(elements[0].getField().getZero(), size);
+        for (int i = 0; i < elements.length; i++) {
+            row.addToEntry(0, i, elements[i]);
+        }
+        return row;
+    }
+
     @SuppressWarnings("unchecked")
     public static <FieldElem extends FieldElement<FieldElem>> FieldMatrix<FieldElem> matrixColumn(FieldElem... elements) {
         return MatrixUtils.createColumnFieldMatrix(elements);
@@ -118,5 +131,18 @@ public final class FieldMatrixUtil {
             }
         }
         return false;
+    }
+
+    /**
+     * Shifts each element of the row to the right by @steps and sets zero element of field to it's previous position
+     */
+    public static <FieldElem extends FieldElement<FieldElem>> FieldMatrix<FieldElem> shiftRowRight(FieldMatrix<FieldElem> row, int steps) {
+        Preconditions.checkArgument(row.getRowDimension() == 1);
+        Preconditions.checkArgument(steps > 0 && steps < row.getColumnDimension());
+        var shifted = matrixRowOfValue(row.getField().getZero(), row.getColumnDimension());
+        for (int i = 0; i < row.getColumnDimension() - steps; i++) {
+            shifted.setEntry(0, i + steps, row.getEntry(0, i));
+        }
+        return shifted;
     }
 }
