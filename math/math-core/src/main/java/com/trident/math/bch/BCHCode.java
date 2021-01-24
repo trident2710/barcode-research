@@ -9,11 +9,14 @@ import org.apache.commons.math3.linear.FieldMatrix;
 public class BCHCode<GFElement extends GaloisFieldElement<GFElement>, GF extends GaloisField<GFElement>> {
     private final FieldMatrix<GFElement> generator;
     private final FieldMatrix<GFElement> fullMatrix;
+    private final int size;
 
-    public BCHCode(FieldMatrix<GFElement> generator) {
+    public BCHCode(FieldMatrix<GFElement> generator, int size) {
         Preconditions.checkArgument(generator.getRowDimension() == 1);
+        Preconditions.checkArgument(size > generator.getColumnDimension());
         this.generator = generator;
-        this.fullMatrix = createFullMatrix(generator);
+        this.size = size;
+        this.fullMatrix = createFullMatrix(generator, size);
     }
 
     public FieldMatrix<GFElement> getGenerator() {
@@ -28,9 +31,9 @@ public class BCHCode<GFElement extends GaloisFieldElement<GFElement>, GF extends
         return (GF) getGenerator().getField();
     }
 
-    private FieldMatrix<GFElement> createFullMatrix(FieldMatrix<GFElement> generator) {
-        var columns = generator.getColumnDimension() * 2;
-        var rows = generator.getColumnDimension() + 1;
+    private FieldMatrix<GFElement> createFullMatrix(FieldMatrix<GFElement> generator, int size) {
+        var columns = size;
+        var rows = size - generator.getColumnDimension() + 1;
 
         var row = FieldMatrixUtil.matrixRowBuffered(columns, generator.getRow(0));
         var result = row;
