@@ -6,9 +6,6 @@ import com.trident.math.field.GaloisFieldElement;
 import com.trident.math.matrix.FieldMatrixUtil;
 import org.apache.commons.math3.linear.FieldMatrix;
 
-import static com.trident.math.matrix.FieldMatrixUtil.concatRight;
-import static org.apache.commons.math3.linear.MatrixUtils.createFieldIdentityMatrix;
-
 public class BCHCode<GFElement extends GaloisFieldElement<GFElement>, GF extends GaloisField<GFElement>> {
     private final FieldMatrix<GFElement> generator;
     private final FieldMatrix<GFElement> fullMatrix;
