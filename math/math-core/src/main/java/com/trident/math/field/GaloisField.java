@@ -20,7 +20,7 @@ public interface GaloisField<T extends FieldElement<T>> extends Field<T> {
 
     default T times(T elem, int times) {
         if (times < 0) {
-            throw new IllegalArgumentException("times must be positive");
+            throw new IllegalArgumentException("times should be positive");
         }
 
         if (times == 0) {

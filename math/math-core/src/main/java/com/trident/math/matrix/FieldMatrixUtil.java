@@ -1,8 +1,6 @@
 package com.trident.math.matrix;
 
 import com.google.common.base.Preconditions;
-import com.trident.math.field.GaloisField;
-import com.trident.math.field.GaloisFieldElement;
 import org.apache.commons.math3.FieldElement;
 import org.apache.commons.math3.linear.Array2DRowFieldMatrix;
 import org.apache.commons.math3.linear.FieldMatrix;

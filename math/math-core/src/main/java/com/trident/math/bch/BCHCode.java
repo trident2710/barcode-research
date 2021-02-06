@@ -8,18 +8,19 @@ import org.apache.commons.math3.linear.FieldMatrix;
 
 public class BCHCode {
     private final FieldMatrix<GaloisFieldOverPrimeElement> generator;
-    private final FieldMatrix<GaloisFieldOverPolyElement> correction;
+    private final FieldMatrix<GaloisFieldOverPolyElement> correctionExtended;
 
     private BCHCode(FieldMatrix<GaloisFieldOverPrimeElement> generator,
-                    FieldMatrix<GaloisFieldOverPolyElement> correction) {
+                    FieldMatrix<GaloisFieldOverPolyElement> correctionExtended) {
         this.generator = generator;
-        this.correction = correction;
+        this.correctionExtended = correctionExtended;
     }
 
     public static BCHCode of(FieldMatrix<GaloisFieldOverPrimeElement> generator,
-                             FieldMatrix<GaloisFieldOverPolyElement> correction) {
+                             FieldMatrix<GaloisFieldOverPolyElement> correctionExtended) {
+        var correction = correctionExtended.getSubMatrix(0, correctionExtended.getRowDimension() - 2, 0, correctionExtended.getColumnDimension() - 1);
         checkCorrect(generator, correction);
-        return new BCHCode(generator, correction);
+        return new BCHCode(generator, correctionExtended);
     }
 
     public FieldMatrix<GaloisFieldOverPrimeElement> encode(FieldMatrix<GaloisFieldOverPrimeElement> message) {
@@ -30,7 +31,7 @@ public class BCHCode {
     }
 
     private static void checkCorrect(FieldMatrix<GaloisFieldOverPrimeElement> generator,
-                              FieldMatrix<GaloisFieldOverPolyElement> correction) {
+                                     FieldMatrix<GaloisFieldOverPolyElement> correction) {
         var correctionT = correction.transpose();
         for (int i = 0; i < generator.getRowDimension(); i++) {
             var field = (GaloisFieldOverPoly) correctionT.getField();

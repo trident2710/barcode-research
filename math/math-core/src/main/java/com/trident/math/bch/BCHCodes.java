@@ -18,5 +18,6 @@ public final class BCHCodes {
                     new long[]{1, 3, 7, 8, 2, 6, 5, 4},
                     new long[]{1, 7, 2, 5, 1, 7, 2, 5},
                     new long[]{1, 8, 5, 3, 2, 4, 7, 6},
+                    new long[]{1, 2, 1, 2, 1, 2, 1, 2},
             }, GF9));
 }
