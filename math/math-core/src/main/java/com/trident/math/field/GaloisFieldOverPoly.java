@@ -21,7 +21,7 @@ public class GaloisFieldOverPoly implements GaloisField<GaloisFieldOverPolyEleme
     private final int exponent;
     private final long[] irreduciblePoly;
 
-    public GaloisFieldOverPoly(long prime, int exponent, long[] irreduciblePoly) {
+    private GaloisFieldOverPoly(long prime, int exponent, long[] irreduciblePoly) {
         this.field = Rings.GF(UnivariatePolynomialZp64.create(prime, irreduciblePoly));
         this.prime = prime;
         this.exponent = exponent;

@@ -30,12 +30,11 @@ public class HammingCodeConverter {
     private static GaloisField<?> fromGFDto(GaloisFieldDto dto) {
         switch (dto.type()) {
             case GFP:
-                return new GaloisFieldOverPrime(dto.prime());
+                return GaloisFieldOverPrime.of(dto.prime());
             case GFPM:
-                return new GaloisFieldOverPoly(dto.prime(), dto.exponent(), dto.irreduciblePoly());
+                return GaloisFieldOverPoly.of(dto.prime(), dto.exponent(), dto.irreduciblePoly());
             default:
                 throw new IllegalArgumentException("Unsupported: " + dto);
-
         }
     }
 

@@ -4,7 +4,10 @@ import static com.trident.math.field.GaloisFieldOverPoly.GF9;
 import static com.trident.math.field.GaloisFieldOverPrime.GF3;
 import static com.trident.math.matrix.FieldMatrixUtil.toFieldMatrix;
 
-public class BCHCodes {
+public final class BCHCodes {
+    private BCHCodes() {
+    }
+
     public static BCHCode BCH_8_3 = BCHCode.of(
             toFieldMatrix(new long[][]{
                     new long[]{2, 0, 1, 1, 2, 1, 0, 0},

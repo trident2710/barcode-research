@@ -13,8 +13,12 @@ public final class GaloisFieldOverPrime implements GaloisField<GaloisFieldOverPr
 
     private final IntegersZp64 field;
 
-    public GaloisFieldOverPrime(long prime) {
+    private GaloisFieldOverPrime(long prime) {
         this.field = Rings.Zp64(prime);
+    }
+
+    public static GaloisFieldOverPrime of(long prime) {
+        return new GaloisFieldOverPrime(prime);
     }
 
     @Override
