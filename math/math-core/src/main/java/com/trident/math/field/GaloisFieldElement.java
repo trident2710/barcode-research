@@ -4,14 +4,11 @@ import org.apache.commons.math3.FieldElement;
 
 public interface GaloisFieldElement<T extends GaloisFieldElement<T>> extends FieldElement<T>, Comparable<T> {
     // Digital representation.
-    // for prime field -> value mod prime
-    // for GF(p^n) -> poly coefficients as n based numeric system to decimal system
-    // for GF(2^2) over x^2 + x + 1:
+    // for GF(p) -> value mod p
+    // for GF(p^n):
     // 0 -> 0
-    // 1 -> 1
-    // 2 -> x
-    // 3 -> x + 1
-    // 4 -> x^2 -> x + 1
-    // ...
+    // x -> 1
+    // a2*x^2 + a1*x + a0 -> [a2 a1 a0] to decimal,
+    // for example, for prime = 2: x^2 + x + 1  = 1*4 + 1*2 + 1*1 =  7
     long digitalRepresentation();
 }
