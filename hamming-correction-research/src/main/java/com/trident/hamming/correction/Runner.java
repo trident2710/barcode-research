@@ -53,8 +53,9 @@ public class Runner {
     }
 
     private static void analyzeHammingCode(File hammingCode, boolean verbose) throws Exception {
+        System.out.println("Analyzing: " + hammingCode.getName());
         var dto = HammingCodeReader.read(hammingCode.getAbsolutePath());
-        var fileWriter = writer(hammingCode.getName());
+        var fileWriter = writer(hammingCode.getName().replace(".json", ".txt"));
         var analyzer = analyzer(dto, fileWriter, verbose);
         analyzer.analyzeHammingCode();
     }

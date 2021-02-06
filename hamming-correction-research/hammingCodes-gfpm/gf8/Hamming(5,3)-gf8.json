@@ -1,0 +1,14 @@
+{
+  "field": {
+    "type": "GFPM",
+    "prime": 2,
+    "exponent": 3,
+    "irreduciblePoly": [1, 1, 0, 1]
+  },
+  "generatorMatrix": {
+    "matrix": [
+      [1, 1, 1],
+      [1, 2, 3]
+    ]
+  }
+}
