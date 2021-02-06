@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.trident.math.bch.BCHCodes.BCH_8_3;
 import static com.trident.math.field.GaloisFieldOverPrime.GF3;
-import static com.trident.math.matrix.FieldMatrixUtil.toFieldMatrixRow;
+import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrixRow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BCHCodeTest {
