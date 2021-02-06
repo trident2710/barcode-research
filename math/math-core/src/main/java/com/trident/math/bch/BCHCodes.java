@@ -1,0 +1,19 @@
+package com.trident.math.bch;
+
+import static com.trident.math.field.GaloisFieldOverPoly.GF9;
+import static com.trident.math.field.GaloisFieldOverPrime.GF3;
+import static com.trident.math.matrix.FieldMatrixUtil.toFieldMatrix;
+
+public class BCHCodes {
+    public static BCHCode BCH_8_3 = BCHCode.of(
+            toFieldMatrix(new long[][]{
+                    new long[]{2, 0, 1, 1, 2, 1, 0, 0},
+                    new long[]{0, 2, 0, 1, 1, 2, 1, 0},
+                    new long[]{0, 0, 2, 0, 1, 1, 2, 1},
+            }, GF3),
+            toFieldMatrix(new long[][]{
+                    new long[]{1, 3, 7, 8, 2, 6, 5, 4},
+                    new long[]{1, 7, 2, 5, 1, 7, 2, 5},
+                    new long[]{1, 8, 5, 3, 2, 4, 7, 6},
+            }, GF9));
+}

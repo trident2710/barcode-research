@@ -1,6 +1,7 @@
 package com.trident.math.matrix;
 
 import com.google.common.base.Preconditions;
+import com.trident.math.field.GaloisField;
 import org.apache.commons.math3.FieldElement;
 import org.apache.commons.math3.linear.Array2DRowFieldMatrix;
 import org.apache.commons.math3.linear.FieldMatrix;
@@ -144,5 +145,30 @@ public final class FieldMatrixUtil {
             shifted.setEntry(0, i + steps, row.getEntry(0, i));
         }
         return shifted;
+    }
+
+    public static <FieldElem extends FieldElement<FieldElem>> FieldMatrix<FieldElem> toFieldMatrix(long[][] values, GaloisField<FieldElem> field) {
+        int rows = values.length;
+        int columns = values[0].length;
+
+        var matrix = new Array2DRowFieldMatrix<>(field, rows, columns);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                matrix.addToEntry(i, j, field.getOfValue(values[i][j]));
+            }
+        }
+
+        return matrix;
+    }
+
+    public static <FieldElem extends FieldElement<FieldElem>> FieldMatrix<FieldElem> toFieldMatrixRow(long[] values, GaloisField<FieldElem> field) {
+        int columns = values.length;
+
+        var matrix = new Array2DRowFieldMatrix<>(field, 1, columns);
+        for (int i = 0; i < columns; i++) {
+            matrix.addToEntry(0, i, field.getOfValue(values[i]));
+        }
+
+        return matrix;
     }
 }

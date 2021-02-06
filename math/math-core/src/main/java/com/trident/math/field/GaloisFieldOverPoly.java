@@ -28,6 +28,10 @@ public class GaloisFieldOverPoly implements GaloisField<GaloisFieldOverPolyEleme
         this.irreduciblePoly = irreduciblePoly;
     }
 
+    public static GaloisFieldOverPoly of(long prime, int exponent, long[] irreduciblePoly) {
+        return new GaloisFieldOverPoly(prime, exponent, irreduciblePoly);
+    }
+
     @Override
     public GaloisFieldOverPolyElement add(GaloisFieldOverPolyElement first, GaloisFieldOverPolyElement second) {
         return from(this, field.add(first.getPolyValue(), second.getPolyValue()));
