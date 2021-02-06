@@ -50,7 +50,7 @@ public class GaloisFieldOverPolyElement implements GaloisFieldElement<GaloisFiel
 
     @Override
     public GaloisFieldOverPolyElement multiply(int n) {
-        return field.mul(this, n);
+        return field.times(this, n);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class GaloisFieldOverPolyElement implements GaloisFieldElement<GaloisFiel
     }
 
     @Override
-    public Field<GaloisFieldOverPolyElement> getField() {
+    public GaloisFieldOverPoly getField() {
         return field;
     }
 

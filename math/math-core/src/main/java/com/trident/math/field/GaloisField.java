@@ -18,9 +18,13 @@ public interface GaloisField<T extends FieldElement<T>> extends Field<T> {
 
     T mod(T element);
 
-    default T mul(T elem, int times) {
-        if (times < 1) {
+    default T times(T elem, int times) {
+        if (times < 0) {
             throw new IllegalArgumentException("times must be positive");
+        }
+
+        if (times == 0) {
+            return getZero();
         }
 
         var res = elem;
@@ -34,10 +38,9 @@ public interface GaloisField<T extends FieldElement<T>> extends Field<T> {
     // for GF(p) -> value mod p
     // for GF(p^n):
     // 0 -> 0
-    // 1 -> x^0 = 1
-    // 2 -> x^1 = x
-    //  ...
-    //  n -> x^(n-1) = x^(n-1) % field_irreducible_poly
+    // x -> 1
+    // a2*x^2 + a1*x + a0 -> [a2 a1 a0] to decimal,
+    // for example, for GF(4): x^2 + x + 1 -> 7
     T getOfValue(long value);
 
     long prime();

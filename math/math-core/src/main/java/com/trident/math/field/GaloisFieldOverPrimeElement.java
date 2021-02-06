@@ -33,7 +33,7 @@ public class GaloisFieldOverPrimeElement implements GaloisFieldElement<GaloisFie
 
     @Override
     public GaloisFieldOverPrimeElement multiply(int n) {
-        return field.mul(this, n);
+        return field.times(this, n);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class GaloisFieldOverPrimeElement implements GaloisFieldElement<GaloisFie
     }
 
     @Override
-    public Field<GaloisFieldOverPrimeElement> getField() {
+    public GaloisFieldOverPrime getField() {
         return field;
     }
 
