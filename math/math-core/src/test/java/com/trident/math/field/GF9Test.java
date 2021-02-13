@@ -2,7 +2,7 @@ package com.trident.math.field;
 
 import org.junit.jupiter.api.Test;
 
-import static com.trident.math.field.GaloisFieldOverPoly.GF9;
+import static com.trident.math.field.GaloisFields.GF_3_2;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -63,9 +63,9 @@ public class GF9Test {
     @Test
     void testEquality() {
         for (int i = 0; i < 9; i++) {
-            var first = GF9.getOfValue(i);
+            var first = GF_3_2.getOfValue(i);
             for (int j = 0; j < 9; j++) {
-                var second = GF9.getOfValue(j);
+                var second = GF_3_2.getOfValue(j);
                 if (i != j) {
                     assertNotEquals(second, first);
                 } else {
@@ -78,11 +78,11 @@ public class GF9Test {
     @Test
     void testSub() {
         for (int i = 0; i < 9; i++) {
-            var first = GF9.getOfValue(i);
+            var first = GF_3_2.getOfValue(i);
             for (int j = 0; j < 9; j++) {
-                var second = GF9.getOfValue(j);
-                var expected = GF9.getOfValue(SUB_MAP[i][j]);
-                assertEquals(expected, GF9.sub(first, second));
+                var second = GF_3_2.getOfValue(j);
+                var expected = GF_3_2.getOfValue(SUB_MAP[i][j]);
+                assertEquals(expected, GF_3_2.sub(first, second));
             }
         }
     }
@@ -90,11 +90,11 @@ public class GF9Test {
     @Test
     void testAdd() {
         for (int i = 0; i < 9; i++) {
-            var first = GF9.getOfValue(i);
+            var first = GF_3_2.getOfValue(i);
             for (int j = 0; j < 9; j++) {
-                var second = GF9.getOfValue(j);
-                var expected = GF9.getOfValue(ADD_MAP[i][j]);
-                assertEquals(expected, GF9.add(first, second));
+                var second = GF_3_2.getOfValue(j);
+                var expected = GF_3_2.getOfValue(ADD_MAP[i][j]);
+                assertEquals(expected, GF_3_2.add(first, second));
             }
         }
     }
@@ -102,11 +102,11 @@ public class GF9Test {
     @Test
     void testMul() {
         for (int i = 0; i < 9; i++) {
-            var first = GF9.getOfValue(i);
+            var first = GF_3_2.getOfValue(i);
             for (int j = 0; j < 9; j++) {
-                var second = GF9.getOfValue(j);
-                var expected = GF9.getOfValue(MUL_MAP[i][j]);
-                assertEquals(expected, GF9.mul(first, second), "(" + i + "*" + j + ")");
+                var second = GF_3_2.getOfValue(j);
+                var expected = GF_3_2.getOfValue(MUL_MAP[i][j]);
+                assertEquals(expected, GF_3_2.mul(first, second), "(" + i + "*" + j + ")");
             }
         }
     }
@@ -114,14 +114,14 @@ public class GF9Test {
     @Test
     void testDiv() {
         for (int i = 0; i < 9; i++) {
-            var first = GF9.getOfValue(i);
+            var first = GF_3_2.getOfValue(i);
             for (int j = 0; j < 9; j++) {
-                var second = GF9.getOfValue(j);
+                var second = GF_3_2.getOfValue(j);
                 if (j == 0) {
-                    assertThrows(Exception.class, () -> GF9.div(first, second));
+                    assertThrows(Exception.class, () -> GF_3_2.div(first, second));
                 } else {
-                    var expected = GF9.getOfValue(DIV_MAP[i][j]);
-                    assertEquals(expected, GF9.div(first, second));
+                    var expected = GF_3_2.getOfValue(DIV_MAP[i][j]);
+                    assertEquals(expected, GF_3_2.div(first, second));
                 }
             }
         }
@@ -131,11 +131,11 @@ public class GF9Test {
     void testInv() {
         for (int i = 0; i < 9; i++) {
             if (i == 0) {
-                assertThrows(Exception.class, () -> GF9.inv(GF9.getOfValue(0)));
+                assertThrows(Exception.class, () -> GF_3_2.inv(GF_3_2.getOfValue(0)));
             } else {
-                var val = GF9.getOfValue(i);
-                var expected = GF9.getOfValue(INV_MAP[i]);
-                assertEquals(expected, GF9.inv(val));
+                var val = GF_3_2.getOfValue(i);
+                var expected = GF_3_2.getOfValue(INV_MAP[i]);
+                assertEquals(expected, GF_3_2.inv(val));
             }
         }
     }

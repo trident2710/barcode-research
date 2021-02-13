@@ -2,7 +2,7 @@ package com.trident.math.matrix;
 
 import org.junit.jupiter.api.Test;
 
-import static com.trident.math.field.GaloisFieldOverPrime.GF5;
+import static com.trident.math.field.GaloisFields.GF5;
 import static com.trident.math.matrix.FieldMatrixUtil.concatBottom;
 import static com.trident.math.matrix.FieldMatrixUtil.concatRight;
 import static com.trident.math.matrix.FieldMatrixUtil.matrixRow;

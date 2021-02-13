@@ -4,7 +4,7 @@ package com.trident.math;
 import com.trident.math.field.GaloisFieldOverPrimeElement;
 import org.junit.jupiter.api.Test;
 
-import static com.trident.math.field.GaloisFieldOverPrime.GF5;
+import static com.trident.math.field.GaloisFields.GF5;
 import static com.trident.math.matrix.FieldMatrixUtil.createMatrixOfRows;
 import static com.trident.math.matrix.FieldMatrixUtil.matrixColumn;
 import static com.trident.math.matrix.FieldMatrixUtil.matrixRow;

@@ -5,7 +5,7 @@ import com.trident.math.field.GaloisFieldOverPrimeElement;
 import org.apache.commons.math3.linear.FieldMatrix;
 import org.junit.jupiter.api.Test;
 
-import static com.trident.math.field.GaloisFieldOverPrime.GF5;
+import static com.trident.math.field.GaloisFields.GF5;
 import static com.trident.math.matrix.FieldMatrixUtil.createMatrixOfRows;
 import static com.trident.math.matrix.FieldMatrixUtil.matrixRow;
 import static org.junit.jupiter.api.Assertions.assertEquals;

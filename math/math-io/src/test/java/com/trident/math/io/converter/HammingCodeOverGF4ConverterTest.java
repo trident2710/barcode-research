@@ -12,16 +12,16 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.trident.math.field.GaloisFieldOverPoly.GF4;
+import static com.trident.math.field.GaloisFields.GF_2_2;
 import static com.trident.math.matrix.FieldMatrixUtil.createMatrixOfRows;
 import static com.trident.math.matrix.FieldMatrixUtil.matrixRow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HammingCodeOverGF4ConverterTest {
-    private static final GaloisFieldOverPolyElement ZERO = GF4.getZero();
-    private static final GaloisFieldOverPolyElement ONE = GF4.getOne();
-    private static final GaloisFieldOverPolyElement TWO = GF4.getOfValue(2);
-    private static final GaloisFieldOverPolyElement THREE = GF4.getOfValue(3);
+    private static final GaloisFieldOverPolyElement ZERO = GF_2_2.getZero();
+    private static final GaloisFieldOverPolyElement ONE = GF_2_2.getOne();
+    private static final GaloisFieldOverPolyElement TWO = GF_2_2.getOfValue(2);
+    private static final GaloisFieldOverPolyElement THREE = GF_2_2.getOfValue(3);
 
     // H(7, 4)
     // 0 0 0 0 1 0 0
@@ -40,9 +40,9 @@ public class HammingCodeOverGF4ConverterTest {
         var expected = ImmutableHammingCodeDto.builder()
                 .field(ImmutableGaloisFieldDto.builder()
                         .type(GaloisFieldDto.Type.GFPM)
-                        .prime(GF4.prime())
-                        .exponent(GF4.exponent())
-                        .irreduciblePoly(GF4.irreduciblePoly())
+                        .prime(GF_2_2.prime())
+                        .exponent(GF_2_2.exponent())
+                        .irreduciblePoly(GF_2_2.irreduciblePoly())
                         .build())
                 .generatorMatrix(ImmutableNaturalMatrixDto.builder()
                         .addMatrix(List.of(0L, 0L, 0L, 1L))
@@ -58,9 +58,9 @@ public class HammingCodeOverGF4ConverterTest {
         var dto = ImmutableHammingCodeDto.builder()
                 .field(ImmutableGaloisFieldDto.builder()
                         .type(GaloisFieldDto.Type.GFPM)
-                        .prime(GF4.prime())
-                        .exponent(GF4.exponent())
-                        .irreduciblePoly(GF4.irreduciblePoly())
+                        .prime(GF_2_2.prime())
+                        .exponent(GF_2_2.exponent())
+                        .irreduciblePoly(GF_2_2.irreduciblePoly())
                         .build())
                 .generatorMatrix(ImmutableNaturalMatrixDto.builder()
                         .addMatrix(List.of(0L, 0L, 0L, 1L))

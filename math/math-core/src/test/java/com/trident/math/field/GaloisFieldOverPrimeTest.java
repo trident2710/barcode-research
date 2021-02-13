@@ -3,7 +3,7 @@ package com.trident.math.field;
 
 import org.junit.jupiter.api.Test;
 
-import static com.trident.math.field.GaloisFieldOverPrime.GF5;
+import static com.trident.math.field.GaloisFields.GF5;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

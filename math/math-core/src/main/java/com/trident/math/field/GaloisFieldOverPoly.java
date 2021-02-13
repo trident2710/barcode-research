@@ -13,9 +13,6 @@ import static com.trident.math.field.GaloisFieldOverPolyElement.from;
 
 public class GaloisFieldOverPoly implements GaloisField<GaloisFieldOverPolyElement> {
 
-    public static GaloisFieldOverPoly GF4 = new GaloisFieldOverPoly(2, 2, new long[]{1, 1, 1});
-    public static GaloisFieldOverPoly GF9 = new GaloisFieldOverPoly(3, 2, new long[]{2, 1, 1});
-
     private final FiniteField<UnivariatePolynomialZp64> field;
     private final long prime;
     private final int exponent;

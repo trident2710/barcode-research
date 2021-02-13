@@ -8,9 +8,6 @@ import java.util.Objects;
 
 public final class GaloisFieldOverPrime implements GaloisField<GaloisFieldOverPrimeElement> {
 
-    public static final GaloisFieldOverPrime GF3 = new GaloisFieldOverPrime(3);
-    public static final GaloisFieldOverPrime GF5 = new GaloisFieldOverPrime(5);
-
     private final IntegersZp64 field;
 
     private GaloisFieldOverPrime(long prime) {

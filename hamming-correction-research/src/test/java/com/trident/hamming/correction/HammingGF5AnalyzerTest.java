@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
-import static com.trident.math.field.GaloisFieldOverPrime.GF5;
+import static com.trident.math.field.GaloisFields.GF5;
 import static com.trident.math.matrix.FieldMatrixUtil.createMatrixOfRows;
 import static com.trident.math.matrix.FieldMatrixUtil.matrixRow;
 import static org.junit.jupiter.api.Assertions.assertEquals;

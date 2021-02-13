@@ -1,7 +1,7 @@
 package com.trident.math.bch;
 
-import static com.trident.math.field.GaloisFieldOverPoly.GF9;
-import static com.trident.math.field.GaloisFieldOverPrime.GF3;
+import static com.trident.math.field.GaloisFields.GF_3_2;
+import static com.trident.math.field.GaloisFields.GF3;
 import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrix;
 
 public final class BCHCodes {
@@ -19,5 +19,5 @@ public final class BCHCodes {
                     new long[]{1, 7, 2, 5, 1, 7, 2, 5},
                     new long[]{1, 8, 5, 3, 2, 4, 7, 6},
                     new long[]{1, 2, 1, 2, 1, 2, 1, 2},
-            }, GF9));
+            }, GF_3_2));
 }

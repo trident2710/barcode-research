@@ -6,16 +6,16 @@ import com.trident.math.hamming.HammingCode;
 import org.apache.commons.math3.linear.FieldMatrix;
 import org.junit.jupiter.api.Test;
 
-import static com.trident.math.field.GaloisFieldOverPoly.GF4;
+import static com.trident.math.field.GaloisFields.GF_2_2;
 import static com.trident.math.matrix.FieldMatrixUtil.createMatrixOfRows;
 import static com.trident.math.matrix.FieldMatrixUtil.matrixRow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HammingCodeSequentialErrorsProviderGF4Test {
-    private static final GaloisFieldOverPolyElement ZERO = GF4.getZero();
-    private static final GaloisFieldOverPolyElement ONE = GF4.getOne();
-    private static final GaloisFieldOverPolyElement TWO = GF4.getOfValue(2);
-    private static final GaloisFieldOverPolyElement THREE = GF4.getOfValue(3);
+    private static final GaloisFieldOverPolyElement ZERO = GF_2_2.getZero();
+    private static final GaloisFieldOverPolyElement ONE = GF_2_2.getOne();
+    private static final GaloisFieldOverPolyElement TWO = GF_2_2.getOfValue(2);
+    private static final GaloisFieldOverPolyElement THREE = GF_2_2.getOfValue(3);
 
     private static final FieldMatrix<GaloisFieldOverPolyElement> GENERATOR = createMatrixOfRows(
             matrixRow(ZERO, ZERO, ZERO, ONE),

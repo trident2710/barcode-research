@@ -2,7 +2,7 @@ package com.trident.math.field;
 
 import org.junit.jupiter.api.Test;
 
-import static com.trident.math.field.GaloisFieldOverPoly.GF4;
+import static com.trident.math.field.GaloisFields.GF_2_2;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -41,9 +41,9 @@ public class GF4Test {
     @Test
     void testEquality() {
         for (int i = 0; i < 4; i++) {
-            var first = GF4.getOfValue(i);
+            var first = GF_2_2.getOfValue(i);
             for (int j = 0; j < 4; j++) {
-                var second = GF4.getOfValue(j);
+                var second = GF_2_2.getOfValue(j);
                 if (i != j) {
                     assertNotEquals(second, first);
                 } else {
@@ -56,11 +56,11 @@ public class GF4Test {
     @Test
     void testSub() {
         for (int i = 0; i < 4; i++) {
-            var first = GF4.getOfValue(i);
+            var first = GF_2_2.getOfValue(i);
             for (int j = 0; j < 4; j++) {
-                var second = GF4.getOfValue(j);
-                var expected = GF4.getOfValue(SUB_MAP[i][j]);
-                assertEquals(expected, GF4.sub(first, second));
+                var second = GF_2_2.getOfValue(j);
+                var expected = GF_2_2.getOfValue(SUB_MAP[i][j]);
+                assertEquals(expected, GF_2_2.sub(first, second));
             }
         }
     }
@@ -68,11 +68,11 @@ public class GF4Test {
     @Test
     void testAdd() {
         for (int i = 0; i < 4; i++) {
-            var first = GF4.getOfValue(i);
+            var first = GF_2_2.getOfValue(i);
             for (int j = 0; j < 4; j++) {
-                var second = GF4.getOfValue(j);
-                var expected = GF4.getOfValue(ADD_MAP[i][j]);
-                assertEquals(expected, GF4.add(first, second));
+                var second = GF_2_2.getOfValue(j);
+                var expected = GF_2_2.getOfValue(ADD_MAP[i][j]);
+                assertEquals(expected, GF_2_2.add(first, second));
             }
         }
     }
@@ -80,11 +80,11 @@ public class GF4Test {
     @Test
     void testMul() {
         for (int i = 0; i < 4; i++) {
-            var first = GF4.getOfValue(i);
+            var first = GF_2_2.getOfValue(i);
             for (int j = 0; j < 4; j++) {
-                var second = GF4.getOfValue(j);
-                var expected = GF4.getOfValue(MUL_MAP[i][j]);
-                assertEquals(expected, GF4.mul(first, second), "(" + i + "*" + j + ")");
+                var second = GF_2_2.getOfValue(j);
+                var expected = GF_2_2.getOfValue(MUL_MAP[i][j]);
+                assertEquals(expected, GF_2_2.mul(first, second), "(" + i + "*" + j + ")");
             }
         }
     }
@@ -92,14 +92,14 @@ public class GF4Test {
     @Test
     void testDiv() {
         for (int i = 0; i < 4; i++) {
-            var first = GF4.getOfValue(i);
+            var first = GF_2_2.getOfValue(i);
             for (int j = 0; j < 4; j++) {
-                var second = GF4.getOfValue(j);
+                var second = GF_2_2.getOfValue(j);
                 if (j == 0) {
-                    assertThrows(Exception.class, () -> GF4.div(first, second));
+                    assertThrows(Exception.class, () -> GF_2_2.div(first, second));
                 } else {
-                    var expected = GF4.getOfValue(DIV_MAP[i][j]);
-                    assertEquals(expected, GF4.div(first, second));
+                    var expected = GF_2_2.getOfValue(DIV_MAP[i][j]);
+                    assertEquals(expected, GF_2_2.div(first, second));
                 }
             }
         }
@@ -109,11 +109,11 @@ public class GF4Test {
     void testInv() {
         for (int i = 0; i < 4; i++) {
             if (i == 0) {
-                assertThrows(Exception.class, () -> GF4.inv(GF4.getOfValue(0)));
+                assertThrows(Exception.class, () -> GF_2_2.inv(GF_2_2.getOfValue(0)));
             } else {
-                var val = GF4.getOfValue(i);
-                var expected = GF4.getOfValue(INV_MAP[i]);
-                assertEquals(expected, GF4.inv(val));
+                var val = GF_2_2.getOfValue(i);
+                var expected = GF_2_2.getOfValue(INV_MAP[i]);
+                assertEquals(expected, GF_2_2.inv(val));
             }
         }
     }
