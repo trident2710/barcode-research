@@ -8,76 +8,69 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class GaloisFieldOverPrimeTest {
-    private static final GaloisFieldOverPrimeElement ZERO = GF5.getZero();
-    private static final GaloisFieldOverPrimeElement ONE = GF5.getOne();
-    private static final GaloisFieldOverPrimeElement TWO = GF5.getOfValue(2);
-    private static final GaloisFieldOverPrimeElement THREE = GF5.getOfValue(3);
-    private static final GaloisFieldOverPrimeElement FOUR = GF5.getOfValue(4);
-    private static final GaloisFieldOverPrimeElement FIVE = GF5.getOfValue(5);
-    private static final GaloisFieldOverPrimeElement TWENTY_THREE = GF5.getOfValue(23);
 
     @Test
     void testMultiplyOnZero() {
-        assertEquals(ZERO, ONE.multiply(ZERO));
-        assertEquals(ZERO, ZERO.multiply(ZERO));
+        assertEquals(GF5.getZero(), GF5.getOne().multiply(GF5.getZero()));
+        assertEquals(GF5.getZero(), GF5.getZero().multiply(GF5.getZero()));
     }
 
     @Test
     void testDivideOnZero() {
-        assertThrows(Exception.class, () -> ONE.divide(ZERO));
-        assertThrows(Exception.class, () -> ZERO.divide(ZERO));
+        assertThrows(Exception.class, () -> GF5.getOne().divide(GF5.getZero()));
+        assertThrows(Exception.class, () -> GF5.getZero().divide(GF5.getZero()));
     }
 
     @Test
     void testInverseZero() {
-        assertThrows(Exception.class, ZERO::reciprocal);
+        assertThrows(Exception.class, GF5.getZero()::reciprocal);
     }
 
     @Test
     void testMultiplyOnOne() {
-        assertEquals(TWENTY_THREE, TWENTY_THREE.multiply(ONE));
+        assertEquals(GF5.getOfValue(23), GF5.getOfValue(23).multiply(GF5.getOne()));
     }
 
     @Test
     void testDivideOnOne() {
-        assertEquals(TWENTY_THREE, TWENTY_THREE.divide(ONE));
+        assertEquals(GF5.getOfValue(23), GF5.getOfValue(23).divide(GF5.getOne()));
     }
 
     @Test
     void testMultiply() {
-        assertEquals(ONE, THREE.multiply(TWO));
-        assertEquals(ONE, TWO.multiply(THREE));
+        assertEquals(GF5.getOne(), GF5.getOfValue(3).multiply(GF5.getOfValue(2)));
+        assertEquals(GF5.getOne(), GF5.getOfValue(2).multiply(GF5.getOfValue(3)));
     }
 
     @Test
     void testDivide() {
-        assertEquals(TWO, FOUR.divide(TWO));
+        assertEquals(GF5.getOfValue(2), GF5.getOfValue(4).divide(GF5.getOfValue(2)));
     }
 
     @Test
     void testAdd() {
-        assertEquals(ZERO, TWO.add(THREE));
+        assertEquals(GF5.getZero(), GF5.getOfValue(2).add(GF5.getOfValue(3)));
     }
 
     @Test
     void testModulo() {
-        assertEquals(ZERO, FIVE);
-        assertEquals(THREE, TWENTY_THREE);
+        assertEquals(GF5.getZero(), GF5.getOfValue(5));
+        assertEquals(GF5.getOfValue(3), GF5.getOfValue(23));
     }
 
     @Test
     void testMultiplicationSymmetric() {
-        assertEquals(THREE.multiply(TWO), TWO.multiply(THREE));
+        assertEquals(GF5.getOfValue(3).multiply(GF5.getOfValue(2)), GF5.getOfValue(2).multiply(GF5.getOfValue(3)));
     }
 
     @Test
     void testAdditionSymmetric() {
-        assertEquals(THREE.add(TWO), TWO.add(THREE));
+        assertEquals(GF5.getOfValue(3).add(GF5.getOfValue(2)), GF5.getOfValue(2).add(GF5.getOfValue(3)));
     }
 
     @Test
     void testInverse() {
-        assertEquals(THREE, TWO.reciprocal());
-        assertEquals(TWO, THREE.reciprocal());
+        assertEquals(GF5.getOfValue(3), GF5.getOfValue(2).reciprocal());
+        assertEquals(GF5.getOfValue(2), GF5.getOfValue(3).reciprocal());
     }
 }

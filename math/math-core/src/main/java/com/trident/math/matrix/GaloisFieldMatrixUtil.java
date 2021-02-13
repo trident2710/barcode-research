@@ -27,4 +27,8 @@ public final class GaloisFieldMatrixUtil {
     public static <GFElem extends GaloisFieldElement<GFElem>> FieldMatrix<GFElem> toFieldMatrixRow(long[] values, GaloisField<GFElem> field) {
         return toFieldMatrix(new long[][]{values}, field);
     }
+
+    public static <GFElem extends GaloisFieldElement<GFElem>> FieldMatrix<GFElem> toFieldMatrixColumn(long[] values, GaloisField<GFElem> field) {
+        return toFieldMatrix(new long[][]{values}, field).transpose();
+    }
 }

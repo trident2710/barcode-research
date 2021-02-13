@@ -6,55 +6,55 @@ import org.apache.commons.math3.linear.FieldMatrix;
 import org.junit.jupiter.api.Test;
 
 import static com.trident.math.field.GaloisFields.GF_2_2;
-import static com.trident.math.matrix.FieldMatrixUtil.createMatrixOfRows;
-import static com.trident.math.matrix.FieldMatrixUtil.matrixRow;
+import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrix;
+import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrixRow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HammingCodeOverGFPolyTest {
-    private static final GaloisFieldOverPolyElement ZERO = GF_2_2.getZero();
-    private static final GaloisFieldOverPolyElement ONE = GF_2_2.getOne();
-    private static final GaloisFieldOverPolyElement TWO = GF_2_2.getOfValue(2);
-    private static final GaloisFieldOverPolyElement THREE = GF_2_2.getOfValue(3);
 
     // H(7, 4)
     // 0 0 0 0 1 0 0
     // 1 1 1 0 0 1 0
     // 1 2 3 1 0 0 1
-    private static final FieldMatrix<GaloisFieldOverPolyElement> GENERATOR = createMatrixOfRows(
-            matrixRow(ZERO, ZERO, ZERO, ONE),
-            matrixRow(ONE, ONE, ONE, ZERO),
-            matrixRow(ONE, TWO, THREE, ONE)
-    );
+    private static final FieldMatrix<GaloisFieldOverPolyElement> GENERATOR =
+            toFieldMatrix(new long[][]{
+                    new long[]{0, 0, 0, 1},
+                    new long[]{1, 1, 1, 0},
+                    new long[]{1, 2, 3, 1}
+            }, GF_2_2);
+
 
     private static final HammingCode<GaloisFieldOverPolyElement, GaloisFieldOverPoly> HAMMING_CODE = new HammingCode<>(GENERATOR);
 
     @Test
     void testEncode() {
-        var message = matrixRow(ZERO, ONE, TWO, THREE);
+
+        var message = toFieldMatrixRow(new long[]{0, 1, 2, 3}, GF_2_2);
         var code = HAMMING_CODE.encode(message);
-        var expected = matrixRow(ZERO, ONE, TWO, THREE, THREE, THREE, ZERO);
+        var expected = toFieldMatrixRow(new long[]{0, 1, 2, 3, 3, 3, 0}, GF_2_2);
 
         assertEquals(expected, code);
     }
 
     @Test
     void testSyndromeCorrect() {
-        var message = matrixRow(ZERO, ONE, TWO, THREE);
+        var message = toFieldMatrixRow(new long[]{0, 1, 2, 3}, GF_2_2);
         var code = HAMMING_CODE.encode(message);
         var syndrome = HAMMING_CODE.syndrome(code);
-        var expected = matrixRow(ZERO, ZERO, ZERO);
+        var expected = toFieldMatrixRow(new long[]{0, 0, 0}, GF_2_2);
 
         assertEquals(expected, syndrome.getSyndromeRow());
     }
 
     @Test
     void testSyndromeError() {
-        var message = matrixRow(ZERO, ONE, TWO, THREE);
+        var message = toFieldMatrixRow(new long[]{0, 1, 2, 3}, GF_2_2);
         var code = HAMMING_CODE.encode(message);
-        var error = matrixRow(ONE, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO);
+        var error = toFieldMatrixRow(new long[]{1, 0, 0, 0, 0, 0, 0}, GF_2_2);
         var codeWithError = code.add(error);
         var syndrome = HAMMING_CODE.syndrome(codeWithError);
-        var expectedSyndrome = matrixRow(ZERO, ONE, ONE);
+        var expectedSyndrome = toFieldMatrixRow(new long[]{0, 1, 1}, GF_2_2);
+
 
         assertEquals(expectedSyndrome, syndrome.getSyndromeRow());
     }

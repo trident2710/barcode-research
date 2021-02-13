@@ -1,41 +1,37 @@
 package com.trident.math;
 
 
-import com.trident.math.field.GaloisFieldOverPrimeElement;
 import org.junit.jupiter.api.Test;
 
 import static com.trident.math.field.GaloisFields.GF5;
-import static com.trident.math.matrix.FieldMatrixUtil.createMatrixOfRows;
-import static com.trident.math.matrix.FieldMatrixUtil.matrixColumn;
-import static com.trident.math.matrix.FieldMatrixUtil.matrixRow;
+import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrix;
+import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrixColumn;
+import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrixRow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MatrixTest {
-    private static final GaloisFieldOverPrimeElement ONE = GF5.getOne();
-    private static final GaloisFieldOverPrimeElement TWO = GF5.getOfValue(2);
-    private static final GaloisFieldOverPrimeElement THREE = GF5.getOfValue(3);
-    private static final GaloisFieldOverPrimeElement FOUR = GF5.getOfValue(4);
 
     @Test
     void testMultiply() {
-        var row = matrixRow(ONE, TWO, THREE);
-        var column = matrixColumn(TWO, TWO, TWO);
+        var row = toFieldMatrixRow(new long[]{1, 2, 3}, GF5);
+        var column = toFieldMatrixColumn(new long[]{2, 2, 2}, GF5);
         var multiply = row.multiply(column);
-        var expected = matrixRow(TWO);
+        var expected = toFieldMatrixRow(new long[]{2}, GF5);
         assertEquals(expected, multiply);
     }
 
     @Test
     void testTranspose() {
-        var matrix = createMatrixOfRows(
-                matrixRow(ONE, TWO),
-                matrixRow(THREE, FOUR)
-        );
 
-        var expected = createMatrixOfRows(
-                matrixRow(ONE, THREE),
-                matrixRow(TWO, FOUR)
-        );
+        var matrix = toFieldMatrix(new long[][]{
+                new long[]{1, 2},
+                new long[]{3, 4}
+        }, GF5);
+
+        var expected = toFieldMatrix(new long[][]{
+                new long[]{1, 3},
+                new long[]{2, 4}
+        }, GF5);
 
         assertEquals(expected, matrix.transpose());
     }
