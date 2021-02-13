@@ -8,10 +8,10 @@ import java.util.Objects;
 
 public final class GaloisFieldOverPrime implements GaloisField<GaloisFieldOverPrimeElement> {
 
-    private final IntegersZp64 field;
+    private final IntegersZp64 internal_field;
 
     private GaloisFieldOverPrime(long prime) {
-        this.field = Rings.Zp64(prime);
+        this.internal_field = Rings.Zp64(prime);
     }
 
     public static GaloisFieldOverPrime of(long prime) {
@@ -20,37 +20,37 @@ public final class GaloisFieldOverPrime implements GaloisField<GaloisFieldOverPr
 
     @Override
     public GaloisFieldOverPrimeElement add(GaloisFieldOverPrimeElement first, GaloisFieldOverPrimeElement second) {
-        return new GaloisFieldOverPrimeElement(this, field.add(first.digitalRepresentation(), second.digitalRepresentation()));
+        return new GaloisFieldOverPrimeElement(this, internal_field.add(first.digitalRepresentation(), second.digitalRepresentation()));
     }
 
     @Override
     public GaloisFieldOverPrimeElement sub(GaloisFieldOverPrimeElement first, GaloisFieldOverPrimeElement second) {
-        return new GaloisFieldOverPrimeElement(this, field.subtract(first.digitalRepresentation(), second.digitalRepresentation()));
+        return new GaloisFieldOverPrimeElement(this, internal_field.subtract(first.digitalRepresentation(), second.digitalRepresentation()));
     }
 
     @Override
     public GaloisFieldOverPrimeElement mul(GaloisFieldOverPrimeElement first, GaloisFieldOverPrimeElement second) {
-        return new GaloisFieldOverPrimeElement(this, field.multiply(first.digitalRepresentation(), second.digitalRepresentation()));
+        return new GaloisFieldOverPrimeElement(this, internal_field.multiply(first.digitalRepresentation(), second.digitalRepresentation()));
     }
 
     @Override
     public GaloisFieldOverPrimeElement div(GaloisFieldOverPrimeElement first, GaloisFieldOverPrimeElement second) {
-        return new GaloisFieldOverPrimeElement(this, field.divide(first.digitalRepresentation(), second.digitalRepresentation()));
+        return new GaloisFieldOverPrimeElement(this, internal_field.divide(first.digitalRepresentation(), second.digitalRepresentation()));
     }
 
     @Override
     public GaloisFieldOverPrimeElement inv(GaloisFieldOverPrimeElement element) {
-        return new GaloisFieldOverPrimeElement(this, field.reciprocal(element.digitalRepresentation()));
+        return new GaloisFieldOverPrimeElement(this, internal_field.reciprocal(element.digitalRepresentation()));
     }
 
     @Override
     public GaloisFieldOverPrimeElement neg(GaloisFieldOverPrimeElement element) {
-        return new GaloisFieldOverPrimeElement(this, field.negate(element.digitalRepresentation()));
+        return new GaloisFieldOverPrimeElement(this, internal_field.negate(element.digitalRepresentation()));
     }
 
     @Override
     public GaloisFieldOverPrimeElement mod(GaloisFieldOverPrimeElement value) {
-        return new GaloisFieldOverPrimeElement(this, field.modulus(value.digitalRepresentation()));
+        return new GaloisFieldOverPrimeElement(this, internal_field.modulus(value.digitalRepresentation()));
     }
 
     @Override
@@ -70,12 +70,12 @@ public final class GaloisFieldOverPrime implements GaloisField<GaloisFieldOverPr
 
     @Override
     public GaloisFieldOverPrimeElement getOfValue(long value) {
-        return new GaloisFieldOverPrimeElement(this, field.modulus(value));
+        return new GaloisFieldOverPrimeElement(this, internal_field.modulus(value));
     }
 
     @Override
     public long prime() {
-        return field.modulus;
+        return internal_field.modulus;
     }
 
     @Override
@@ -92,16 +92,16 @@ public final class GaloisFieldOverPrime implements GaloisField<GaloisFieldOverPr
             return false;
         }
         GaloisFieldOverPrime that = (GaloisFieldOverPrime) o;
-        return Objects.equals(field, that.field);
+        return Objects.equals(internal_field, that.internal_field);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(field);
+        return Objects.hash(internal_field);
     }
 
     @Override
     public String toString() {
-        return field.toString();
+        return internal_field.toString();
     }
 }

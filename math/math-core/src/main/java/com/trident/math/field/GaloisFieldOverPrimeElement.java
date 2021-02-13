@@ -1,6 +1,5 @@
 package com.trident.math.field;
 
-import org.apache.commons.math3.Field;
 import org.apache.commons.math3.exception.MathArithmeticException;
 import org.apache.commons.math3.exception.NullArgumentException;
 

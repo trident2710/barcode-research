@@ -13,13 +13,13 @@ import static com.trident.math.field.GaloisFieldOverPolyElement.from;
 
 public class GaloisFieldOverPoly implements GaloisField<GaloisFieldOverPolyElement> {
 
-    private final FiniteField<UnivariatePolynomialZp64> field;
+    private final FiniteField<UnivariatePolynomialZp64> internal_field;
     private final long prime;
     private final int exponent;
     private final long[] irreduciblePoly;
 
     private GaloisFieldOverPoly(long prime, int exponent, long[] irreduciblePoly) {
-        this.field = Rings.GF(UnivariatePolynomialZp64.create(prime, irreduciblePoly));
+        this.internal_field = Rings.GF(UnivariatePolynomialZp64.create(prime, irreduciblePoly));
         this.prime = prime;
         this.exponent = exponent;
         this.irreduciblePoly = irreduciblePoly;
@@ -31,52 +31,52 @@ public class GaloisFieldOverPoly implements GaloisField<GaloisFieldOverPolyEleme
 
     @Override
     public GaloisFieldOverPolyElement add(GaloisFieldOverPolyElement first, GaloisFieldOverPolyElement second) {
-        return from(this, field.add(first.getPolyValue(), second.getPolyValue()));
+        return from(this, internal_field.add(first.internal_value, second.internal_value));
     }
 
     @Override
     public GaloisFieldOverPolyElement sub(GaloisFieldOverPolyElement first, GaloisFieldOverPolyElement second) {
-        return from(this, field.subtract(first.getPolyValue(), second.getPolyValue()));
+        return from(this, internal_field.subtract(first.internal_value, second.internal_value));
     }
 
     @Override
     public GaloisFieldOverPolyElement mul(GaloisFieldOverPolyElement first, GaloisFieldOverPolyElement second) {
-        return from(this, field.multiply(first.getPolyValue(), second.getPolyValue()));
+        return from(this, internal_field.multiply(first.internal_value, second.internal_value));
     }
 
     @Override
     public GaloisFieldOverPolyElement div(GaloisFieldOverPolyElement first, GaloisFieldOverPolyElement second) {
-        return from(this, field.divideExact(first.getPolyValue(), second.getPolyValue()));
+        return from(this, internal_field.divideExact(first.internal_value, second.internal_value));
     }
 
     @Override
     public GaloisFieldOverPolyElement inv(GaloisFieldOverPolyElement element) {
-        return from(this, field.reciprocal(element.getPolyValue()));
+        return from(this, internal_field.reciprocal(element.internal_value));
     }
 
     @Override
     public GaloisFieldOverPolyElement neg(GaloisFieldOverPolyElement element) {
-        return from(this, field.negate(element.getPolyValue()));
+        return from(this, internal_field.negate(element.internal_value));
     }
 
     @Override
     public GaloisFieldOverPolyElement mod(GaloisFieldOverPolyElement element) {
-        return from(this, field.valueOf(element.getPolyValue()));
+        return from(this, internal_field.valueOf(element.internal_value));
     }
 
     @Override
     public GaloisFieldOverPolyElement getZero() {
-        return from(this, field.getZero());
+        return from(this, internal_field.getZero());
     }
 
     @Override
     public GaloisFieldOverPolyElement getOne() {
-        return from(this, field.getOne());
+        return from(this, internal_field.getOne());
     }
 
     @Override
     public GaloisFieldOverPolyElement getOfValue(long value) {
-        return from(this, field.valueOf(fromDigitalValue(value)));
+        return from(this, internal_field.valueOf(fromDigitalValue(value)));
     }
 
     @Override

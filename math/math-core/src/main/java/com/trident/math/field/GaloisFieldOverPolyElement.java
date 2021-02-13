@@ -2,7 +2,6 @@ package com.trident.math.field;
 
 import cc.redberry.rings.poly.univar.UnivariatePolynomialZp64;
 import com.trident.math.NumberUtil;
-import org.apache.commons.math3.Field;
 import org.apache.commons.math3.exception.MathArithmeticException;
 import org.apache.commons.math3.exception.NullArgumentException;
 
@@ -12,25 +11,21 @@ public class GaloisFieldOverPolyElement implements GaloisFieldElement<GaloisFiel
 
     private final GaloisFieldOverPoly field;
     private final long digitalRepresentation;
-    private final UnivariatePolynomialZp64 polyValue;
+    final UnivariatePolynomialZp64 internal_value;
 
     GaloisFieldOverPolyElement(GaloisFieldOverPoly field, UnivariatePolynomialZp64 poly) {
         this.field = field;
         this.digitalRepresentation = toDigitalRepresentation(poly);
-        this.polyValue = poly;
+        this.internal_value = poly;
     }
 
     static GaloisFieldOverPolyElement from(GaloisFieldOverPoly field, UnivariatePolynomialZp64 poly) {
         return new GaloisFieldOverPolyElement(field, poly);
     }
 
-    UnivariatePolynomialZp64 getPolyValue() {
-        return polyValue;
-    }
-
     @Override
     public int compareTo(GaloisFieldOverPolyElement o) {
-        return polyValue.compareTo(o.polyValue);
+        return internal_value.compareTo(o.internal_value);
     }
 
     @Override
@@ -88,16 +83,16 @@ public class GaloisFieldOverPolyElement implements GaloisFieldElement<GaloisFiel
         if (o == null || getClass() != o.getClass()) return false;
         GaloisFieldOverPolyElement that = (GaloisFieldOverPolyElement) o;
         return Objects.equals(field, that.field) &&
-                Objects.equals(polyValue, that.polyValue);
+                Objects.equals(internal_value, that.internal_value);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(field, polyValue);
+        return Objects.hash(field, internal_value);
     }
 
     @Override
     public String toString() {
-        return digitalRepresentation + "(" + polyValue + ")";
+        return digitalRepresentation + "(" + internal_value + ")";
     }
 }
