@@ -7,6 +7,8 @@ import org.apache.commons.math3.exception.NullArgumentException;
 
 import java.util.Objects;
 
+import static com.trident.math.PolynomialStringsUtil.polyToString;
+
 public class GaloisFieldOverPolyElement implements GaloisFieldElement<GaloisFieldOverPolyElement> {
 
     private final GaloisFieldOverPoly field;
@@ -93,6 +95,6 @@ public class GaloisFieldOverPolyElement implements GaloisFieldElement<GaloisFiel
 
     @Override
     public String toString() {
-        return digitalRepresentation + "(" + internal_value + ")";
+        return digitalRepresentation + " (" + polyToString(internal_value.stream().toArray()) + ")";
     }
 }
