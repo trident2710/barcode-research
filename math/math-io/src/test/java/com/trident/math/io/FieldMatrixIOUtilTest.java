@@ -1,6 +1,5 @@
 package com.trident.math.io;
 
-import com.trident.math.field.GaloisFieldOverPrimeElement;
 import org.junit.jupiter.api.Test;
 
 import static com.trident.math.field.GaloisFields.GF5;

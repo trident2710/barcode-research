@@ -1,7 +1,7 @@
 package com.trident.math.bch;
 
-import static com.trident.math.field.GaloisFields.GF_3_2;
 import static com.trident.math.field.GaloisFields.GF3;
+import static com.trident.math.field.GaloisFields.GF_3_2;
 import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrix;
 
 public final class BCHCodes {

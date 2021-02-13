@@ -1,10 +1,10 @@
 package com.trident.math;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import cc.redberry.rings.IntegersZp64;
 import cc.redberry.rings.Rings;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RingsTest {
 

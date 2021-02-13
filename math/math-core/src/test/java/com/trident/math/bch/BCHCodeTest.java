@@ -4,8 +4,8 @@ import org.apache.commons.math3.linear.Array2DRowFieldMatrix;
 import org.junit.jupiter.api.Test;
 
 import static com.trident.math.bch.BCHCodes.BCH_8_3;
-import static com.trident.math.field.GaloisFields.GF_3_2;
 import static com.trident.math.field.GaloisFields.GF3;
+import static com.trident.math.field.GaloisFields.GF_3_2;
 import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrixRow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -2,10 +2,6 @@ package com.trident.hamming.correction.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
-import com.trident.math.field.GaloisFieldOverPrime;
-import com.trident.math.field.GaloisFieldOverPrimeElement;
-import com.trident.math.hamming.HammingCode;
-import com.trident.math.io.converter.HammingCodeConverter;
 import com.trident.math.io.dto.HammingCodeDto;
 
 import java.io.File;
