@@ -1,28 +1,15 @@
 package com.trident.hamming.correction.service;
 
-import com.trident.math.field.GaloisFieldOverPrime;
-import com.trident.math.field.GaloisFieldOverPrimeElement;
-import com.trident.math.hamming.HammingCode;
-import org.apache.commons.math3.linear.FieldMatrix;
 import org.junit.jupiter.api.Test;
 
-import static com.trident.math.field.GaloisFields.GF5;
-import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrix;
+import static com.trident.math.hamming.HammingCodes.HAMMING_5_3_GF_5;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HammingCodeSequentialErrorsProviderGF5Test {
 
-    private static final FieldMatrix<GaloisFieldOverPrimeElement> GENERATOR =
-            toFieldMatrix(new long[][]{
-                    new long[]{1, 1, 1},
-                    new long[]{1, 2, 3}
-            }, GF5);
-
-    private static final HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> HAMMING_CODE = new HammingCode<>(GENERATOR);
-
     @Test
     void testErrorsLevel1() {
-        var iterator = new HammingCodeSequentialErrorsProvider<>(1, HAMMING_CODE);
+        var iterator = new HammingCodeSequentialErrorsProvider<>(1, HAMMING_5_3_GF_5);
         int count = 0;
         while (iterator.hasNext()) {
             iterator.next();
@@ -33,7 +20,7 @@ class HammingCodeSequentialErrorsProviderGF5Test {
 
     @Test
     void testErrorsLevel2() {
-        var iterator = new HammingCodeSequentialErrorsProvider<>(2, HAMMING_CODE);
+        var iterator = new HammingCodeSequentialErrorsProvider<>(2, HAMMING_5_3_GF_5);
         int count = 0;
         while (iterator.hasNext()) {
             iterator.next();
@@ -44,7 +31,7 @@ class HammingCodeSequentialErrorsProviderGF5Test {
 
     @Test
     void testErrorsLevel3() {
-        var iterator = new HammingCodeSequentialErrorsProvider<>(3, HAMMING_CODE);
+        var iterator = new HammingCodeSequentialErrorsProvider<>(3, HAMMING_5_3_GF_5);
         int count = 0;
         while (iterator.hasNext()) {
             iterator.next();
@@ -55,7 +42,7 @@ class HammingCodeSequentialErrorsProviderGF5Test {
 
     @Test
     void testErrorsLevel4() {
-        var iterator = new HammingCodeSequentialErrorsProvider<>(4, HAMMING_CODE);
+        var iterator = new HammingCodeSequentialErrorsProvider<>(4, HAMMING_5_3_GF_5);
         int count = 0;
         while (iterator.hasNext()) {
             iterator.next();
