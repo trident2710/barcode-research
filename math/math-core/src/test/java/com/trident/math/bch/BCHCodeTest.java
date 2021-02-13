@@ -1,6 +1,5 @@
 package com.trident.math.bch;
 
-import org.apache.commons.math3.linear.Array2DRowFieldMatrix;
 import org.junit.jupiter.api.Test;
 
 import static com.trident.math.bch.BCHCodes.BCH_8_3;
@@ -18,7 +17,14 @@ class BCHCodeTest {
         var expected = toFieldMatrixRow(new long[]{2, 0, 2, 1, 1, 0, 1, 2}, GF3);
         assertEquals(expected, encoded);
 
-        var expectedSyndrome = BCHCodeSyndrome.of(encoded, new Array2DRowFieldMatrix<>(GF_3_2, 1, 4));
+        var expectedSyndrome = new BCHCodeSyndrome<>(encoded, toFieldMatrixRow(new long[]{0, 0, 0, 0}, GF_3_2));
         assertEquals(expectedSyndrome, BCH_8_3.syndrome(encoded));
+    }
+
+    @Test
+    void testError() {
+        var code_with_error = toFieldMatrixRow(new long[]{1, 0, 2, 2, 1, 0, 1, 2}, GF3);
+        var expectedSyndrome = new BCHCodeSyndrome<>(code_with_error, toFieldMatrixRow(new long[]{7, 4, 5, 1}, GF_3_2));
+        assertEquals(expectedSyndrome, BCH_8_3.syndrome(code_with_error));
     }
 }

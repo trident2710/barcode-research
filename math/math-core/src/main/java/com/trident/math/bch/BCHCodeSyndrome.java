@@ -1,31 +1,25 @@
 package com.trident.math.bch;
 
-import com.trident.math.field.GaloisFieldOverPolyElement;
-import com.trident.math.field.GaloisFieldOverPrimeElement;
+import com.trident.math.field.GaloisFieldElement;
 import org.apache.commons.math3.linear.FieldMatrix;
 
 import java.util.Objects;
 
-public class BCHCodeSyndrome {
-    private final FieldMatrix<GaloisFieldOverPrimeElement> message;
-    private final FieldMatrix<GaloisFieldOverPolyElement> syndrome;
+public class BCHCodeSyndrome<Symbol extends GaloisFieldElement<Symbol>, Locator extends GaloisFieldElement<Locator>> {
+    private final FieldMatrix<Symbol> message;
+    private final FieldMatrix<Locator> syndrome;
 
-    private BCHCodeSyndrome(FieldMatrix<GaloisFieldOverPrimeElement> message,
-                            FieldMatrix<GaloisFieldOverPolyElement> syndrome) {
+    BCHCodeSyndrome(FieldMatrix<Symbol> message,
+                    FieldMatrix<Locator> syndrome) {
         this.message = message;
         this.syndrome = syndrome;
-    }
-
-    public static BCHCodeSyndrome of(FieldMatrix<GaloisFieldOverPrimeElement> message,
-                                     FieldMatrix<GaloisFieldOverPolyElement> syndrome) {
-        return new BCHCodeSyndrome(message, syndrome);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BCHCodeSyndrome that = (BCHCodeSyndrome) o;
+        BCHCodeSyndrome<?, ?> that = (BCHCodeSyndrome<?, ?>) o;
         return Objects.equals(message, that.message) &&
                 Objects.equals(syndrome, that.syndrome);
     }
