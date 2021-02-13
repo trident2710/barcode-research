@@ -14,6 +14,10 @@ public final class GaloisFields {
 
     public static GaloisFieldOverPoly GF_3_2 = GaloisFieldOverPoly.of(3, 2, new long[]{2, 1, 1});
 
+    public static GaloisFieldOverPolyExtension GF_4_2 = GaloisFieldOverPolyExtension.of(GF_2_2, 2, new long[]{2, 1, 1});
+
+    public static GaloisFieldOverPolyExtension GF_8_2 = GaloisFieldOverPolyExtension.of(GF_2_3, 2, new long[]{3, 1, 1});
+
     private GaloisFields() {
     }
 

@@ -13,7 +13,7 @@ import static com.trident.math.field.GaloisFieldOverPolyElement.from;
 
 public class GaloisFieldOverPoly implements GaloisField<GaloisFieldOverPolyElement> {
 
-    private final FiniteField<UnivariatePolynomialZp64> internal_field;
+    final FiniteField<UnivariatePolynomialZp64> internal_field;
     private final long prime;
     private final int exponent;
     private final long[] irreduciblePoly;
