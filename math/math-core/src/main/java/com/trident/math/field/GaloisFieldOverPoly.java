@@ -7,6 +7,7 @@ import com.trident.math.NumberUtil;
 import org.apache.commons.math3.FieldElement;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Objects;
 
 import static com.trident.math.field.GaloisFieldOverPolyElement.from;
@@ -104,6 +105,28 @@ public class GaloisFieldOverPoly implements GaloisField<GaloisFieldOverPolyEleme
 
     private UnivariatePolynomialZp64 fromDigitalValue(long digitalValue) {
         return UnivariatePolynomialZp64.create(prime, NumberUtil.toNBased(digitalValue, prime));
+    }
+
+    @Override
+    public Iterator<GaloisFieldOverPolyElement> iterator() {
+        return new Iterator<>() {
+            private GaloisFieldOverPolyElement next = getOne();
+
+            @Override
+            public boolean hasNext() {
+                return !next.equals(getZero());
+            }
+
+            @Override
+            public GaloisFieldOverPolyElement next() {
+                var out = next;
+                next = next.multiply(getOfValue(prime()));
+                if (next.equals(getOne())) {
+                    next = getZero();
+                }
+                return out;
+            }
+        };
     }
 
     @Override

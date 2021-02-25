@@ -3,6 +3,8 @@ package com.trident.math.field;
 import org.apache.commons.math3.Field;
 import org.apache.commons.math3.FieldElement;
 
+import java.util.Iterator;
+
 public interface GaloisField<T extends FieldElement<T>> extends Field<T> {
     T add(T first, T second);
 
@@ -46,4 +48,6 @@ public interface GaloisField<T extends FieldElement<T>> extends Field<T> {
     long prime();
 
     long elementsCount();
+
+    Iterator<T> iterator();
 }

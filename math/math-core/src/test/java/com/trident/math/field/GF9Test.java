@@ -139,4 +139,15 @@ public class GF9Test {
             }
         }
     }
+
+    @Test
+    void testIterator() {
+        var iterator = GF_3_2.iterator();
+        int count = 0;
+        while (iterator.hasNext()) {
+            iterator.next();
+            count++;
+        }
+        assertEquals(8, count);
+    }
 }

@@ -43,4 +43,15 @@ class GaloisFieldOverPolyExtensionTest {
 
         assertEquals(expectedValues, List.copyOf(actualValues));
     }
+
+    @Test
+    void testIterator() {
+        var iterator = GF_8_2.iterator();
+        int count = 0;
+        while (iterator.hasNext()) {
+            iterator.next();
+            count++;
+        }
+        assertEquals(63, count);
+    }
 }

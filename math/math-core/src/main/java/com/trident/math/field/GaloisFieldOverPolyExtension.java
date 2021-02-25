@@ -7,6 +7,7 @@ import cc.redberry.rings.poly.univar.UnivariatePolynomialZp64;
 import org.apache.commons.math3.FieldElement;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.stream.Collectors;
 
 import static com.trident.math.field.GaloisFieldOverPolyExtensionElement.from;
@@ -110,5 +111,27 @@ public class GaloisFieldOverPolyExtension implements GaloisField<GaloisFieldOver
     @Override
     public Class<? extends FieldElement<GaloisFieldOverPolyExtensionElement>> getRuntimeClass() {
         return GaloisFieldOverPolyExtensionElement.class;
+    }
+
+    @Override
+    public Iterator<GaloisFieldOverPolyExtensionElement> iterator() {
+        return new Iterator<>() {
+            private GaloisFieldOverPolyExtensionElement next = getOne();
+
+            @Override
+            public boolean hasNext() {
+                return !next.equals(getZero());
+            }
+
+            @Override
+            public GaloisFieldOverPolyExtensionElement next() {
+                var out = next;
+                next = next.multiply(getOfValue(prime()));
+                if (next.equals(getOne())) {
+                    next = getZero();
+                }
+                return out;
+            }
+        };
     }
 }

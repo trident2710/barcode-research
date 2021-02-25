@@ -4,6 +4,7 @@ import cc.redberry.rings.IntegersZp64;
 import cc.redberry.rings.Rings;
 import org.apache.commons.math3.FieldElement;
 
+import java.util.Iterator;
 import java.util.Objects;
 
 public final class GaloisFieldOverPrime implements GaloisField<GaloisFieldOverPrimeElement> {
@@ -81,6 +82,25 @@ public final class GaloisFieldOverPrime implements GaloisField<GaloisFieldOverPr
     @Override
     public long elementsCount() {
         return prime();
+    }
+
+    @Override
+    public Iterator<GaloisFieldOverPrimeElement> iterator() {
+        return new Iterator<>() {
+            private GaloisFieldOverPrimeElement next = getOne();
+
+            @Override
+            public boolean hasNext() {
+                return !next.equals(getZero());
+            }
+
+            @Override
+            public GaloisFieldOverPrimeElement next() {
+                var out = next;
+                next = next.add(getOne());
+                return out;
+            }
+        };
     }
 
     @Override

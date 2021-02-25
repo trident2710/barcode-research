@@ -73,4 +73,15 @@ class GaloisFieldOverPrimeTest {
         assertEquals(GF5.getOfValue(3), GF5.getOfValue(2).reciprocal());
         assertEquals(GF5.getOfValue(2), GF5.getOfValue(3).reciprocal());
     }
+
+    @Test
+    void testIterator() {
+        var iterator = GF5.iterator();
+        int count = 0;
+        while (iterator.hasNext()) {
+            iterator.next();
+            count++;
+        }
+        assertEquals(4, count);
+    }
 }
