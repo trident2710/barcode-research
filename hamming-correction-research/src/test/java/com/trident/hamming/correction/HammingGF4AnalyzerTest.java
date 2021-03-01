@@ -4,7 +4,7 @@ import com.trident.hamming.correction.report.HammingCorrectionReportWriter;
 import com.trident.hamming.correction.report.ImmutableHammingCorrectionReport;
 import com.trident.hamming.correction.service.HammingCodeSequentialErrorsProvider;
 import com.trident.hamming.correction.service.HammingErrorLevelAnalyzer;
-import com.trident.math.field.GFPMElement;
+import com.trident.math.field.GFPMSimpleElement;
 import com.trident.math.io.converter.HammingCodeConverter;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +29,7 @@ public class HammingGF4AnalyzerTest {
                 .iterations(21)
                 .build();
         var errorProvider = new HammingCodeSequentialErrorsProvider<>(1, HAMMING_7_4_GF_2_2);
-        var analyzer = new HammingErrorLevelAnalyzer<>(errorProvider, WRITER, HAMMING_7_4_GF_2_2, new GFPMElement[0]);
+        var analyzer = new HammingErrorLevelAnalyzer<>(errorProvider, WRITER, HAMMING_7_4_GF_2_2, new GFPMSimpleElement[0]);
         assertEquals(expected, analyzer.analyzeHammingCodeErrorLevel());
     }
 
@@ -44,7 +44,7 @@ public class HammingGF4AnalyzerTest {
                 .iterations(189)
                 .build();
         var errorProvider = new HammingCodeSequentialErrorsProvider<>(2, HAMMING_7_4_GF_2_2);
-        var analyzer = new HammingErrorLevelAnalyzer<>(errorProvider, WRITER, HAMMING_7_4_GF_2_2, new GFPMElement[0]);
+        var analyzer = new HammingErrorLevelAnalyzer<>(errorProvider, WRITER, HAMMING_7_4_GF_2_2, new GFPMSimpleElement[0]);
         assertEquals(expected, analyzer.analyzeHammingCodeErrorLevel());
     }
 
@@ -59,7 +59,7 @@ public class HammingGF4AnalyzerTest {
                 .iterations(945)
                 .build();
         var errorProvider = new HammingCodeSequentialErrorsProvider<>(3, HAMMING_7_4_GF_2_2);
-        var analyzer = new HammingErrorLevelAnalyzer<>(errorProvider, WRITER, HAMMING_7_4_GF_2_2, new GFPMElement[0]);
+        var analyzer = new HammingErrorLevelAnalyzer<>(errorProvider, WRITER, HAMMING_7_4_GF_2_2, new GFPMSimpleElement[0]);
         assertEquals(expected, analyzer.analyzeHammingCodeErrorLevel());
     }
 
@@ -74,7 +74,7 @@ public class HammingGF4AnalyzerTest {
                 .iterations(2835)
                 .build();
         var errorProvider = new HammingCodeSequentialErrorsProvider<>(4, HAMMING_7_4_GF_2_2);
-        var analyzer = new HammingErrorLevelAnalyzer<>(errorProvider, WRITER, HAMMING_7_4_GF_2_2, new GFPMElement[0]);
+        var analyzer = new HammingErrorLevelAnalyzer<>(errorProvider, WRITER, HAMMING_7_4_GF_2_2, new GFPMSimpleElement[0]);
         assertEquals(expected, analyzer.analyzeHammingCodeErrorLevel());
     }
 
@@ -89,7 +89,7 @@ public class HammingGF4AnalyzerTest {
                 .iterations(5103)
                 .build();
         var errorProvider = new HammingCodeSequentialErrorsProvider<>(5, HAMMING_7_4_GF_2_2);
-        var analyzer = new HammingErrorLevelAnalyzer<>(errorProvider, WRITER, HAMMING_7_4_GF_2_2, new GFPMElement[0]);
+        var analyzer = new HammingErrorLevelAnalyzer<>(errorProvider, WRITER, HAMMING_7_4_GF_2_2, new GFPMSimpleElement[0]);
         assertEquals(expected, analyzer.analyzeHammingCodeErrorLevel());
     }
 
@@ -104,7 +104,7 @@ public class HammingGF4AnalyzerTest {
                 .iterations(5103)
                 .build();
         var errorProvider = new HammingCodeSequentialErrorsProvider<>(6, HAMMING_7_4_GF_2_2);
-        var analyzer = new HammingErrorLevelAnalyzer<>(errorProvider, WRITER, HAMMING_7_4_GF_2_2, new GFPMElement[0]);
+        var analyzer = new HammingErrorLevelAnalyzer<>(errorProvider, WRITER, HAMMING_7_4_GF_2_2, new GFPMSimpleElement[0]);
         assertEquals(expected, analyzer.analyzeHammingCodeErrorLevel());
     }
 
@@ -119,7 +119,7 @@ public class HammingGF4AnalyzerTest {
                 .iterations(2187)
                 .build();
         var errorProvider = new HammingCodeSequentialErrorsProvider<>(7, HAMMING_7_4_GF_2_2);
-        var analyzer = new HammingErrorLevelAnalyzer<>(errorProvider, WRITER, HAMMING_7_4_GF_2_2, new GFPMElement[0]);
+        var analyzer = new HammingErrorLevelAnalyzer<>(errorProvider, WRITER, HAMMING_7_4_GF_2_2, new GFPMSimpleElement[0]);
         assertEquals(expected, analyzer.analyzeHammingCodeErrorLevel());
     }
 }

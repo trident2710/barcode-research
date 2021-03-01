@@ -2,8 +2,8 @@ package com.trident.math.hamming;
 
 import com.trident.math.field.GFP;
 import com.trident.math.field.GFPElement;
-import com.trident.math.field.GFPM;
-import com.trident.math.field.GFPMElement;
+import com.trident.math.field.GFPMSimple;
+import com.trident.math.field.GFPMSimpleElement;
 
 import static com.trident.math.field.GaloisFields.GF3;
 import static com.trident.math.field.GaloisFields.GF5;
@@ -129,96 +129,96 @@ public final class HammingCodes {
                     new long[]{1, 2}
             }, GF7));
 
-    public static final HammingCode<GFPMElement, GFPM> HAMMING_11_8_GF_2_2 =
+    public static final HammingCode<GFPMSimpleElement, GFPMSimple> HAMMING_11_8_GF_2_2 =
             new HammingCode<>(toFieldMatrix(new long[][]{
                     new long[]{0, 0, 0, 1, 1, 1, 1, 1},
                     new long[]{1, 1, 1, 0, 0, 0, 1, 1},
                     new long[]{1, 2, 3, 1, 2, 3, 0, 1}
             }, GF_2_2));
 
-    public static final HammingCode<GFPMElement, GFPM> HAMMING_10_7_GF_2_2 =
+    public static final HammingCode<GFPMSimpleElement, GFPMSimple> HAMMING_10_7_GF_2_2 =
             new HammingCode<>(toFieldMatrix(new long[][]{
                     new long[]{0, 0, 0, 1, 1, 1, 1},
                     new long[]{1, 1, 1, 0, 0, 0, 1},
                     new long[]{1, 2, 3, 1, 2, 3, 0}
             }, GF_2_2));
 
-    public static final HammingCode<GFPMElement, GFPM> HAMMING_9_6_GF_2_2 =
+    public static final HammingCode<GFPMSimpleElement, GFPMSimple> HAMMING_9_6_GF_2_2 =
             new HammingCode<>(toFieldMatrix(new long[][]{
                     new long[]{0, 0, 0, 1, 1, 1},
                     new long[]{1, 1, 1, 0, 0, 0},
                     new long[]{1, 2, 3, 1, 2, 3}
             }, GF_2_2));
 
-    public static final HammingCode<GFPMElement, GFPM> HAMMING_8_5_GF_2_2 =
+    public static final HammingCode<GFPMSimpleElement, GFPMSimple> HAMMING_8_5_GF_2_2 =
             new HammingCode<>(toFieldMatrix(new long[][]{
                     new long[]{0, 0, 0, 1, 1},
                     new long[]{1, 1, 1, 0, 0},
                     new long[]{1, 2, 3, 1, 2}
             }, GF_2_2));
 
-    public static final HammingCode<GFPMElement, GFPM> HAMMING_7_4_GF_2_2 =
+    public static final HammingCode<GFPMSimpleElement, GFPMSimple> HAMMING_7_4_GF_2_2 =
             new HammingCode<>(toFieldMatrix(new long[][]{
                     new long[]{0, 0, 0, 1},
                     new long[]{1, 1, 1, 0},
                     new long[]{1, 2, 3, 1}
             }, GF_2_2));
 
-    public static final HammingCode<GFPMElement, GFPM> HAMMING_5_3_GF_2_2 =
+    public static final HammingCode<GFPMSimpleElement, GFPMSimple> HAMMING_5_3_GF_2_2 =
             new HammingCode<>(toFieldMatrix(new long[][]{
                     new long[]{1, 1, 1},
                     new long[]{1, 2, 3}
             }, GF_2_2));
 
-    public static final HammingCode<GFPMElement, GFPM> HAMMING_4_2_GF_2_2 =
+    public static final HammingCode<GFPMSimpleElement, GFPMSimple> HAMMING_4_2_GF_2_2 =
             new HammingCode<>(toFieldMatrix(new long[][]{
                     new long[]{1, 1},
                     new long[]{1, 2}
             }, GF_2_2));
 
-    public static final HammingCode<GFPMElement, GFPM> HAMMING_7_5_GF_2_3 =
+    public static final HammingCode<GFPMSimpleElement, GFPMSimple> HAMMING_7_5_GF_2_3 =
             new HammingCode<>(toFieldMatrix(new long[][]{
                     new long[]{1, 1, 1, 1, 1},
                     new long[]{1, 2, 3, 4, 5}
             }, GF_2_3));
 
-    public static final HammingCode<GFPMElement, GFPM> HAMMING_6_4_GF_2_3 =
+    public static final HammingCode<GFPMSimpleElement, GFPMSimple> HAMMING_6_4_GF_2_3 =
             new HammingCode<>(toFieldMatrix(new long[][]{
                     new long[]{1, 1, 1, 1},
                     new long[]{1, 2, 3, 4}
             }, GF_2_3));
 
-    public static final HammingCode<GFPMElement, GFPM> HAMMING_5_3_GF_2_3 =
+    public static final HammingCode<GFPMSimpleElement, GFPMSimple> HAMMING_5_3_GF_2_3 =
             new HammingCode<>(toFieldMatrix(new long[][]{
                     new long[]{1, 1, 1},
                     new long[]{1, 2, 3}
             }, GF_2_3));
 
-    public static final HammingCode<GFPMElement, GFPM> HAMMING_4_2_GF_2_3 =
+    public static final HammingCode<GFPMSimpleElement, GFPMSimple> HAMMING_4_2_GF_2_3 =
             new HammingCode<>(toFieldMatrix(new long[][]{
                     new long[]{1, 1},
                     new long[]{1, 2}
             }, GF_2_3));
 
-    public static final HammingCode<GFPMElement, GFPM> HAMMING_7_5_GF_3_2 =
+    public static final HammingCode<GFPMSimpleElement, GFPMSimple> HAMMING_7_5_GF_3_2 =
             new HammingCode<>(toFieldMatrix(new long[][]{
                     new long[]{1, 1, 1, 1, 1},
                     new long[]{1, 2, 3, 4, 5}
             }, GF_3_2));
 
-    public static final HammingCode<GFPMElement, GFPM> HAMMING_6_4_GF_3_2 =
+    public static final HammingCode<GFPMSimpleElement, GFPMSimple> HAMMING_6_4_GF_3_2 =
             new HammingCode<>(toFieldMatrix(new long[][]{
                     new long[]{1, 1, 1, 1},
                     new long[]{1, 2, 3, 4}
             }, GF_3_2));
 
-    public static final HammingCode<GFPMElement, GFPM> HAMMING_5_3_GF_3_2 =
+    public static final HammingCode<GFPMSimpleElement, GFPMSimple> HAMMING_5_3_GF_3_2 =
             new HammingCode<>(toFieldMatrix(new long[][]{
                     new long[]{1, 1, 1},
                     new long[]{1, 2, 3}
             }, GF_3_2));
 
-    public static final HammingCode<GFPMElement, GFPM> HAMMING_4_2_GF_3_2 =
+    public static final HammingCode<GFPMSimpleElement, GFPMSimple> HAMMING_4_2_GF_3_2 =
             new HammingCode<>(toFieldMatrix(new long[][]{
                     new long[]{1, 1},
                     new long[]{1, 2}

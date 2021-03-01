@@ -12,21 +12,21 @@ import java.util.stream.Collectors;
 
 import static com.trident.math.field.GFPMExtensionElement.from;
 
-public class GFPMExtension implements GF<GFPMExtensionElement> {
+public class GFPMExtension implements GFPM<GFPMExtensionElement> {
 
     private final FiniteField<UnivariatePolynomial<UnivariatePolynomialZp64>> internal_field;
-    private final GFPM coefficientsField;
+    private final GFPMSimple coefficientsField;
     private final int exponent;
     private final long[] irreduciblePoly;
 
-    private GFPMExtension(GFPM coefficientsField, int exponent, long[] irreduciblePoly) {
+    private GFPMExtension(GFPMSimple coefficientsField, int exponent, long[] irreduciblePoly) {
         this.coefficientsField = coefficientsField;
         this.exponent = exponent;
         this.irreduciblePoly = irreduciblePoly;
         this.internal_field = createField(coefficientsField, irreduciblePoly);
     }
 
-    private static FiniteField<UnivariatePolynomial<UnivariatePolynomialZp64>> createField(GFPM coefficientsField, long[] irreduciblePoly) {
+    private static FiniteField<UnivariatePolynomial<UnivariatePolynomialZp64>> createField(GFPMSimple coefficientsField, long[] irreduciblePoly) {
         var coefficients = Arrays.stream(irreduciblePoly)
                 .mapToObj(c -> coefficientToPolynomial(c, coefficientsField))
                 .collect(Collectors.toList())
@@ -35,16 +35,16 @@ public class GFPMExtension implements GF<GFPMExtensionElement> {
         return Rings.GF(poly);
     }
 
-    private static UnivariatePolynomialZp64 coefficientToPolynomial(long coefficientValue, GFPM coefficientsField) {
+    private static UnivariatePolynomialZp64 coefficientToPolynomial(long coefficientValue, GFPMSimple coefficientsField) {
         var element = coefficientsField.getOfValue(coefficientValue);
         return element.internal_value;
     }
 
-    public static GFPMExtension of(GFPM coefficientsField, int exponent, long[] irreduciblePoly) {
+    public static GFPMExtension of(GFPMSimple coefficientsField, int exponent, long[] irreduciblePoly) {
         return new GFPMExtension(coefficientsField, exponent, irreduciblePoly);
     }
 
-    public GFPM getCoefficientsField() {
+    public GFPMSimple getCoefficientsField() {
         return coefficientsField;
     }
 
@@ -101,6 +101,16 @@ public class GFPMExtension implements GF<GFPMExtensionElement> {
     @Override
     public long prime() {
         return coefficientsField.elementsCount();
+    }
+
+    @Override
+    public long[] irreduciblePoly() {
+        return irreduciblePoly;
+    }
+
+    @Override
+    public int exponent() {
+        return exponent;
     }
 
     @Override

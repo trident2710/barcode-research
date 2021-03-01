@@ -3,7 +3,7 @@ package com.trident.math.io.converter;
 import com.trident.math.field.GF;
 import com.trident.math.field.GFElement;
 import com.trident.math.field.GFP;
-import com.trident.math.field.GFPM;
+import com.trident.math.field.GFPMSimple;
 import com.trident.math.hamming.HammingCode;
 import com.trident.math.io.dto.GaloisFieldDto;
 import com.trident.math.io.dto.HammingCodeDto;
@@ -32,7 +32,7 @@ public class HammingCodeConverter {
             case GFP:
                 return GFP.of(dto.prime());
             case GFPM:
-                return GFPM.of(dto.prime(), dto.exponent(), dto.irreduciblePoly());
+                return GFPMSimple.of(dto.prime(), dto.exponent(), dto.irreduciblePoly());
             default:
                 throw new IllegalArgumentException("Unsupported: " + dto);
         }
@@ -46,8 +46,8 @@ public class HammingCodeConverter {
                     .build();
         }
 
-        if (field instanceof GFPM) {
-            var gfpm = (GFPM) field;
+        if (field instanceof GFPMSimple) {
+            var gfpm = (GFPMSimple) field;
             return ImmutableGaloisFieldDto.builder()
                     .type(GaloisFieldDto.Type.GFPM)
                     .prime(field.prime())

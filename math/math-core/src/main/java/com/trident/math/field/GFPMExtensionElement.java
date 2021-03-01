@@ -97,8 +97,8 @@ public class GFPMExtensionElement implements GFElement<GFPMExtensionElement> {
 
     private long[] toPolyRepresentation(UnivariatePolynomial<UnivariatePolynomialZp64> value) {
         return value.stream()
-                .map(c -> GFPMElement.from(field.getCoefficientsField(), c))
-                .map(GFPMElement::digitalRepresentation)
+                .map(c -> GFPMSimpleElement.from(field.getCoefficientsField(), c))
+                .map(GFPMSimpleElement::digitalRepresentation)
                 .mapToLong(l -> l)
                 .toArray();
     }
