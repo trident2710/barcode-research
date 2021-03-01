@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 import static com.trident.math.PolynomialStringsUtil.polyToString;
 
-public class GFPMExtensionElement implements GFElement<GFPMExtensionElement> {
+public class GFPMExtensionElement implements GFPMElement<GFPMExtensionElement> {
 
     private final GFPMExtension field;
     final UnivariatePolynomial<UnivariatePolynomialZp64> internal_value;

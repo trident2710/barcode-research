@@ -9,7 +9,7 @@ import java.util.Objects;
 
 import static com.trident.math.PolynomialStringsUtil.polyToString;
 
-public class GFPMSimpleElement implements GFElement<GFPMSimpleElement> {
+public class GFPMSimpleElement implements GFPMElement<GFPMSimpleElement> {
 
     private final GFPMSimple field;
     private final long digitalRepresentation;

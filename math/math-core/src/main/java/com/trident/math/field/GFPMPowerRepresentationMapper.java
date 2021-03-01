@@ -5,7 +5,7 @@ import com.google.common.base.Preconditions;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class GFPMPowerRepresentationMapper<FE extends GFElement<FE>> {
+public final class GFPMPowerRepresentationMapper<FE extends GFPMElement<FE>> {
     private final GFPM<FE> field;
     private final Map<FE, Integer> powerRepresentationMap;
 
@@ -14,7 +14,7 @@ public final class GFPMPowerRepresentationMapper<FE extends GFElement<FE>> {
         this.powerRepresentationMap = initMap(field);
     }
 
-    public static <FE extends GFElement<FE>> GFPMPowerRepresentationMapper<FE> create(GFPM<FE> field) {
+    public static <FE extends GFPMElement<FE>> GFPMPowerRepresentationMapper<FE> create(GFPM<FE> field) {
         return new GFPMPowerRepresentationMapper<>(field);
     }
 
