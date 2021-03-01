@@ -31,6 +31,10 @@ public final class GFPMPowerRepresentationMapper<FE extends GFElement<FE>> {
         return map;
     }
 
+    public GFPM<FE> getField() {
+        return field;
+    }
+
     public int getPower(FE element) {
         Preconditions.checkNotNull(element);
         return powerRepresentationMap.getOrDefault(element, -1);
