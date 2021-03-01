@@ -2,7 +2,7 @@ package com.trident.math.field;
 
 import org.apache.commons.math3.FieldElement;
 
-public interface GaloisFieldElement<T extends GaloisFieldElement<T>> extends FieldElement<T>, Comparable<T> {
+public interface GFElement<T extends GFElement<T>> extends FieldElement<T>, Comparable<T> {
     // Digital representation.
     // for GF(p) -> value mod p
     // for GF(p^n):

@@ -7,7 +7,7 @@ import static com.trident.math.hamming.HammingCodes.HAMMING_5_3_GF_5;
 import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrixRow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class HammingCodeOverGFPrimeTest {
+class HammingCodeOverGFPTest {
 
     @Test
     void testEncode() {

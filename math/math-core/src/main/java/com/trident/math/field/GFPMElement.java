@@ -9,64 +9,64 @@ import java.util.Objects;
 
 import static com.trident.math.PolynomialStringsUtil.polyToString;
 
-public class GaloisFieldOverPolyElement implements GaloisFieldElement<GaloisFieldOverPolyElement> {
+public class GFPMElement implements GFElement<GFPMElement> {
 
-    private final GaloisFieldOverPoly field;
+    private final GFPM field;
     private final long digitalRepresentation;
     final UnivariatePolynomialZp64 internal_value;
 
-    GaloisFieldOverPolyElement(GaloisFieldOverPoly field, UnivariatePolynomialZp64 poly) {
+    GFPMElement(GFPM field, UnivariatePolynomialZp64 poly) {
         this.field = field;
         this.digitalRepresentation = toDigitalRepresentation(poly);
         this.internal_value = poly;
     }
 
-    static GaloisFieldOverPolyElement from(GaloisFieldOverPoly field, UnivariatePolynomialZp64 poly) {
-        return new GaloisFieldOverPolyElement(field, poly);
+    static GFPMElement from(GFPM field, UnivariatePolynomialZp64 poly) {
+        return new GFPMElement(field, poly);
     }
 
     @Override
-    public int compareTo(GaloisFieldOverPolyElement o) {
+    public int compareTo(GFPMElement o) {
         return internal_value.compareTo(o.internal_value);
     }
 
     @Override
-    public GaloisFieldOverPolyElement add(GaloisFieldOverPolyElement element) throws NullArgumentException {
+    public GFPMElement add(GFPMElement element) throws NullArgumentException {
         return field.add(this, element);
     }
 
     @Override
-    public GaloisFieldOverPolyElement subtract(GaloisFieldOverPolyElement element) throws NullArgumentException {
+    public GFPMElement subtract(GFPMElement element) throws NullArgumentException {
         return field.sub(this, element);
     }
 
     @Override
-    public GaloisFieldOverPolyElement negate() {
+    public GFPMElement negate() {
         return field.neg(this);
     }
 
     @Override
-    public GaloisFieldOverPolyElement multiply(int n) {
+    public GFPMElement multiply(int n) {
         return field.times(this, n);
     }
 
     @Override
-    public GaloisFieldOverPolyElement multiply(GaloisFieldOverPolyElement element) throws NullArgumentException {
+    public GFPMElement multiply(GFPMElement element) throws NullArgumentException {
         return field.mul(this, element);
     }
 
     @Override
-    public GaloisFieldOverPolyElement divide(GaloisFieldOverPolyElement element) throws NullArgumentException, MathArithmeticException {
+    public GFPMElement divide(GFPMElement element) throws NullArgumentException, MathArithmeticException {
         return field.div(this, element);
     }
 
     @Override
-    public GaloisFieldOverPolyElement reciprocal() throws MathArithmeticException {
+    public GFPMElement reciprocal() throws MathArithmeticException {
         return field.inv(this);
     }
 
     @Override
-    public GaloisFieldOverPoly getField() {
+    public GFPM getField() {
         return field;
     }
 
@@ -83,7 +83,7 @@ public class GaloisFieldOverPolyElement implements GaloisFieldElement<GaloisFiel
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GaloisFieldOverPolyElement that = (GaloisFieldOverPolyElement) o;
+        GFPMElement that = (GFPMElement) o;
         return Objects.equals(field, that.field) &&
                 Objects.equals(internal_value, that.internal_value);
     }

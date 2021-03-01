@@ -1,6 +1,6 @@
 package com.trident.math.bch;
 
-import com.trident.math.field.GaloisField;
+import com.trident.math.field.GF;
 import org.apache.commons.math3.FieldElement;
 
 public final class FiniteFieldLinearEquation {
@@ -9,7 +9,7 @@ public final class FiniteFieldLinearEquation {
     }
 
     // solves an AX + B = 0 equation in finite fields by Chen procedure
-    public static <FieldElem extends FieldElement<FieldElem>> FieldElem solve(GaloisField<FieldElem> field, FieldElem a, FieldElem b) {
+    public static <FieldElem extends FieldElement<FieldElem>> FieldElem solve(GF<FieldElem> field, FieldElem a, FieldElem b) {
         if (b.equals(field.getZero())) {
             return field.getZero();
         }

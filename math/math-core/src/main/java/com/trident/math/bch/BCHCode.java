@@ -1,12 +1,12 @@
 package com.trident.math.bch;
 
 import com.google.common.base.Preconditions;
-import com.trident.math.field.GaloisField;
-import com.trident.math.field.GaloisFieldElement;
+import com.trident.math.field.GF;
+import com.trident.math.field.GFElement;
 import org.apache.commons.math3.linear.Array2DRowFieldMatrix;
 import org.apache.commons.math3.linear.FieldMatrix;
 
-public class BCHCode<Symbol extends GaloisFieldElement<Symbol>, Locator extends GaloisFieldElement<Locator>> {
+public class BCHCode<Symbol extends GFElement<Symbol>, Locator extends GFElement<Locator>> {
     private final FieldMatrix<Symbol> symbolsMatrix;
     private final FieldMatrix<Locator> locatorsMatrixT;
 
@@ -46,7 +46,7 @@ public class BCHCode<Symbol extends GaloisFieldElement<Symbol>, Locator extends 
     }
 
     private FieldMatrix<Locator> multiply(FieldMatrix<Symbol> symbolsMatrix, FieldMatrix<Locator> locatorsMatrix) {
-        var field = (GaloisField<Locator>) locatorsMatrix.getField();
+        var field = (GF<Locator>) locatorsMatrix.getField();
         var result = new Array2DRowFieldMatrix<>(field, symbolsMatrix.getRowDimension(), locatorsMatrix.getColumnDimension());
 
         for (int i = 0; i < symbolsMatrix.getRowDimension(); i++) {

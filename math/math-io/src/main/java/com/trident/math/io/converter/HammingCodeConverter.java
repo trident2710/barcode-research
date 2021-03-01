@@ -1,9 +1,9 @@
 package com.trident.math.io.converter;
 
-import com.trident.math.field.GaloisField;
-import com.trident.math.field.GaloisFieldElement;
-import com.trident.math.field.GaloisFieldOverPoly;
-import com.trident.math.field.GaloisFieldOverPrime;
+import com.trident.math.field.GF;
+import com.trident.math.field.GFElement;
+import com.trident.math.field.GFP;
+import com.trident.math.field.GFPM;
 import com.trident.math.hamming.HammingCode;
 import com.trident.math.io.dto.GaloisFieldDto;
 import com.trident.math.io.dto.HammingCodeDto;
@@ -12,7 +12,7 @@ import com.trident.math.io.dto.ImmutableHammingCodeDto;
 
 public class HammingCodeConverter {
 
-    public static <GFElement extends GaloisFieldElement<GFElement>, GF extends GaloisField<GFElement>> HammingCodeDto toDto(HammingCode<GFElement, GF> hammingCode) {
+    public static <FE extends GFElement<FE>, F extends GF<FE>> HammingCodeDto toDto(HammingCode<FE, F> hammingCode) {
         var generatorMatrixDto = GaloisFieldMatrixConverter.toDto(hammingCode.getGenerator());
         return ImmutableHammingCodeDto.builder()
                 .field(toGFDto(hammingCode.getField()))
@@ -20,34 +20,34 @@ public class HammingCodeConverter {
                 .build();
     }
 
-    public static <GFElement extends GaloisFieldElement<GFElement>, GF extends GaloisField<GFElement>> HammingCode<GFElement, GF> fromDto(HammingCodeDto dto, Class<GF> fieldClass, GFElement[] arrayRef) {
+    public static <FE extends GFElement<FE>, F extends GF<FE>> HammingCode<FE, F> fromDto(HammingCodeDto dto, Class<F> fieldClass, FE[] arrayRef) {
         var field = fieldClass.cast(fromGFDto(dto.field()));
         var generatorMatrix = GaloisFieldMatrixConverter.fromDto(field, dto.generatorMatrix(), arrayRef);
         return new HammingCode<>(generatorMatrix);
     }
 
     @SuppressWarnings("ConstantConditions")
-    private static GaloisField<?> fromGFDto(GaloisFieldDto dto) {
+    private static GF<?> fromGFDto(GaloisFieldDto dto) {
         switch (dto.type()) {
             case GFP:
-                return GaloisFieldOverPrime.of(dto.prime());
+                return GFP.of(dto.prime());
             case GFPM:
-                return GaloisFieldOverPoly.of(dto.prime(), dto.exponent(), dto.irreduciblePoly());
+                return GFPM.of(dto.prime(), dto.exponent(), dto.irreduciblePoly());
             default:
                 throw new IllegalArgumentException("Unsupported: " + dto);
         }
     }
 
-    private static GaloisFieldDto toGFDto(GaloisField<?> field) {
-        if (field instanceof GaloisFieldOverPrime) {
+    private static GaloisFieldDto toGFDto(GF<?> field) {
+        if (field instanceof GFP) {
             return ImmutableGaloisFieldDto.builder()
                     .type(GaloisFieldDto.Type.GFP)
                     .prime(field.prime())
                     .build();
         }
 
-        if (field instanceof GaloisFieldOverPoly) {
-            var gfpm = (GaloisFieldOverPoly) field;
+        if (field instanceof GFPM) {
+            var gfpm = (GFPM) field;
             return ImmutableGaloisFieldDto.builder()
                     .type(GaloisFieldDto.Type.GFPM)
                     .prime(field.prime())

@@ -4,10 +4,10 @@ import com.google.common.base.Preconditions;
 import com.trident.hamming.correction.report.HammingCorrectionReportWriter;
 import com.trident.hamming.correction.service.HammingCodeAnalyzer;
 import com.trident.hamming.correction.service.HammingCodeReader;
-import com.trident.math.field.GaloisFieldOverPoly;
-import com.trident.math.field.GaloisFieldOverPolyElement;
-import com.trident.math.field.GaloisFieldOverPrime;
-import com.trident.math.field.GaloisFieldOverPrimeElement;
+import com.trident.math.field.GFP;
+import com.trident.math.field.GFPElement;
+import com.trident.math.field.GFPM;
+import com.trident.math.field.GFPMElement;
 import com.trident.math.hamming.HammingCode;
 import com.trident.math.io.converter.HammingCodeConverter;
 import com.trident.math.io.dto.GaloisFieldDto;
@@ -80,17 +80,17 @@ public class Runner {
 
     private static HammingCodeAnalyzer<?, ?> analyzer(HammingCodeDto hammingCodeDto, PrintStream writer, boolean verbose) {
         return hammingCodeDto.field().type() == GaloisFieldDto.Type.GFP
-                ? hammingCodeGFPAnalyzer(HammingCodeConverter.fromDto(hammingCodeDto, GaloisFieldOverPrime.class, new GaloisFieldOverPrimeElement[0]), writer, verbose)
-                : hammingCodeGFPolyAnalyzer(HammingCodeConverter.fromDto(hammingCodeDto, GaloisFieldOverPoly.class, new GaloisFieldOverPolyElement[0]), writer, verbose);
+                ? hammingCodeGFPAnalyzer(HammingCodeConverter.fromDto(hammingCodeDto, GFP.class, new GFPElement[0]), writer, verbose)
+                : hammingCodeGFPolyAnalyzer(HammingCodeConverter.fromDto(hammingCodeDto, GFPM.class, new GFPMElement[0]), writer, verbose);
     }
 
-    private static HammingCodeAnalyzer<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> hammingCodeGFPAnalyzer(HammingCode<GaloisFieldOverPrimeElement, GaloisFieldOverPrime> hammingCode, PrintStream writer, boolean verbose) {
+    private static HammingCodeAnalyzer<GFPElement, GFP> hammingCodeGFPAnalyzer(HammingCode<GFPElement, GFP> hammingCode, PrintStream writer, boolean verbose) {
         var reportWriter = new HammingCorrectionReportWriter(writer, verbose);
-        return new HammingCodeAnalyzer<>(hammingCode, reportWriter, new GaloisFieldOverPrimeElement[0]);
+        return new HammingCodeAnalyzer<>(hammingCode, reportWriter, new GFPElement[0]);
     }
 
-    private static HammingCodeAnalyzer<GaloisFieldOverPolyElement, GaloisFieldOverPoly> hammingCodeGFPolyAnalyzer(HammingCode<GaloisFieldOverPolyElement, GaloisFieldOverPoly> hammingCode, PrintStream writer, boolean verbose) {
+    private static HammingCodeAnalyzer<GFPMElement, GFPM> hammingCodeGFPolyAnalyzer(HammingCode<GFPMElement, GFPM> hammingCode, PrintStream writer, boolean verbose) {
         var reportWriter = new HammingCorrectionReportWriter(writer, verbose);
-        return new HammingCodeAnalyzer<>(hammingCode, reportWriter, new GaloisFieldOverPolyElement[0]);
+        return new HammingCodeAnalyzer<>(hammingCode, reportWriter, new GFPMElement[0]);
     }
 }

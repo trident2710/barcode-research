@@ -1,6 +1,6 @@
 package com.trident.math.io.converter;
 
-import com.trident.math.field.GaloisFieldOverPrimeElement;
+import com.trident.math.field.GFPElement;
 import com.trident.math.io.dto.ImmutableNaturalMatrixDto;
 import org.junit.jupiter.api.Test;
 
@@ -11,9 +11,9 @@ import static com.trident.math.matrix.FieldMatrixUtil.createMatrixOfRows;
 import static com.trident.math.matrix.FieldMatrixUtil.matrixRow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class GaloisFieldMatrixConverterTest {
+class GFMatrixConverterTest {
 
-    private static final GaloisFieldOverPrimeElement ONE = GF5.getOne();
+    private static final GFPElement ONE = GF5.getOne();
 
     @Test
     void testToDto() {
@@ -45,6 +45,6 @@ class GaloisFieldMatrixConverterTest {
                 matrixRow(ONE, ONE, ONE),
                 matrixRow(ONE, ONE, ONE));
 
-        assertEquals(expected, GaloisFieldMatrixConverter.fromDto(GF5, matrix, new GaloisFieldOverPrimeElement[0]));
+        assertEquals(expected, GaloisFieldMatrixConverter.fromDto(GF5, matrix, new GFPElement[0]));
     }
 }

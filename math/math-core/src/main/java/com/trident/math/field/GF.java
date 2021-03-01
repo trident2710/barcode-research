@@ -5,7 +5,7 @@ import org.apache.commons.math3.FieldElement;
 
 import java.util.Iterator;
 
-public interface GaloisField<T extends FieldElement<T>> extends Field<T> {
+public interface GF<T extends FieldElement<T>> extends Field<T> {
     T add(T first, T second);
 
     T sub(T first, T second);

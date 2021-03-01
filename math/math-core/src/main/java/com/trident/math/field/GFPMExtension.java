@@ -10,23 +10,23 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.stream.Collectors;
 
-import static com.trident.math.field.GaloisFieldOverPolyExtensionElement.from;
+import static com.trident.math.field.GFPMExtensionElement.from;
 
-public class GaloisFieldOverPolyExtension implements GaloisField<GaloisFieldOverPolyExtensionElement> {
+public class GFPMExtension implements GF<GFPMExtensionElement> {
 
     private final FiniteField<UnivariatePolynomial<UnivariatePolynomialZp64>> internal_field;
-    private final GaloisFieldOverPoly coefficientsField;
+    private final GFPM coefficientsField;
     private final int exponent;
     private final long[] irreduciblePoly;
 
-    private GaloisFieldOverPolyExtension(GaloisFieldOverPoly coefficientsField, int exponent, long[] irreduciblePoly) {
+    private GFPMExtension(GFPM coefficientsField, int exponent, long[] irreduciblePoly) {
         this.coefficientsField = coefficientsField;
         this.exponent = exponent;
         this.irreduciblePoly = irreduciblePoly;
         this.internal_field = createField(coefficientsField, irreduciblePoly);
     }
 
-    private static FiniteField<UnivariatePolynomial<UnivariatePolynomialZp64>> createField(GaloisFieldOverPoly coefficientsField, long[] irreduciblePoly) {
+    private static FiniteField<UnivariatePolynomial<UnivariatePolynomialZp64>> createField(GFPM coefficientsField, long[] irreduciblePoly) {
         var coefficients = Arrays.stream(irreduciblePoly)
                 .mapToObj(c -> coefficientToPolynomial(c, coefficientsField))
                 .collect(Collectors.toList())
@@ -35,67 +35,67 @@ public class GaloisFieldOverPolyExtension implements GaloisField<GaloisFieldOver
         return Rings.GF(poly);
     }
 
-    private static UnivariatePolynomialZp64 coefficientToPolynomial(long coefficientValue, GaloisFieldOverPoly coefficientsField) {
+    private static UnivariatePolynomialZp64 coefficientToPolynomial(long coefficientValue, GFPM coefficientsField) {
         var element = coefficientsField.getOfValue(coefficientValue);
         return element.internal_value;
     }
 
-    public static GaloisFieldOverPolyExtension of(GaloisFieldOverPoly coefficientsField, int exponent, long[] irreduciblePoly) {
-        return new GaloisFieldOverPolyExtension(coefficientsField, exponent, irreduciblePoly);
+    public static GFPMExtension of(GFPM coefficientsField, int exponent, long[] irreduciblePoly) {
+        return new GFPMExtension(coefficientsField, exponent, irreduciblePoly);
     }
 
-    public GaloisFieldOverPoly getCoefficientsField() {
+    public GFPM getCoefficientsField() {
         return coefficientsField;
     }
 
     @Override
-    public GaloisFieldOverPolyExtensionElement add(GaloisFieldOverPolyExtensionElement first, GaloisFieldOverPolyExtensionElement second) {
+    public GFPMExtensionElement add(GFPMExtensionElement first, GFPMExtensionElement second) {
         return from(this, internal_field.add(first.internal_value, second.internal_value));
     }
 
     @Override
-    public GaloisFieldOverPolyExtensionElement sub(GaloisFieldOverPolyExtensionElement first, GaloisFieldOverPolyExtensionElement second) {
+    public GFPMExtensionElement sub(GFPMExtensionElement first, GFPMExtensionElement second) {
         return from(this, internal_field.subtract(first.internal_value, second.internal_value));
     }
 
     @Override
-    public GaloisFieldOverPolyExtensionElement mul(GaloisFieldOverPolyExtensionElement first, GaloisFieldOverPolyExtensionElement second) {
+    public GFPMExtensionElement mul(GFPMExtensionElement first, GFPMExtensionElement second) {
         return from(this, internal_field.multiply(first.internal_value, second.internal_value));
     }
 
     @Override
-    public GaloisFieldOverPolyExtensionElement div(GaloisFieldOverPolyExtensionElement first, GaloisFieldOverPolyExtensionElement second) {
+    public GFPMExtensionElement div(GFPMExtensionElement first, GFPMExtensionElement second) {
         return from(this, internal_field.divideExact(first.internal_value, second.internal_value));
     }
 
     @Override
-    public GaloisFieldOverPolyExtensionElement inv(GaloisFieldOverPolyExtensionElement element) {
+    public GFPMExtensionElement inv(GFPMExtensionElement element) {
         return from(this, internal_field.reciprocal(element.internal_value));
     }
 
     @Override
-    public GaloisFieldOverPolyExtensionElement neg(GaloisFieldOverPolyExtensionElement element) {
+    public GFPMExtensionElement neg(GFPMExtensionElement element) {
         return from(this, internal_field.negate(element.internal_value));
     }
 
     @Override
-    public GaloisFieldOverPolyExtensionElement mod(GaloisFieldOverPolyExtensionElement element) {
+    public GFPMExtensionElement mod(GFPMExtensionElement element) {
         return from(this, internal_field.valueOf(element.internal_value));
     }
 
     @Override
-    public GaloisFieldOverPolyExtensionElement getZero() {
+    public GFPMExtensionElement getZero() {
         return from(this, internal_field.getZero());
     }
 
     @Override
-    public GaloisFieldOverPolyExtensionElement getOne() {
+    public GFPMExtensionElement getOne() {
         return from(this, internal_field.getOne());
     }
 
     @Override
-    public GaloisFieldOverPolyExtensionElement getOfValue(long value) {
-        return GaloisFieldOverPolyExtensionElement.fromDigitalRepresentation(this, value);
+    public GFPMExtensionElement getOfValue(long value) {
+        return GFPMExtensionElement.fromDigitalRepresentation(this, value);
     }
 
     @Override
@@ -109,14 +109,14 @@ public class GaloisFieldOverPolyExtension implements GaloisField<GaloisFieldOver
     }
 
     @Override
-    public Class<? extends FieldElement<GaloisFieldOverPolyExtensionElement>> getRuntimeClass() {
-        return GaloisFieldOverPolyExtensionElement.class;
+    public Class<? extends FieldElement<GFPMExtensionElement>> getRuntimeClass() {
+        return GFPMExtensionElement.class;
     }
 
     @Override
-    public Iterator<GaloisFieldOverPolyExtensionElement> iterator() {
+    public Iterator<GFPMExtensionElement> iterator() {
         return new Iterator<>() {
-            private GaloisFieldOverPolyExtensionElement next = getOne();
+            private GFPMExtensionElement next = getOne();
 
             @Override
             public boolean hasNext() {
@@ -124,7 +124,7 @@ public class GaloisFieldOverPolyExtension implements GaloisField<GaloisFieldOver
             }
 
             @Override
-            public GaloisFieldOverPolyExtensionElement next() {
+            public GFPMExtensionElement next() {
                 var out = next;
                 next = next.multiply(getOfValue(prime()));
                 if (next.equals(getOne())) {

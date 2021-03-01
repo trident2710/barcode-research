@@ -1,8 +1,8 @@
 package com.trident.math.hamming;
 
 import com.google.common.base.Preconditions;
-import com.trident.math.field.GaloisField;
-import com.trident.math.field.GaloisFieldElement;
+import com.trident.math.field.GF;
+import com.trident.math.field.GFElement;
 import org.apache.commons.math3.linear.FieldMatrix;
 
 import java.util.Objects;
@@ -10,28 +10,28 @@ import java.util.Objects;
 import static com.trident.math.matrix.FieldMatrixUtil.concatRight;
 import static org.apache.commons.math3.linear.MatrixUtils.createFieldIdentityMatrix;
 
-public class HammingCode<GFElement extends GaloisFieldElement<GFElement>, GF extends GaloisField<GFElement>> {
-    private final FieldMatrix<GFElement> generator;
-    private final FieldMatrix<GFElement> fullMatrix;
+public class HammingCode<FE extends GFElement<FE>, F extends GF<FE>> {
+    private final FieldMatrix<FE> generator;
+    private final FieldMatrix<FE> fullMatrix;
 
-    public HammingCode(FieldMatrix<GFElement> generator) {
+    public HammingCode(FieldMatrix<FE> generator) {
         this.generator = generator;
         this.fullMatrix = concatRight(generator, createFieldIdentityMatrix(generator.getField(), generator.getRowDimension()));
     }
 
-    public FieldMatrix<GFElement> getGenerator() {
+    public FieldMatrix<FE> getGenerator() {
         return generator;
     }
 
-    public FieldMatrix<GFElement> getFullMatrix() {
+    public FieldMatrix<FE> getFullMatrix() {
         return fullMatrix;
     }
 
-    public GF getField() {
-        return (GF) getGenerator().getField();
+    public F getField() {
+        return (F) getGenerator().getField();
     }
 
-    public FieldMatrix<GFElement> encode(FieldMatrix<GFElement> message) {
+    public FieldMatrix<FE> encode(FieldMatrix<FE> message) {
         Preconditions.checkArgument(message.getRowDimension() == 1);
         Preconditions.checkArgument(message.getColumnDimension() == generator.getColumnDimension());
 
@@ -42,7 +42,7 @@ public class HammingCode<GFElement extends GaloisFieldElement<GFElement>, GF ext
         return message.multiply(matrix);
     }
 
-    public HammingCodeSyndrome<GFElement> syndrome(FieldMatrix<GFElement> code) {
+    public HammingCodeSyndrome<FE> syndrome(FieldMatrix<FE> code) {
         Preconditions.checkArgument(code.getRowDimension() == 1);
 
         var generatorT = generator.transpose();

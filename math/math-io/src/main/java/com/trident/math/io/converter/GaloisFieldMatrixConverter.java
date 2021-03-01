@@ -1,7 +1,7 @@
 package com.trident.math.io.converter;
 
-import com.trident.math.field.GaloisField;
-import com.trident.math.field.GaloisFieldElement;
+import com.trident.math.field.GF;
+import com.trident.math.field.GFElement;
 import com.trident.math.io.dto.ImmutableNaturalMatrixDto;
 import com.trident.math.io.dto.NaturalMatrixDto;
 import com.trident.math.matrix.FieldMatrixUtil;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class GaloisFieldMatrixConverter {
-    public static <GFElement extends GaloisFieldElement<GFElement>> NaturalMatrixDto toDto(FieldMatrix<GFElement> matrix) {
+    public static <FE extends GFElement<FE>> NaturalMatrixDto toDto(FieldMatrix<FE> matrix) {
         var result = new ArrayList<List<Long>>();
         for (int i = 0; i < matrix.getRowDimension(); i++) {
             var row = new ArrayList<Long>();
@@ -26,9 +26,9 @@ public class GaloisFieldMatrixConverter {
                 .build();
     }
 
-    public static <GFElement extends GaloisFieldElement<GFElement>> FieldMatrix<GFElement> fromDto(GaloisField<GFElement> field, NaturalMatrixDto dto, GFElement[] arrayRef) {
+    public static <FE extends GFElement<FE>> FieldMatrix<FE> fromDto(GF<FE> field, NaturalMatrixDto dto, FE[] arrayRef) {
         var elements = dto.matrix();
-        FieldMatrix<GFElement> result = null;
+        FieldMatrix<FE> result = null;
         for (List<Long> row : elements) {
             var rowArray = row.stream()
                     .map(field::getOfValue)

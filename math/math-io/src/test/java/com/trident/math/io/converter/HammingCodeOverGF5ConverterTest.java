@@ -1,7 +1,6 @@
 package com.trident.math.io.converter;
 
-import com.trident.math.field.GaloisFieldOverPrime;
-import com.trident.math.field.GaloisFieldOverPrimeElement;
+import com.trident.math.field.GFPElement;
 import com.trident.math.io.dto.ImmutableGaloisFieldDto;
 import com.trident.math.io.dto.ImmutableHammingCodeDto;
 import com.trident.math.io.dto.ImmutableNaturalMatrixDto;
@@ -45,6 +44,6 @@ class HammingCodeOverGF5ConverterTest {
                         .addMatrix(List.of(1L, 2L, 3L))
                         .build())
                 .build();
-        assertEquals(HAMMING_5_3_GF_5, fromDto(dto, GaloisFieldOverPrime.class, new GaloisFieldOverPrimeElement[0]));
+        assertEquals(HAMMING_5_3_GF_5, fromDto(dto, com.trident.math.field.GFP.class, new GFPElement[0]));
     }
 }

@@ -1,7 +1,7 @@
 package com.trident.math.matrix;
 
-import com.trident.math.field.GaloisField;
-import com.trident.math.field.GaloisFieldElement;
+import com.trident.math.field.GF;
+import com.trident.math.field.GFElement;
 import org.apache.commons.math3.linear.Array2DRowFieldMatrix;
 import org.apache.commons.math3.linear.FieldMatrix;
 
@@ -10,7 +10,7 @@ public final class GaloisFieldMatrixUtil {
     private GaloisFieldMatrixUtil() {
     }
 
-    public static <GFElem extends GaloisFieldElement<GFElem>> FieldMatrix<GFElem> toFieldMatrix(long[][] values, GaloisField<GFElem> field) {
+    public static <GFElem extends GFElement<GFElem>> FieldMatrix<GFElem> toFieldMatrix(long[][] values, GF<GFElem> field) {
         int rows = values.length;
         int columns = values[0].length;
 
@@ -24,11 +24,11 @@ public final class GaloisFieldMatrixUtil {
         return matrix;
     }
 
-    public static <GFElem extends GaloisFieldElement<GFElem>> FieldMatrix<GFElem> toFieldMatrixRow(long[] values, GaloisField<GFElem> field) {
+    public static <GFElem extends GFElement<GFElem>> FieldMatrix<GFElem> toFieldMatrixRow(long[] values, GF<GFElem> field) {
         return toFieldMatrix(new long[][]{values}, field);
     }
 
-    public static <GFElem extends GaloisFieldElement<GFElem>> FieldMatrix<GFElem> toFieldMatrixColumn(long[] values, GaloisField<GFElem> field) {
+    public static <GFElem extends GFElement<GFElem>> FieldMatrix<GFElem> toFieldMatrixColumn(long[] values, GF<GFElem> field) {
         return toFieldMatrix(new long[][]{values}, field).transpose();
     }
 }

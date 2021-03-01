@@ -1,22 +1,22 @@
 package com.trident.math.hamming;
 
 import com.google.common.base.Preconditions;
-import com.trident.math.field.GaloisField;
-import com.trident.math.field.GaloisFieldElement;
-import com.trident.math.field.GaloisFieldElementUtil;
+import com.trident.math.field.GF;
+import com.trident.math.field.GFElement;
+import com.trident.math.field.GFElementUtil;
 import com.trident.math.matrix.FieldMatrixUtil;
 import org.apache.commons.math3.linear.FieldMatrix;
 
 import java.util.Objects;
 import java.util.Optional;
 
-public class HammingCodeSyndrome<GFElement extends GaloisFieldElement<GFElement>> {
-    private final FieldMatrix<GFElement> syndrome;
-    private final Optional<GFElement> errorValue;
-    private final Optional<FieldMatrix<GFElement>> errorPosition;
+public class HammingCodeSyndrome<FE extends GFElement<FE>> {
+    private final FieldMatrix<FE> syndrome;
+    private final Optional<FE> errorValue;
+    private final Optional<FieldMatrix<FE>> errorPosition;
     private final boolean canCorrectError;
 
-    HammingCodeSyndrome(FieldMatrix<GFElement> syndrome, HammingCode<GFElement, ? extends GaloisField<GFElement>> hammingCode) {
+    HammingCodeSyndrome(FieldMatrix<FE> syndrome, HammingCode<FE, ? extends GF<FE>> hammingCode) {
         this.syndrome = syndrome;
         this.errorValue = calculateErrorValue(syndrome);
         this.errorPosition = errorValue.map(value -> calculateErrorPosition(syndrome, value));
@@ -25,7 +25,7 @@ public class HammingCodeSyndrome<GFElement extends GaloisFieldElement<GFElement>
                 .orElse(false);
     }
 
-    public FieldMatrix<GFElement> getSyndromeRow() {
+    public FieldMatrix<FE> getSyndromeRow() {
         return syndrome;
     }
 
@@ -37,25 +37,25 @@ public class HammingCodeSyndrome<GFElement extends GaloisFieldElement<GFElement>
         return canCorrectError;
     }
 
-    public Optional<GFElement> getErrorValue() {
+    public Optional<FE> getErrorValue() {
         return errorValue;
     }
 
-    public Optional<FieldMatrix<GFElement>> getErrorPosition() {
+    public Optional<FieldMatrix<FE>> getErrorPosition() {
         return errorPosition;
     }
 
-    private Optional<GFElement> calculateErrorValue(FieldMatrix<GFElement> syndrome) {
+    private Optional<FE> calculateErrorValue(FieldMatrix<FE> syndrome) {
         Preconditions.checkArgument(syndrome.getRowDimension() == 1);
-        return GaloisFieldElementUtil.getFirstNonZero(syndrome);
+        return GFElementUtil.getFirstNonZero(syndrome);
     }
 
-    private FieldMatrix<GFElement> calculateErrorPosition(FieldMatrix<GFElement> syndrome, GFElement errorValue) {
+    private FieldMatrix<FE> calculateErrorPosition(FieldMatrix<FE> syndrome, FE errorValue) {
         Preconditions.checkArgument(!errorValue.equals(errorValue.getField().getZero()));
         return syndrome.scalarMultiply(errorValue.reciprocal());
     }
 
-    private boolean canCorrectError(FieldMatrix<GFElement> errorPosition, FieldMatrix<GFElement> hammingFullMatrix) {
+    private boolean canCorrectError(FieldMatrix<FE> errorPosition, FieldMatrix<FE> hammingFullMatrix) {
         return FieldMatrixUtil.hasColumn(hammingFullMatrix, errorPosition.transpose());
     }
 

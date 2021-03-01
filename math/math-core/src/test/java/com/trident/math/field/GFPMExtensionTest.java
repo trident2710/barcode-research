@@ -9,7 +9,7 @@ import static com.trident.math.field.GaloisFields.GF_4_2;
 import static com.trident.math.field.GaloisFields.GF_8_2;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class GaloisFieldOverPolyExtensionTest {
+class GFPMExtensionTest {
 
     @Test
     void test_gf_4_2() {

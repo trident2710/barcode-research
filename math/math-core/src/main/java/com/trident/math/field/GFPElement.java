@@ -5,58 +5,58 @@ import org.apache.commons.math3.exception.NullArgumentException;
 
 import java.util.Objects;
 
-public class GaloisFieldOverPrimeElement implements GaloisFieldElement<GaloisFieldOverPrimeElement> {
+public class GFPElement implements GFElement<GFPElement> {
 
-    private final GaloisFieldOverPrime field;
+    private final GFP field;
     private final long value;
 
-    GaloisFieldOverPrimeElement(GaloisFieldOverPrime field, long value) {
+    GFPElement(GFP field, long value) {
         this.field = field;
         this.value = value;
     }
 
     @Override
-    public GaloisFieldOverPrimeElement add(GaloisFieldOverPrimeElement a) throws NullArgumentException {
+    public GFPElement add(GFPElement a) throws NullArgumentException {
         return field.add(this, a);
     }
 
     @Override
-    public GaloisFieldOverPrimeElement subtract(GaloisFieldOverPrimeElement a) throws NullArgumentException {
+    public GFPElement subtract(GFPElement a) throws NullArgumentException {
         return field.sub(this, a);
     }
 
     @Override
-    public GaloisFieldOverPrimeElement negate() {
+    public GFPElement negate() {
         return field.neg(this);
     }
 
     @Override
-    public GaloisFieldOverPrimeElement multiply(int n) {
+    public GFPElement multiply(int n) {
         return field.times(this, n);
     }
 
     @Override
-    public GaloisFieldOverPrimeElement multiply(GaloisFieldOverPrimeElement a) throws NullArgumentException {
+    public GFPElement multiply(GFPElement a) throws NullArgumentException {
         return field.mul(this, a);
     }
 
     @Override
-    public GaloisFieldOverPrimeElement divide(GaloisFieldOverPrimeElement a) throws NullArgumentException, MathArithmeticException {
+    public GFPElement divide(GFPElement a) throws NullArgumentException, MathArithmeticException {
         return field.div(this, a);
     }
 
     @Override
-    public GaloisFieldOverPrimeElement reciprocal() throws MathArithmeticException {
+    public GFPElement reciprocal() throws MathArithmeticException {
         return field.inv(this);
     }
 
     @Override
-    public GaloisFieldOverPrime getField() {
+    public GFP getField() {
         return field;
     }
 
     @Override
-    public int compareTo(GaloisFieldOverPrimeElement o) {
+    public int compareTo(GFPElement o) {
         return Long.compare(this.value, o.value);
     }
 
@@ -73,7 +73,7 @@ public class GaloisFieldOverPrimeElement implements GaloisFieldElement<GaloisFie
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        GaloisFieldOverPrimeElement that = (GaloisFieldOverPrimeElement) o;
+        GFPElement that = (GFPElement) o;
         return value == that.value
                 && Objects.equals(field, that.field);
     }

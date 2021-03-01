@@ -10,73 +10,73 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Objects;
 
-import static com.trident.math.field.GaloisFieldOverPolyElement.from;
+import static com.trident.math.field.GFPMElement.from;
 
-public class GaloisFieldOverPoly implements GaloisField<GaloisFieldOverPolyElement> {
+public class GFPM implements GF<GFPMElement> {
 
     final FiniteField<UnivariatePolynomialZp64> internal_field;
     private final long prime;
     private final int exponent;
     private final long[] irreduciblePoly;
 
-    private GaloisFieldOverPoly(long prime, int exponent, long[] irreduciblePoly) {
+    private GFPM(long prime, int exponent, long[] irreduciblePoly) {
         this.internal_field = Rings.GF(UnivariatePolynomialZp64.create(prime, irreduciblePoly));
         this.prime = prime;
         this.exponent = exponent;
         this.irreduciblePoly = irreduciblePoly;
     }
 
-    public static GaloisFieldOverPoly of(long prime, int exponent, long[] irreduciblePoly) {
-        return new GaloisFieldOverPoly(prime, exponent, irreduciblePoly);
+    public static GFPM of(long prime, int exponent, long[] irreduciblePoly) {
+        return new GFPM(prime, exponent, irreduciblePoly);
     }
 
     @Override
-    public GaloisFieldOverPolyElement add(GaloisFieldOverPolyElement first, GaloisFieldOverPolyElement second) {
+    public GFPMElement add(GFPMElement first, GFPMElement second) {
         return from(this, internal_field.add(first.internal_value, second.internal_value));
     }
 
     @Override
-    public GaloisFieldOverPolyElement sub(GaloisFieldOverPolyElement first, GaloisFieldOverPolyElement second) {
+    public GFPMElement sub(GFPMElement first, GFPMElement second) {
         return from(this, internal_field.subtract(first.internal_value, second.internal_value));
     }
 
     @Override
-    public GaloisFieldOverPolyElement mul(GaloisFieldOverPolyElement first, GaloisFieldOverPolyElement second) {
+    public GFPMElement mul(GFPMElement first, GFPMElement second) {
         return from(this, internal_field.multiply(first.internal_value, second.internal_value));
     }
 
     @Override
-    public GaloisFieldOverPolyElement div(GaloisFieldOverPolyElement first, GaloisFieldOverPolyElement second) {
+    public GFPMElement div(GFPMElement first, GFPMElement second) {
         return from(this, internal_field.divideExact(first.internal_value, second.internal_value));
     }
 
     @Override
-    public GaloisFieldOverPolyElement inv(GaloisFieldOverPolyElement element) {
+    public GFPMElement inv(GFPMElement element) {
         return from(this, internal_field.reciprocal(element.internal_value));
     }
 
     @Override
-    public GaloisFieldOverPolyElement neg(GaloisFieldOverPolyElement element) {
+    public GFPMElement neg(GFPMElement element) {
         return from(this, internal_field.negate(element.internal_value));
     }
 
     @Override
-    public GaloisFieldOverPolyElement mod(GaloisFieldOverPolyElement element) {
+    public GFPMElement mod(GFPMElement element) {
         return from(this, internal_field.valueOf(element.internal_value));
     }
 
     @Override
-    public GaloisFieldOverPolyElement getZero() {
+    public GFPMElement getZero() {
         return from(this, internal_field.getZero());
     }
 
     @Override
-    public GaloisFieldOverPolyElement getOne() {
+    public GFPMElement getOne() {
         return from(this, internal_field.getOne());
     }
 
     @Override
-    public GaloisFieldOverPolyElement getOfValue(long value) {
+    public GFPMElement getOfValue(long value) {
         return from(this, internal_field.valueOf(fromDigitalValue(value)));
     }
 
@@ -99,8 +99,8 @@ public class GaloisFieldOverPoly implements GaloisField<GaloisFieldOverPolyEleme
     }
 
     @Override
-    public Class<? extends FieldElement<GaloisFieldOverPolyElement>> getRuntimeClass() {
-        return GaloisFieldOverPolyElement.class;
+    public Class<? extends FieldElement<GFPMElement>> getRuntimeClass() {
+        return GFPMElement.class;
     }
 
     private UnivariatePolynomialZp64 fromDigitalValue(long digitalValue) {
@@ -108,9 +108,9 @@ public class GaloisFieldOverPoly implements GaloisField<GaloisFieldOverPolyEleme
     }
 
     @Override
-    public Iterator<GaloisFieldOverPolyElement> iterator() {
+    public Iterator<GFPMElement> iterator() {
         return new Iterator<>() {
-            private GaloisFieldOverPolyElement next = getOne();
+            private GFPMElement next = getOne();
 
             @Override
             public boolean hasNext() {
@@ -118,7 +118,7 @@ public class GaloisFieldOverPoly implements GaloisField<GaloisFieldOverPolyEleme
             }
 
             @Override
-            public GaloisFieldOverPolyElement next() {
+            public GFPMElement next() {
                 var out = next;
                 next = next.multiply(getOfValue(prime()));
                 if (next.equals(getOne())) {
@@ -133,7 +133,7 @@ public class GaloisFieldOverPoly implements GaloisField<GaloisFieldOverPolyEleme
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GaloisFieldOverPoly that = (GaloisFieldOverPoly) o;
+        GFPM that = (GFPM) o;
         return prime == that.prime &&
                 exponent == that.exponent &&
                 Arrays.equals(irreduciblePoly, that.irreduciblePoly);

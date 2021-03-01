@@ -7,7 +7,7 @@ import static com.trident.math.field.GaloisFields.GF5;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class GaloisFieldOverPrimeTest {
+class GFPTest {
 
     @Test
     void testMultiplyOnZero() {

@@ -1,16 +1,16 @@
 package com.trident.hamming.correction.service;
 
 import com.trident.hamming.correction.report.HammingCorrectionReportWriter;
-import com.trident.math.field.GaloisField;
-import com.trident.math.field.GaloisFieldElement;
+import com.trident.math.field.GF;
+import com.trident.math.field.GFElement;
 import com.trident.math.hamming.HammingCode;
 
-public class HammingCodeAnalyzer<GFElement extends GaloisFieldElement<GFElement>, GF extends GaloisField<GFElement>> {
-    private final HammingCode<GFElement, GF> hammingCode;
+public class HammingCodeAnalyzer<FE extends GFElement<FE>, F extends GF<FE>> {
+    private final HammingCode<FE, F> hammingCode;
     private final HammingCorrectionReportWriter writer;
-    private final GFElement[] sample;
+    private final FE[] sample;
 
-    public HammingCodeAnalyzer(HammingCode<GFElement, GF> hammingCode, HammingCorrectionReportWriter writer, GFElement[] sample) {
+    public HammingCodeAnalyzer(HammingCode<FE, F> hammingCode, HammingCorrectionReportWriter writer, FE[] sample) {
         this.hammingCode = hammingCode;
         this.writer = writer;
         this.sample = sample;

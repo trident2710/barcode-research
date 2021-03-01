@@ -1,8 +1,8 @@
 package com.trident.hamming.correction.service;
 
 import cc.redberry.rings.util.ArraysUtil;
-import com.trident.math.field.GaloisField;
-import com.trident.math.field.GaloisFieldElement;
+import com.trident.math.field.GF;
+import com.trident.math.field.GFElement;
 import com.trident.math.hamming.HammingCode;
 import com.trident.math.matrix.FieldMatrixUtil;
 import org.apache.commons.math3.linear.FieldMatrix;
@@ -11,14 +11,14 @@ import org.apache.commons.math3.util.Combinations;
 import java.util.Arrays;
 import java.util.Iterator;
 
-public class HammingCodeSequentialErrorsProvider<GFElement extends GaloisFieldElement<GFElement>, GF extends GaloisField<GFElement>> implements HammingCodeErrorProvider<GFElement> {
+public class HammingCodeSequentialErrorsProvider<FE extends GFElement<FE>, F extends GF<FE>> implements HammingCodeErrorProvider<FE> {
     private final int errorLevel;
-    private final HammingCode<GFElement, GF> hammingCode;
+    private final HammingCode<FE, F> hammingCode;
     private final Iterator<int[]> positionsIterator;
     private Iterator<long[]> errorsIterator;
     private int[] currentPositions;
 
-    public HammingCodeSequentialErrorsProvider(int errorLevel, HammingCode<GFElement, GF> hammingCode) {
+    public HammingCodeSequentialErrorsProvider(int errorLevel, HammingCode<FE, F> hammingCode) {
         this.errorLevel = errorLevel;
         this.hammingCode = hammingCode;
         this.positionsIterator = new Combinations(hammingCode.totalLength(), errorLevel).iterator();
@@ -37,7 +37,7 @@ public class HammingCodeSequentialErrorsProvider<GFElement extends GaloisFieldEl
     }
 
     @Override
-    public FieldMatrix<GFElement> next() {
+    public FieldMatrix<FE> next() {
         if (!hasNext()) {
             throw new RuntimeException();
         }
@@ -52,7 +52,7 @@ public class HammingCodeSequentialErrorsProvider<GFElement extends GaloisFieldEl
         return createErrorVector(currentPositions, errors);
     }
 
-    private FieldMatrix<GFElement> createErrorVector(int[] positions, long[] errorValues) {
+    private FieldMatrix<FE> createErrorVector(int[] positions, long[] errorValues) {
         var error = FieldMatrixUtil.matrixRowOfValue(hammingCode.getField().getZero(), hammingCode.totalLength());
         for (int i = 0; i < positions.length; i++) {
             error.addToEntry(0, positions[i], hammingCode.getField().getOfValue(errorValues[i]));
