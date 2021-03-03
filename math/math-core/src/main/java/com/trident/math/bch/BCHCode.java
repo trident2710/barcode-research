@@ -3,12 +3,16 @@ package com.trident.math.bch;
 import com.google.common.base.Preconditions;
 import com.trident.math.field.GF;
 import com.trident.math.field.GFElement;
+import com.trident.math.field.GFPM;
+import com.trident.math.field.GFPMElement;
+import com.trident.math.field.GFPMPowerRepresentationMapper;
 import org.apache.commons.math3.linear.Array2DRowFieldMatrix;
 import org.apache.commons.math3.linear.FieldMatrix;
 
-public class BCHCode<Symbol extends GFElement<Symbol>, Locator extends GFElement<Locator>> {
+public class BCHCode<Symbol extends GFElement<Symbol>, Locator extends GFPMElement<Locator>> {
     private final FieldMatrix<Symbol> symbolsMatrix;
     private final FieldMatrix<Locator> locatorsMatrixT;
+    private final GFPMPowerRepresentationMapper<Locator> powerRepresentationMapper;
 
     public BCHCode(FieldMatrix<Symbol> symbolsMatrix,
                    FieldMatrix<Locator> locatorsMatrix) {
@@ -18,6 +22,7 @@ public class BCHCode<Symbol extends GFElement<Symbol>, Locator extends GFElement
 
         this.symbolsMatrix = symbolsMatrix;
         this.locatorsMatrixT = locatorsMatrixT;
+        this.powerRepresentationMapper = GFPMPowerRepresentationMapper.create((GFPM<Locator>) locatorsMatrix.getField());
     }
 
     public FieldMatrix<Symbol> encode(FieldMatrix<Symbol> message) {
@@ -31,7 +36,11 @@ public class BCHCode<Symbol extends GFElement<Symbol>, Locator extends GFElement
         Preconditions.checkArgument(encoded.getRowDimension() == 1);
         Preconditions.checkArgument(encoded.getColumnDimension() == locatorsMatrixT.getRowDimension());
         var syndrome = calculateSyndrome(encoded);
-        return new BCHCodeSyndrome<>(encoded, syndrome);
+        return new BCHCodeSyndrome<>(this, encoded, syndrome);
+    }
+
+    GFPMPowerRepresentationMapper<Locator> getPowerRepresentationMapper() {
+        return powerRepresentationMapper;
     }
 
     private FieldMatrix<Locator> calculateSyndrome(FieldMatrix<Symbol> encoded) {

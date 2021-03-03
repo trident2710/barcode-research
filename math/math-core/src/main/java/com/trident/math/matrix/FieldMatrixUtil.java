@@ -146,4 +146,7 @@ public final class FieldMatrixUtil {
         return shifted;
     }
 
+    public static <FieldElem extends FieldElement<FieldElem>> boolean isZero(FieldMatrix<FieldElem> matrix) {
+        return matrix.equals(new Array2DRowFieldMatrix<>(matrix.getField(), matrix.getRowDimension(), matrix.getColumnDimension()));
+    }
 }

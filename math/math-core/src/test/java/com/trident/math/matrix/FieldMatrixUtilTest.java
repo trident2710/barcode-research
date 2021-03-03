@@ -5,11 +5,15 @@ import org.junit.jupiter.api.Test;
 import static com.trident.math.field.GaloisFields.GF5;
 import static com.trident.math.matrix.FieldMatrixUtil.concatBottom;
 import static com.trident.math.matrix.FieldMatrixUtil.concatRight;
+import static com.trident.math.matrix.FieldMatrixUtil.isZero;
 import static com.trident.math.matrix.FieldMatrixUtil.matrixRow;
 import static com.trident.math.matrix.FieldMatrixUtil.shiftRowRight;
+import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrixRow;
 import static org.apache.commons.math3.linear.MatrixUtils.createFieldIdentityMatrix;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FieldMatrixUtilTest {
 
@@ -63,5 +67,11 @@ class FieldMatrixUtilTest {
         var shiftedByThree = shiftRowRight(row, 3);
         expected = matrixRow(GF5.getZero(), GF5.getZero(), GF5.getZero(), GF5.getOne());
         assertEquals(expected, shiftedByThree);
+    }
+
+    @Test
+    void testIsZero() {
+        assertFalse(isZero(toFieldMatrixRow(new long[]{0, 1, 2, 3}, GF5)));
+        assertTrue(isZero(toFieldMatrixRow(new long[]{0, 0, 0, 0}, GF5)));
     }
 }

@@ -17,14 +17,27 @@ class BCHCodeTest {
         var expected = toFieldMatrixRow(new long[]{2, 0, 2, 1, 1, 0, 1, 2}, GF3);
         assertEquals(expected, encoded);
 
-        var expectedSyndrome = new BCHCodeSyndrome<>(encoded, toFieldMatrixRow(new long[]{0, 0, 0, 0}, GF_3_2));
+        var expectedSyndrome = new BCHCodeSyndrome<>(BCH_8_3, encoded, toFieldMatrixRow(new long[]{0, 0, 0, 0}, GF_3_2));
         assertEquals(expectedSyndrome, BCH_8_3.syndrome(encoded));
     }
 
     @Test
-    void testError() {
+    void testDoubleError() {
         var code_with_error = toFieldMatrixRow(new long[]{1, 0, 2, 2, 1, 0, 1, 2}, GF3);
-        var expectedSyndrome = new BCHCodeSyndrome<>(code_with_error, toFieldMatrixRow(new long[]{7, 4, 5, 1}, GF_3_2));
-        assertEquals(expectedSyndrome, BCH_8_3.syndrome(code_with_error));
+        var syndrome = BCH_8_3.syndrome(code_with_error);
+        var expectedSyndrome = toFieldMatrixRow(new long[]{7, 4, 5, 1}, GF_3_2);
+        assertEquals(expectedSyndrome, syndrome.getSyndrome());
+        var expectedCorrection = toFieldMatrixRow(new long[]{2, 0, 0, 1, 0, 0, 0, 0}, GF3);
+        assertEquals(expectedCorrection, syndrome.getCorrection());
+    }
+
+    @Test
+    void testSingleError() {
+        var code_with_error = toFieldMatrixRow(new long[]{2, 0, 2, 1, 1, 2, 1, 2}, GF3);
+        var syndrome = BCH_8_3.syndrome(code_with_error);
+        var expectedSyndrome = toFieldMatrixRow(new long[]{3, 5, 8, 1}, GF_3_2);
+        assertEquals(expectedSyndrome, syndrome.getSyndrome());
+        var expectedCorrection = toFieldMatrixRow(new long[]{0, 0, 0, 0, 0, 2, 0, 0}, GF3);
+        assertEquals(expectedCorrection, syndrome.getCorrection());
     }
 }
