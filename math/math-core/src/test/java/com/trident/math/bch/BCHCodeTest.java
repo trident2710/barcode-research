@@ -7,6 +7,7 @@ import static com.trident.math.field.GaloisFields.GF3;
 import static com.trident.math.field.GaloisFields.GF_3_2;
 import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrixRow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BCHCodeTest {
 
@@ -25,6 +26,7 @@ class BCHCodeTest {
     void testDoubleError() {
         var code_with_error = toFieldMatrixRow(new long[]{1, 0, 2, 2, 1, 0, 1, 2}, GF3);
         var syndrome = BCH_8_3.syndrome(code_with_error);
+        assertTrue(syndrome.hasError());
         var expectedSyndrome = toFieldMatrixRow(new long[]{7, 4, 5, 1}, GF_3_2);
         assertEquals(expectedSyndrome, syndrome.getSyndrome());
         var expectedCorrection = toFieldMatrixRow(new long[]{2, 0, 0, 1, 0, 0, 0, 0}, GF3);
@@ -35,6 +37,7 @@ class BCHCodeTest {
     void testSingleError() {
         var code_with_error = toFieldMatrixRow(new long[]{2, 0, 2, 1, 1, 2, 1, 2}, GF3);
         var syndrome = BCH_8_3.syndrome(code_with_error);
+        assertTrue(syndrome.hasError());
         var expectedSyndrome = toFieldMatrixRow(new long[]{3, 5, 8, 1}, GF_3_2);
         assertEquals(expectedSyndrome, syndrome.getSyndrome());
         var expectedCorrection = toFieldMatrixRow(new long[]{0, 0, 0, 0, 0, 2, 0, 0}, GF3);

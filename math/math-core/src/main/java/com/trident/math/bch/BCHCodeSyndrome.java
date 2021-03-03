@@ -34,7 +34,7 @@ public class BCHCodeSyndrome<Symbol extends GFElement<Symbol>, Locator extends G
         this.correction = findCorrection(bch, message, syndrome);
     }
 
-    public boolean hasError(FieldMatrix<Locator> syndrome) {
+    public boolean hasError() {
         return !isZero(syndrome);
     }
 
@@ -123,6 +123,8 @@ public class BCHCodeSyndrome<Symbol extends GFElement<Symbol>, Locator extends G
         var field = (GF<Locator>) syndrome.getField();
         // x1,x2 -> sig2*x^2 + sig1*x + 1 = 0
         var x = solveSquaredEquation(field, sigma.getEntry(0, 0), sigma.getEntry(1, 0), field.getOne());
+
+        Preconditions.checkArgument(x.size() == 2, "sig2*x^2 + sig1*x + 1 = 0 equation should have 2 roots");
         // X1, X2 = x1^-1, x2^-1
         var X = x.stream().map(FieldElement::reciprocal).collect(Collectors.toList());
 
@@ -139,17 +141,16 @@ public class BCHCodeSyndrome<Symbol extends GFElement<Symbol>, Locator extends G
         // (Y2)   (X1^2, X2^2)       (S2)
         var Y = X_inv.multiply(S_1_2);
 
-        var j = X.stream().map(e -> bch.getPowerRepresentationMapper().getPower(e)).collect(Collectors.toList());
+        var errorPositions = X.stream().map(e -> bch.getPowerRepresentationMapper().getPower(e)).collect(Collectors.toList());
 
         var symbolField = (GF<Symbol>) message.getField();
-
         var errorValues = List.of(Y.getEntry(0, 0), Y.getEntry(1, 0)).stream()
                 .map(e -> symbolField.getOfValue(e.digitalRepresentation()))
                 .collect(Collectors.toList());
 
         var correction = matrixRowOfValue(symbolField.getZero(), message.getColumnDimension());
-        correction.setEntry(0, j.get(0), errorValues.get(0));
-        correction.setEntry(0, j.get(1), errorValues.get(1));
+        correction.setEntry(0, errorPositions.get(0), errorValues.get(0));
+        correction.setEntry(0, errorPositions.get(1), errorValues.get(1));
 
         return correction;
     }
