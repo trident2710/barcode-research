@@ -14,15 +14,38 @@ public class BCHCode<Symbol extends GFElement<Symbol>, Locator extends GFPMEleme
     private final FieldMatrix<Locator> locatorsMatrixT;
     private final GFPMPowerRepresentationMapper<Locator> powerRepresentationMapper;
 
+    private final GF<Symbol> symbolField;
+    private final GF<Locator> locatorField;
+
     public BCHCode(FieldMatrix<Symbol> symbolsMatrix,
-                   FieldMatrix<Locator> locatorsMatrix) {
+                   Class<? extends GF<Symbol>> symbolsFieldClass,
+                   FieldMatrix<Locator> locatorsMatrix,
+                   Class<? extends GF<Locator>> locatorsFieldClass) {
         Preconditions.checkArgument(symbolsMatrix.getColumnDimension() == locatorsMatrix.getColumnDimension());
         var locatorsMatrixT = locatorsMatrix.transpose();
         checkCorrect(symbolsMatrix, locatorsMatrixT);
 
         this.symbolsMatrix = symbolsMatrix;
         this.locatorsMatrixT = locatorsMatrixT;
+        this.symbolField = symbolsFieldClass.cast(symbolsMatrix.getField());
+        this.locatorField = locatorsFieldClass.cast(locatorsMatrix.getField());
         this.powerRepresentationMapper = GFPMPowerRepresentationMapper.create((GFPM<Locator>) locatorsMatrix.getField());
+    }
+
+    public GF<Symbol> symbolField() {
+        return symbolField;
+    }
+
+    public GF<Locator> locatorField() {
+        return locatorField;
+    }
+
+    public int totalLength() {
+        return symbolsMatrix.getColumnDimension();
+    }
+
+    public int informationalLength() {
+        return symbolsMatrix.getRowDimension();
     }
 
     public FieldMatrix<Symbol> encode(FieldMatrix<Symbol> message) {
