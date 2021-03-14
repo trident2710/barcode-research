@@ -38,6 +38,24 @@ public class BCHCodeSyndrome<Symbol extends GFElement<Symbol>, Locator extends G
         return !isZero(syndrome);
     }
 
+    public int errorCount() {
+        return errorCount(correction);
+    }
+
+    private int errorCount(FieldMatrix<Symbol> correction) {
+        if (isZero(correction)) {
+            return 0;
+        }
+
+        int count = 0;
+        for (int i = 0; i < correction.getColumnDimension(); i++) {
+            if (!correction.getEntry(0, i).equals(correction.getField().getZero())) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     public FieldMatrix<Symbol> getCorrection() {
         return correction;
     }

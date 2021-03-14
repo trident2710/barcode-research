@@ -31,6 +31,7 @@ class BCHCodeTest {
         assertEquals(expectedSyndrome, syndrome.getSyndrome());
         var expectedCorrection = toFieldMatrixRow(new long[]{2, 0, 0, 1, 0, 0, 0, 0}, GF3);
         assertEquals(expectedCorrection, syndrome.getCorrection());
+        assertEquals(2, syndrome.errorCount());
     }
 
     @Test
@@ -42,5 +43,6 @@ class BCHCodeTest {
         assertEquals(expectedSyndrome, syndrome.getSyndrome());
         var expectedCorrection = toFieldMatrixRow(new long[]{0, 0, 0, 0, 0, 2, 0, 0}, GF3);
         assertEquals(expectedCorrection, syndrome.getCorrection());
+        assertEquals(1, syndrome.errorCount());
     }
 }
