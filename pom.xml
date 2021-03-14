@@ -28,6 +28,7 @@
     <modules>
         <module>hamming-correction-research</module>
         <module>math</module>
+        <module>bch-correction-research</module>
     </modules>
 
     <dependencyManagement>
