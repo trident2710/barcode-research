@@ -3,19 +3,19 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>phdResearch</artifactId>
+        <artifactId>correction-research</artifactId>
         <groupId>com.trident</groupId>
         <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
 
-    <artifactId>correction-research</artifactId>
+    <artifactId>correction-research-common</artifactId>
 
-    <modules>
-        <module>bch-correction-research</module>
-        <module>hamming-correction-research</module>
-        <module>correction-research-common</module>
-    </modules>
-
+    <dependencies>
+        <dependency>
+            <groupId>com.trident</groupId>
+            <artifactId>math-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>
