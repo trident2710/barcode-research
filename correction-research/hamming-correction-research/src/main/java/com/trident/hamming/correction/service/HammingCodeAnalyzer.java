@@ -1,5 +1,6 @@
 package com.trident.hamming.correction.service;
 
+import com.trident.correction.FieldErrorVectorSequentialProvider;
 import com.trident.hamming.correction.report.HammingCorrectionReportWriter;
 import com.trident.math.field.GF;
 import com.trident.math.field.GFElement;
@@ -20,7 +21,7 @@ public class HammingCodeAnalyzer<FE extends GFElement<FE>, F extends GF<FE>> {
         int maxErrorLevel = hammingCode.getFullMatrix().getColumnDimension();
         int errorLevel = 1;
         while (errorLevel <= maxErrorLevel) {
-            var errorProvider = new HammingCodeSequentialErrorsProvider<>(errorLevel, hammingCode);
+            var errorProvider = new FieldErrorVectorSequentialProvider<>(hammingCode.totalLength(), errorLevel, hammingCode.getField());
             var errorAnalyzer = new HammingErrorLevelAnalyzer<>(errorProvider, writer, hammingCode, sample);
             errorAnalyzer.analyzeHammingCodeErrorLevel();
             errorLevel++;

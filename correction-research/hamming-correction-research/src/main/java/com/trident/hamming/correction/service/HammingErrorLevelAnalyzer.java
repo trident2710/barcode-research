@@ -1,5 +1,6 @@
 package com.trident.hamming.correction.service;
 
+import com.trident.correction.FieldErrorVectorProvider;
 import com.trident.hamming.correction.report.HammingCorrectionReport;
 import com.trident.hamming.correction.report.HammingCorrectionReportWriter;
 import com.trident.hamming.correction.report.ImmutableHammingCorrectionReport;
@@ -17,12 +18,12 @@ import static com.trident.math.io.FieldMatrixIOUtil.writeAsString;
 
 public final class HammingErrorLevelAnalyzer<FE extends GFElement<FE>, F extends GF<FE>> {
 
-    private final HammingCodeErrorProvider<FE> errorProvider;
+    private final FieldErrorVectorProvider<FE> errorProvider;
     private final HammingCorrectionReportWriter writer;
     private final HammingCode<FE, F> hammingCode;
     private final FE[] sample;
 
-    public HammingErrorLevelAnalyzer(HammingCodeErrorProvider<FE> errorProvider, HammingCorrectionReportWriter writer, HammingCode<FE, F> hammingCode, FE[] sample) {
+    public HammingErrorLevelAnalyzer(FieldErrorVectorProvider<FE> errorProvider, HammingCorrectionReportWriter writer, HammingCode<FE, F> hammingCode, FE[] sample) {
         this.errorProvider = errorProvider;
         this.writer = writer;
         this.hammingCode = hammingCode;
