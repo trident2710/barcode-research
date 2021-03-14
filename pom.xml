@@ -26,9 +26,8 @@
     </properties>
 
     <modules>
-        <module>hamming-correction-research</module>
         <module>math</module>
-        <module>bch-correction-research</module>
+        <module>correction-research</module>
     </modules>
 
     <dependencyManagement>

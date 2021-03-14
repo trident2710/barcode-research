@@ -3,18 +3,23 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>phdResearch</artifactId>
+        <artifactId>correction-research</artifactId>
         <groupId>com.trident</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>bch-correction-research</artifactId>
+    <artifactId>hamming-correction-research</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.trident</groupId>
             <artifactId>math-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.trident</groupId>
+            <artifactId>math-io</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -44,7 +49,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.trident.bch.correction.Runner</mainClass>
+                            <mainClass>com.trident.hamming.correction.Runner</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
