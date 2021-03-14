@@ -7,7 +7,5 @@ import java.util.Map;
 
 public interface ErrorCorrectionTotalStatisticsCalculator<FE extends GFElement<FE>> {
 
-    Map<Integer, CorrectionStatistics> calculateForMessageByErrorLevel(FieldMatrix<FE> message);
-
-    Map<Integer, CorrectionStatistics> calculateForRandomMessageByErrorLevel();
+    Map<Integer, CorrectionStatistics> calculateStatistics(FieldMatrix<FE> message);
 }
