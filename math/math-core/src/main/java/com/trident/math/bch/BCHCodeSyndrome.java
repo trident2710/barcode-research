@@ -120,7 +120,7 @@ public class BCHCodeSyndrome<Symbol extends GFElement<Symbol>, Locator extends G
         var X = x.reciprocal();
         int j = bch.getPowerRepresentationMapper().getPower(X);
         var symbolField = (GF<Symbol>) message.getField();
-        var errorValue = symbolField.getOfValue(x.digitalRepresentation());
+        var errorValue = symbolField.getOfValue(x.multiply(syndrome.getEntry(0, 0)).digitalRepresentation());
         var correction = matrixRowOfValue(symbolField.getZero(), message.getColumnDimension());
         correction.setEntry(0, j, errorValue);
         return correction;

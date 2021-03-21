@@ -84,8 +84,10 @@ public class BCHCode<Symbol extends GFElement<Symbol>, Locator extends GFPMEleme
         for (int i = 0; i < symbolsMatrix.getRowDimension(); i++) {
             for (int j = 0; j < locatorsMatrix.getColumnDimension(); j++) {
                 for (int k = 0; k < symbolsMatrix.getColumnDimension(); k++) {
-                    result.addToEntry(i, j, field.times(locatorsMatrix.getEntry(k, j),
-                            (int) symbolsMatrix.getEntry(i, k).digitalRepresentation()));
+                    var l = locatorsMatrix.getEntry(k, j);
+                    var s = field.getOfValue(symbolsMatrix.getEntry(i, k).digitalRepresentation());
+                    var value = field.mul(l, s);
+                    result.addToEntry(i, j, value);
                 }
             }
         }

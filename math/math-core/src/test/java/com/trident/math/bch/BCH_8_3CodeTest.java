@@ -9,7 +9,7 @@ import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrixRow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class BCHCodeTest {
+class BCH_8_3CodeTest {
 
     @Test
     void testEncode() {
