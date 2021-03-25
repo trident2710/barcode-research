@@ -30,8 +30,8 @@ class BCH_8_3CodeTest {
         var expectedSyndrome = toFieldMatrixRow(new long[]{7, 4, 5, 1}, GF_3_2);
         assertEquals(expectedSyndrome, syndrome.getSyndrome());
         var expectedCorrection = toFieldMatrixRow(new long[]{2, 0, 0, 1, 0, 0, 0, 0}, GF3);
-        assertEquals(expectedCorrection, syndrome.getCorrection());
-        assertEquals(2, syndrome.errorCount());
+        assertEquals(expectedCorrection, syndrome.getCorrectionResult().getCorrection());
+        assertEquals(2, syndrome.getCorrectionResult().getErrorCount());
     }
 
     @Test
@@ -42,7 +42,7 @@ class BCH_8_3CodeTest {
         var expectedSyndrome = toFieldMatrixRow(new long[]{3, 5, 8, 1}, GF_3_2);
         assertEquals(expectedSyndrome, syndrome.getSyndrome());
         var expectedCorrection = toFieldMatrixRow(new long[]{0, 0, 0, 0, 0, 2, 0, 0}, GF3);
-        assertEquals(expectedCorrection, syndrome.getCorrection());
-        assertEquals(1, syndrome.errorCount());
+        assertEquals(expectedCorrection, syndrome.getCorrectionResult().getCorrection());
+        assertEquals(1, syndrome.getCorrectionResult().getErrorCount());
     }
 }

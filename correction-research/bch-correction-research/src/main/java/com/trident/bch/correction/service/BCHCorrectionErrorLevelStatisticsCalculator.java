@@ -56,18 +56,25 @@ public class BCHCorrectionErrorLevelStatisticsCalculator<Symbol extends GFElemen
             (FieldMatrix<Symbol> encoded, FieldMatrix<Symbol> errorVector) {
         var withError = encoded.add(errorVector);
         var syndrome = bch.syndrome(withError);
-        if (!syndrome.hasError()) {
-            return CorrectionStatus.NO_ERROR;
-        } else {
-            int errorCount = syndrome.errorCount();
-            switch (errorCount) {
-                case 1:
-                    return CorrectionStatus.ERROR_1;
-                case 2:
-                    return CorrectionStatus.ERROR_2;
-                default:
-                    throw new IllegalStateException("Abnormal error count: " + errorCount);
-            }
+        var correctionResult = syndrome.getCorrectionResult();
+        switch (correctionResult.getCorrectionStatus()) {
+            case CORRECTED:
+                int errorCount = correctionResult.getErrorCount();
+                switch (errorCount) {
+                    case 1:
+                        return CorrectionStatus.ERROR_1;
+                    case 2:
+                        return CorrectionStatus.ERROR_2;
+                    default:
+                        throw new IllegalStateException("Abnormal error count: " + errorCount);
+                }
+            case DETECTED:
+                return CorrectionStatus.DETECTED;
+            case NO_ERROR:
+                return CorrectionStatus.NO_ERROR;
+            default:
+                throw new IllegalStateException("Unknown status: " + correctionResult.getCorrectionStatus());
+
         }
     }
 }

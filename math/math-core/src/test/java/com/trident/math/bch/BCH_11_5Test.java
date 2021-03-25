@@ -26,7 +26,7 @@ public class BCH_11_5Test {
         var codeWithError = toFieldMatrixRow(new long[]{2, 3, 1, 3, 0, 3, 2, 1, 2, 0, 1}, GF_2_2);
         var syndrome = BCH_11_5.syndrome(codeWithError);
         var expectedCorrection = toFieldMatrixRow(new long[]{0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0}, GF_2_2);
-        assertEquals(expectedCorrection, syndrome.getCorrection());
+        assertEquals(expectedCorrection, syndrome.getCorrectionResult().getCorrection());
     }
 
     @Test
@@ -34,6 +34,6 @@ public class BCH_11_5Test {
         var codeWithError = toFieldMatrixRow(new long[]{2, 1, 2, 3, 0, 2, 2, 1, 2, 0, 1}, GF_2_2);
         var syndrome = BCH_11_5.syndrome(codeWithError);
         var expectedCorrection = toFieldMatrixRow(new long[]{0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0}, GF_2_2);
-        assertEquals(expectedCorrection, syndrome.getCorrection());
+        assertEquals(expectedCorrection, syndrome.getCorrectionResult().getCorrection());
     }
 }
