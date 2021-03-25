@@ -58,18 +58,14 @@ public class BCHCorrectionErrorLevelStatisticsCalculator<Symbol extends GFElemen
         var syndrome = bch.syndrome(withError);
         var correctionResult = syndrome.getCorrectionResult();
         switch (correctionResult.getCorrectionStatus()) {
-            case CORRECTED:
-                int errorCount = correctionResult.getErrorCount();
-                switch (errorCount) {
-                    case 1:
-                        return CorrectionStatus.ERROR_1;
-                    case 2:
-                        return CorrectionStatus.ERROR_2;
-                    default:
-                        throw new IllegalStateException("Abnormal error count: " + errorCount);
-                }
-            case DETECTED:
-                return CorrectionStatus.DETECTED;
+            case CORRECTED_1:
+                return CorrectionStatus.ERROR_1;
+            case CORRECTED_2:
+                return CorrectionStatus.ERROR_2;
+            case DETECTED_1:
+                return CorrectionStatus.DETECTED_1;
+            case DETECTED_2:
+                return CorrectionStatus.DETECTED_2;
             case NO_ERROR:
                 return CorrectionStatus.NO_ERROR;
             default:

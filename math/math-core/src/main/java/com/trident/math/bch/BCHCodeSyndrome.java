@@ -12,8 +12,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static com.trident.math.bch.BCHCodeSyndrome.CorrectionStatus.CORRECTED;
-import static com.trident.math.bch.BCHCodeSyndrome.CorrectionStatus.DETECTED;
+import static com.trident.math.bch.BCHCodeSyndrome.CorrectionStatus.CORRECTED_1;
+import static com.trident.math.bch.BCHCodeSyndrome.CorrectionStatus.CORRECTED_2;
+import static com.trident.math.bch.BCHCodeSyndrome.CorrectionStatus.DETECTED_1;
+import static com.trident.math.bch.BCHCodeSyndrome.CorrectionStatus.DETECTED_2;
 import static com.trident.math.bch.BCHCodeSyndrome.CorrectionStatus.NO_ERROR;
 import static com.trident.math.field.FiniteFieldEquation.solveLinearEquation;
 import static com.trident.math.field.FiniteFieldEquation.solveSquaredEquation;
@@ -99,7 +101,7 @@ public class BCHCodeSyndrome<Symbol extends GFElement<Symbol>, Locator extends G
         var S1 = syndrome.getEntry(0, 0);
         var S2 = syndrome.getEntry(0, 1);
         if (S1.equals(message.getField().getZero())) {
-            return CorrectionResult.detected();
+            return CorrectionResult.detected1();
         }
         // sigma = - S2 / S1
         var sigma = S2.divide(S1).negate();
@@ -114,7 +116,7 @@ public class BCHCodeSyndrome<Symbol extends GFElement<Symbol>, Locator extends G
         var errorValue = symbolField.getOfValue(x.multiply(syndrome.getEntry(0, 0)).digitalRepresentation());
         var correction = matrixRowOfValue(symbolField.getZero(), message.getColumnDimension());
         correction.setEntry(0, j, errorValue);
-        return CorrectionResult.corrected(correction);
+        return CorrectionResult.corrected1(correction);
     }
 
     private CorrectionResult<Symbol> findDoubleError(BCHCode<Symbol, Locator> bch, FieldMatrix<Symbol> message, FieldMatrix<Locator> syndrome) {
@@ -134,7 +136,7 @@ public class BCHCodeSyndrome<Symbol extends GFElement<Symbol>, Locator extends G
         var x = solveSquaredEquation(field, sigma.getEntry(0, 0), sigma.getEntry(1, 0), field.getOne());
 
         if (x.size() != 2) {
-            return CorrectionResult.detected();
+            return CorrectionResult.detected2();
         }
 
         // X1, X2 = x1^-1, x2^-1
@@ -164,12 +166,14 @@ public class BCHCodeSyndrome<Symbol extends GFElement<Symbol>, Locator extends G
         correction.setEntry(0, errorPositions.get(0), errorValues.get(0));
         correction.setEntry(0, errorPositions.get(1), errorValues.get(1));
 
-        return CorrectionResult.corrected(correction);
+        return CorrectionResult.corrected2(correction);
     }
 
     public enum CorrectionStatus {
-        CORRECTED,
-        DETECTED,
+        CORRECTED_1,
+        CORRECTED_2,
+        DETECTED_1,
+        DETECTED_2,
         NO_ERROR;
     }
 
@@ -189,13 +193,22 @@ public class BCHCodeSyndrome<Symbol extends GFElement<Symbol>, Locator extends G
             return new CorrectionResult<>(NO_ERROR, null);
         }
 
-        static <Symbol extends GFElement<Symbol>> CorrectionResult<Symbol> detected() {
-            return new CorrectionResult<>(DETECTED, null);
+        static <Symbol extends GFElement<Symbol>> CorrectionResult<Symbol> detected1() {
+            return new CorrectionResult<>(DETECTED_1, null);
         }
 
-        static <Symbol extends GFElement<Symbol>> CorrectionResult<Symbol> corrected(FieldMatrix<Symbol> correction) {
-            checkCorrection(correction);
-            return new CorrectionResult<>(CORRECTED, correction);
+        static <Symbol extends GFElement<Symbol>> CorrectionResult<Symbol> detected2() {
+            return new CorrectionResult<>(DETECTED_2, null);
+        }
+
+        static <Symbol extends GFElement<Symbol>> CorrectionResult<Symbol> corrected1(FieldMatrix<Symbol> correction) {
+            checkCorrection(correction, 1);
+            return new CorrectionResult<>(CORRECTED_1, correction);
+        }
+
+        static <Symbol extends GFElement<Symbol>> CorrectionResult<Symbol> corrected2(FieldMatrix<Symbol> correction) {
+            checkCorrection(correction, 2);
+            return new CorrectionResult<>(CORRECTED_2, correction);
         }
 
         public CorrectionStatus getCorrectionStatus() {
@@ -211,12 +224,12 @@ public class BCHCodeSyndrome<Symbol extends GFElement<Symbol>, Locator extends G
             return errorCount;
         }
 
-        private static <Symbol extends GFElement<Symbol>> void checkCorrection(FieldMatrix<Symbol> correction) {
+        private static <Symbol extends GFElement<Symbol>> void checkCorrection(FieldMatrix<Symbol> correction, int errorCount) {
             Preconditions.checkNotNull(correction);
             Preconditions.checkArgument(!isZero(correction), "Zero correction: " + correction);
 
-            int errorCount = errorCount(correction);
-            Preconditions.checkState(errorCount > 0 && errorCount <= 2, "Illegal error count in correction: " + correction);
+            int count = errorCount(correction);
+            Preconditions.checkArgument(count == errorCount);
         }
 
         private static <Symbol extends GFElement<Symbol>> int errorCount(FieldMatrix<Symbol> correction) {
