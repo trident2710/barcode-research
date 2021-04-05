@@ -62,12 +62,14 @@ public class BCHCorrectionErrorLevelStatisticsCalculator<Symbol extends GFElemen
                 return CorrectionStatus.ERROR_1;
             case CORRECTED_2:
                 return CorrectionStatus.ERROR_2;
-            case DETECTED_1:
-                return CorrectionStatus.DETECTED_1;
-            case DETECTED_2:
-                return CorrectionStatus.DETECTED_2;
             case NO_ERROR:
                 return CorrectionStatus.NO_ERROR;
+            case ERR_ERROR_VALUE_0:
+            case ERR_ERROR_COUNT:
+            case ERR_POSITION_OUT_OF_RANGE:
+            case ERR_S1_0:
+            case ERR_NO_ROOTS:
+                return CorrectionStatus.DETECTED;
             default:
                 throw new IllegalStateException("Unknown status: " + correctionResult.getCorrectionStatus());
 
