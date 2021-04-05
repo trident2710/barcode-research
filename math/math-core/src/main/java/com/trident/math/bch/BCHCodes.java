@@ -5,10 +5,12 @@ import com.trident.math.field.GFPMExtensionElement;
 import com.trident.math.field.GFPMSimpleElement;
 
 import static com.trident.math.field.GaloisFields.GF3;
+import static com.trident.math.field.GaloisFields.GF5;
 import static com.trident.math.field.GaloisFields.GF_2_2;
 import static com.trident.math.field.GaloisFields.GF_3_2;
 import static com.trident.math.field.GaloisFields.GF_3_3;
 import static com.trident.math.field.GaloisFields.GF_4_2;
+import static com.trident.math.field.GaloisFields.GF_5_2;
 import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrix;
 
 public final class BCHCodes {
@@ -173,4 +175,31 @@ public final class BCHCodes {
                     new long[]{1, 5, 13, 4, 11, 18, 16, 10, 25, 3, 15, 17},
                     new long[]{1, 15, 20, 11, 7, 22, 25, 9, 13, 12, 6, 16},
             }, GF_3_3), GF_3_3.getClass());
+
+    public static BCHCode<GFPElement, GFPMSimpleElement> BCH_24_16 = new BCHCode<>(
+            toFieldMatrix(new long[][]{
+                    new long[]{4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                    new long[]{0, 4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                    new long[]{0, 0, 4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                    new long[]{0, 0, 0, 4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                    new long[]{0, 0, 0, 0, 4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                    new long[]{0, 0, 0, 0, 0, 4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                    new long[]{0, 0, 0, 0, 0, 0, 4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                    new long[]{0, 0, 0, 0, 0, 0, 0, 4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+                    new long[]{0, 0, 0, 0, 0, 0, 0, 0, 4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0, 0, 0, 0, 0, 0},
+                    new long[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0, 0, 0, 0, 0},
+                    new long[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0, 0, 0, 0},
+                    new long[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0, 0, 0},
+                    new long[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0, 0},
+                    new long[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0},
+                    new long[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1, 4, 2, 0, 4, 4, 3, 1, 0},
+                    new long[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1, 4, 2, 0, 4, 4, 3, 1},
+
+            }, GF5), GF5.getClass(),
+            toFieldMatrix(new long[][]{
+                    new long[]{1, 5, 23, 22, 17, 24, 2, 10, 16, 19, 9, 18, 4, 20, 7, 8, 13, 6, 3, 15, 14, 11, 21, 12},
+                    new long[]{1, 23, 17, 2, 16, 9, 4, 7, 13, 3, 14, 21, 1, 23, 17, 2, 16, 9, 4, 7, 13, 3, 14, 21},
+                    new long[]{1, 22, 2, 19, 4, 8, 3, 11, 1, 22, 2, 19, 4, 8, 3, 11, 1, 22, 2, 19, 4, 8, 3, 11},
+                    new long[]{1, 17, 16, 4, 13, 14, 1, 17, 16, 4, 13, 14, 1, 17, 16, 4, 13, 14, 1, 17, 16, 4, 13, 14},
+            }, GF_5_2), GF_5_2.getClass());
 }
