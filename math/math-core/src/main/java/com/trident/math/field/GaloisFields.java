@@ -18,6 +18,8 @@ public final class GaloisFields {
 
     public static GFPMSimple GF_5_2 = GFPMSimple.of(5, 2, new long[]{2, 1, 1});
 
+    public static GFPMSimple GF_7_2 = GFPMSimple.of(7, 2, new long[]{3, 1, 1});
+
     public static GFPMExtension GF_4_2 = GFPMExtension.of(GF_2_2, 2, new long[]{2, 1, 1});
 
     public static GFPMExtension GF_8_2 = GFPMExtension.of(GF_2_3, 2, new long[]{3, 1, 1});

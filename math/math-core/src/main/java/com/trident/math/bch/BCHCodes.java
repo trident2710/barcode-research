@@ -6,11 +6,13 @@ import com.trident.math.field.GFPMSimpleElement;
 
 import static com.trident.math.field.GaloisFields.GF3;
 import static com.trident.math.field.GaloisFields.GF5;
+import static com.trident.math.field.GaloisFields.GF7;
 import static com.trident.math.field.GaloisFields.GF_2_2;
 import static com.trident.math.field.GaloisFields.GF_3_2;
 import static com.trident.math.field.GaloisFields.GF_3_3;
 import static com.trident.math.field.GaloisFields.GF_4_2;
 import static com.trident.math.field.GaloisFields.GF_5_2;
+import static com.trident.math.field.GaloisFields.GF_7_2;
 import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrix;
 
 public final class BCHCodes {
@@ -277,4 +279,63 @@ public final class BCHCodes {
                     new long[]{1, 22, 2, 19, 4, 8, 3, 11, 1, 22},
                     new long[]{1, 17, 16, 4, 13, 14, 1, 17, 16, 4},
             }, GF_5_2), GF_5_2.getClass());
+
+
+    public static BCHCode<GFPElement, GFPMSimpleElement> BCH_GF7_13_5 = new BCHCode<>(
+            toFieldMatrix(new long[][]{
+                    new long[]{4, 6, 1, 2, 5, 0, 0, 5, 1, 0, 0, 0, 0},
+                    new long[]{0, 4, 6, 1, 2, 5, 0, 0, 5, 1, 0, 0, 0},
+                    new long[]{0, 0, 4, 6, 1, 2, 5, 0, 0, 5, 1, 0, 0},
+                    new long[]{0, 0, 0, 4, 6, 1, 2, 5, 0, 0, 5, 1, 0},
+                    new long[]{0, 0, 0, 0, 4, 6, 1, 2, 5, 0, 0, 5, 1},
+
+            }, GF7), GF7.getClass(),
+            toFieldMatrix(new long[][]{
+                    new long[]{1, 7, 46, 38, 41, 13, 39, 48, 3, 21, 33, 9, 11},
+                    new long[]{1, 46, 41, 39, 3, 33, 11, 12, 2, 36, 26, 22, 6},
+                    new long[]{1, 38, 39, 21, 11, 32, 36, 19, 6, 18, 17, 28, 45},
+                    new long[]{1, 41, 3, 11, 2, 26, 6, 15, 4, 45, 5, 30, 1},
+            }, GF_7_2), GF_7_2.getClass());
+
+    public static BCHCode<GFPElement, GFPMSimpleElement> BCH_GF7_12_4 = new BCHCode<>(
+            toFieldMatrix(new long[][]{
+                    new long[]{4, 6, 1, 2, 5, 0, 0, 5, 1, 0, 0, 0},
+                    new long[]{0, 4, 6, 1, 2, 5, 0, 0, 5, 1, 0, 0},
+                    new long[]{0, 0, 4, 6, 1, 2, 5, 0, 0, 5, 1, 0},
+                    new long[]{0, 0, 0, 4, 6, 1, 2, 5, 0, 0, 5, 1},
+
+            }, GF7), GF7.getClass(),
+            toFieldMatrix(new long[][]{
+                    new long[]{1, 7, 46, 38, 41, 13, 39, 48, 3, 21, 33, 9},
+                    new long[]{1, 46, 41, 39, 3, 33, 11, 12, 2, 36, 26, 22},
+                    new long[]{1, 38, 39, 21, 11, 32, 36, 19, 6, 18, 17, 28},
+                    new long[]{1, 41, 3, 11, 2, 26, 6, 15, 4, 45, 5, 30},
+            }, GF_7_2), GF_7_2.getClass());
+
+    public static BCHCode<GFPElement, GFPMSimpleElement> BCH_GF7_11_3 = new BCHCode<>(
+            toFieldMatrix(new long[][]{
+                    new long[]{4, 6, 1, 2, 5, 0, 0, 5, 1, 0, 0},
+                    new long[]{0, 4, 6, 1, 2, 5, 0, 0, 5, 1, 0},
+                    new long[]{0, 0, 4, 6, 1, 2, 5, 0, 0, 5, 1},
+
+            }, GF7), GF7.getClass(),
+            toFieldMatrix(new long[][]{
+                    new long[]{1, 7, 46, 38, 41, 13, 39, 48, 3, 21, 33},
+                    new long[]{1, 46, 41, 39, 3, 33, 11, 12, 2, 36, 26},
+                    new long[]{1, 38, 39, 21, 11, 32, 36, 19, 6, 18, 17},
+                    new long[]{1, 41, 3, 11, 2, 26, 6, 15, 4, 45, 5},
+            }, GF_7_2), GF_7_2.getClass());
+
+    public static BCHCode<GFPElement, GFPMSimpleElement> BCH_GF7_10_2 = new BCHCode<>(
+            toFieldMatrix(new long[][]{
+                    new long[]{4, 6, 1, 2, 5, 0, 0, 5, 1, 0},
+                    new long[]{0, 4, 6, 1, 2, 5, 0, 0, 5, 1},
+
+            }, GF7), GF7.getClass(),
+            toFieldMatrix(new long[][]{
+                    new long[]{1, 7, 46, 38, 41, 13, 39, 48, 3, 21},
+                    new long[]{1, 46, 41, 39, 3, 33, 11, 12, 2, 36},
+                    new long[]{1, 38, 39, 21, 11, 32, 36, 19, 6, 18},
+                    new long[]{1, 41, 3, 11, 2, 26, 6, 15, 4, 45},
+            }, GF_7_2), GF_7_2.getClass());
 }
