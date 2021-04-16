@@ -176,7 +176,7 @@ public final class BCHCodes {
                     new long[]{1, 15, 20, 11, 7, 22, 25, 9, 13, 12, 6, 16},
             }, GF_3_3), GF_3_3.getClass());
 
-    public static BCHCode<GFPElement, GFPMSimpleElement> BCH_24_16 = new BCHCode<>(
+    public static BCHCode<GFPElement, GFPMSimpleElement> BCH_GF5_24_16 = new BCHCode<>(
             toFieldMatrix(new long[][]{
                     new long[]{4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                     new long[]{0, 4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -201,5 +201,80 @@ public final class BCHCodes {
                     new long[]{1, 23, 17, 2, 16, 9, 4, 7, 13, 3, 14, 21, 1, 23, 17, 2, 16, 9, 4, 7, 13, 3, 14, 21},
                     new long[]{1, 22, 2, 19, 4, 8, 3, 11, 1, 22, 2, 19, 4, 8, 3, 11, 1, 22, 2, 19, 4, 8, 3, 11},
                     new long[]{1, 17, 16, 4, 13, 14, 1, 17, 16, 4, 13, 14, 1, 17, 16, 4, 13, 14, 1, 17, 16, 4, 13, 14},
+            }, GF_5_2), GF_5_2.getClass());
+
+    public static BCHCode<GFPElement, GFPMSimpleElement> BCH_GF5_14_6 = new BCHCode<>(
+            toFieldMatrix(new long[][]{
+                    new long[]{4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0, 0, 0, 0},
+                    new long[]{0, 4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0, 0, 0},
+                    new long[]{0, 0, 4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0, 0},
+                    new long[]{0, 0, 0, 4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0},
+                    new long[]{0, 0, 0, 0, 4, 1, 4, 2, 0, 4, 4, 3, 1, 0},
+                    new long[]{0, 0, 0, 0, 0, 4, 1, 4, 2, 0, 4, 4, 3, 1},
+
+            }, GF5), GF5.getClass(),
+            toFieldMatrix(new long[][]{
+                    new long[]{1, 5, 23, 22, 17, 24, 2, 10, 16, 19, 9, 18, 4, 20},
+                    new long[]{1, 23, 17, 2, 16, 9, 4, 7, 13, 3, 14, 21, 1, 23},
+                    new long[]{1, 22, 2, 19, 4, 8, 3, 11, 1, 22, 2, 19, 4, 8},
+                    new long[]{1, 17, 16, 4, 13, 14, 1, 17, 16, 4, 13, 14, 1, 17},
+            }, GF_5_2), GF_5_2.getClass());
+
+    public static BCHCode<GFPElement, GFPMSimpleElement> BCH_GF5_13_5 = new BCHCode<>(
+            toFieldMatrix(new long[][]{
+                    new long[]{4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0, 0, 0},
+                    new long[]{0, 4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0, 0},
+                    new long[]{0, 0, 4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0},
+                    new long[]{0, 0, 0, 4, 1, 4, 2, 0, 4, 4, 3, 1, 0},
+                    new long[]{0, 0, 0, 0, 4, 1, 4, 2, 0, 4, 4, 3, 1},
+
+            }, GF5), GF5.getClass(),
+            toFieldMatrix(new long[][]{
+                    new long[]{1, 5, 23, 22, 17, 24, 2, 10, 16, 19, 9, 18, 4},
+                    new long[]{1, 23, 17, 2, 16, 9, 4, 7, 13, 3, 14, 21, 1},
+                    new long[]{1, 22, 2, 19, 4, 8, 3, 11, 1, 22, 2, 19, 4},
+                    new long[]{1, 17, 16, 4, 13, 14, 1, 17, 16, 4, 13, 14, 1},
+            }, GF_5_2), GF_5_2.getClass());
+
+    public static BCHCode<GFPElement, GFPMSimpleElement> BCH_GF5_12_4 = new BCHCode<>(
+            toFieldMatrix(new long[][]{
+                    new long[]{4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0, 0},
+                    new long[]{0, 4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0},
+                    new long[]{0, 0, 4, 1, 4, 2, 0, 4, 4, 3, 1, 0},
+                    new long[]{0, 0, 0, 4, 1, 4, 2, 0, 4, 4, 3, 1},
+
+            }, GF5), GF5.getClass(),
+            toFieldMatrix(new long[][]{
+                    new long[]{1, 5, 23, 22, 17, 24, 2, 10, 16, 19, 9, 18},
+                    new long[]{1, 23, 17, 2, 16, 9, 4, 7, 13, 3, 14, 21},
+                    new long[]{1, 22, 2, 19, 4, 8, 3, 11, 1, 22, 2, 19},
+                    new long[]{1, 17, 16, 4, 13, 14, 1, 17, 16, 4, 13, 14},
+            }, GF_5_2), GF_5_2.getClass());
+
+    public static BCHCode<GFPElement, GFPMSimpleElement> BCH_GF5_11_3 = new BCHCode<>(
+            toFieldMatrix(new long[][]{
+                    new long[]{4, 1, 4, 2, 0, 4, 4, 3, 1, 0, 0},
+                    new long[]{0, 4, 1, 4, 2, 0, 4, 4, 3, 1, 0},
+                    new long[]{0, 0, 4, 1, 4, 2, 0, 4, 4, 3, 1},
+
+            }, GF5), GF5.getClass(),
+            toFieldMatrix(new long[][]{
+                    new long[]{1, 5, 23, 22, 17, 24, 2, 10, 16, 19, 9},
+                    new long[]{1, 23, 17, 2, 16, 9, 4, 7, 13, 3, 14},
+                    new long[]{1, 22, 2, 19, 4, 8, 3, 11, 1, 22, 2},
+                    new long[]{1, 17, 16, 4, 13, 14, 1, 17, 16, 4, 13},
+            }, GF_5_2), GF_5_2.getClass());
+
+    public static BCHCode<GFPElement, GFPMSimpleElement> BCH_GF5_10_2 = new BCHCode<>(
+            toFieldMatrix(new long[][]{
+                    new long[]{4, 1, 4, 2, 0, 4, 4, 3, 1, 0},
+                    new long[]{0, 4, 1, 4, 2, 0, 4, 4, 3, 1},
+
+            }, GF5), GF5.getClass(),
+            toFieldMatrix(new long[][]{
+                    new long[]{1, 5, 23, 22, 17, 24, 2, 10, 16, 19},
+                    new long[]{1, 23, 17, 2, 16, 9, 4, 7, 13, 3},
+                    new long[]{1, 22, 2, 19, 4, 8, 3, 11, 1, 22},
+                    new long[]{1, 17, 16, 4, 13, 14, 1, 17, 16, 4},
             }, GF_5_2), GF_5_2.getClass());
 }

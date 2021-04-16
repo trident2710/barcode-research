@@ -20,6 +20,7 @@ import static com.trident.math.bch.BCHCodeSyndrome.CorrectionStatus.ERR_ERROR_VA
 import static com.trident.math.bch.BCHCodeSyndrome.CorrectionStatus.ERR_NO_ROOTS;
 import static com.trident.math.bch.BCHCodeSyndrome.CorrectionStatus.ERR_POSITION_OUT_OF_RANGE;
 import static com.trident.math.bch.BCHCodeSyndrome.CorrectionStatus.ERR_S1_0;
+import static com.trident.math.bch.BCHCodeSyndrome.CorrectionStatus.ERR_SIGMA_ZERO;
 import static com.trident.math.bch.BCHCodeSyndrome.CorrectionStatus.NO_ERROR;
 import static com.trident.math.field.FiniteFieldEquation.solveLinearEquation;
 import static com.trident.math.field.FiniteFieldEquation.solveSquaredEquation;
@@ -112,6 +113,9 @@ public class BCHCodeSyndrome<Symbol extends GFElement<Symbol>, Locator extends G
         var field = (GF<Locator>) syndrome.getField();
         // sigma * x + 1 = 0
         // x = a^j
+        if (sigma.equals(syndrome.getField().getZero())) {
+            return new CorrectionResult<>(ERR_SIGMA_ZERO, null);
+        }
         var x = solveLinearEquation(field, sigma, field.getOne());
         Preconditions.checkNotNull(x, "x should not be null");
         var X = x.reciprocal();
@@ -192,6 +196,7 @@ public class BCHCodeSyndrome<Symbol extends GFElement<Symbol>, Locator extends G
         CORRECTED_1,
         CORRECTED_2,
         ERR_S1_0,
+        ERR_SIGMA_ZERO,
         ERR_NO_ROOTS,
         ERR_POSITION_OUT_OF_RANGE,
         ERR_ERROR_COUNT,

@@ -69,6 +69,7 @@ public class BCHCorrectionErrorLevelStatisticsCalculator<Symbol extends GFElemen
             case ERR_POSITION_OUT_OF_RANGE:
             case ERR_S1_0:
             case ERR_NO_ROOTS:
+            case ERR_SIGMA_ZERO:
                 return CorrectionStatus.DETECTED;
             default:
                 throw new IllegalStateException("Unknown status: " + correctionResult.getCorrectionStatus());
