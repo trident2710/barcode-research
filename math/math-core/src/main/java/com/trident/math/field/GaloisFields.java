@@ -8,6 +8,8 @@ public final class GaloisFields {
 
     public static final GFP GF7 = GFP.of(7);
 
+    public static final GFP GF11 = GFP.of(11);
+
     public static GFPMSimple GF_2_2 = GFPMSimple.of(2, 2, new long[]{1, 1, 1});
 
     public static GFPMSimple GF_2_3 = GFPMSimple.of(2, 3, new long[]{1, 1, 0, 1});
