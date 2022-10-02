@@ -7,7 +7,7 @@ import org.apache.commons.math3.exception.NullArgumentException;
 
 import java.util.Objects;
 
-import static com.trident.math.PolynomialStringsUtil.polyToString;
+import static com.trident.math.PolyUtil.polyToString;
 
 public class GFPMSimpleElement implements GFPMElement<GFPMSimpleElement> {
 

@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static com.trident.math.PolynomialStringsUtil.polyToString;
+import static com.trident.math.PolyUtil.polyToString;
 
 public class GFPMExtensionElement implements GFPMElement<GFPMExtensionElement> {
 
