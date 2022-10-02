@@ -3,11 +3,21 @@ package com.trident.math.field;
 
 import org.junit.jupiter.api.Test;
 
+import static com.trident.math.field.GaloisFields.GF11;
 import static com.trident.math.field.GaloisFields.GF5;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class GFPTest {
+
+    @Test
+    void testPow() {
+        assertThrows(Exception.class, () -> GF11.pow(GF11.getOfValue(2), -1));
+        assertEquals(GF11.getOne(), GF11.pow(GF11.getOfValue(10), 0));
+        assertEquals(GF11.getZero(), GF11.pow(GF11.getZero(), 99));
+        assertEquals(GF11.getOne(), GF11.pow(GF11.getOne(), 99));
+
+    }
 
     @Test
     void testMultiplyOnZero() {

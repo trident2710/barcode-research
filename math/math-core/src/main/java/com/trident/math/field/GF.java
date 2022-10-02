@@ -4,6 +4,7 @@ import org.apache.commons.math3.Field;
 import org.apache.commons.math3.FieldElement;
 
 import java.util.Iterator;
+import java.util.stream.Stream;
 
 public interface GF<T extends FieldElement<T>> extends Field<T> {
     T add(T first, T second);
@@ -11,6 +12,17 @@ public interface GF<T extends FieldElement<T>> extends Field<T> {
     T sub(T first, T second);
 
     T mul(T first, T second);
+
+    default T pow(T elem, int power) {
+        if (power == 0) {
+            return getOne();
+        }
+
+        return Stream.generate(() -> elem)
+                .limit(power)
+                .reduce(this::mul)
+                .orElseThrow();
+    }
 
     T div(T first, T second);
 
