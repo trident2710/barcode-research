@@ -5,6 +5,7 @@ import com.google.common.base.Preconditions;
 import com.trident.math.PolyUtil;
 import com.trident.math.field.GFP;
 import com.trident.math.field.GFPElement;
+import com.trident.math.reedsolomon.CorrectionResult.CorrectionStatus;
 import org.apache.commons.math3.linear.FieldMatrix;
 
 import java.util.ArrayList;
@@ -33,8 +34,12 @@ public class ReedSolomonCode {
         return PolyUtil.multiplyPolynomials(message, generatorPolynomial);
     }
 
-    public void decode(FieldMatrix<GFPElement> encoded) {
+    public CorrectionResult decode(FieldMatrix<GFPElement> encoded) {
         var erasureLocators = findErasureLocators(encoded);
+        if (erasureLocators.size() > controlDigitsCount) {
+            return ImmutableCorrectionResult.of(CorrectionStatus.TOO_MUCH_ERASURE);
+        }
+        return null;
     }
 
     @VisibleForTesting
