@@ -1,41 +1,51 @@
 package com.trident.math.reedsolomon;
 
-import cc.redberry.rings.poly.univar.UnivariatePolynomialZp64;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Preconditions;
+import com.trident.math.PolyUtil;
 import com.trident.math.field.GFP;
 import com.trident.math.field.GFPElement;
 import org.apache.commons.math3.linear.FieldMatrix;
 
-import java.util.stream.Stream;
+import java.util.ArrayList;
+import java.util.List;
 
-import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrixRow;
+import static com.trident.math.field.GFPSimplePrimitiveElementCalculator.primitiveElement;
 
 public class ReedSolomonCode {
 
     private final FieldMatrix<GFPElement> generatorPolynomial;
 
+    private final GFP generatorField;
+    private final GFPElement generatorFieldPrimitiveElement;
+    private final int controlDigitsCount;
+
     public ReedSolomonCode(FieldMatrix<GFPElement> generatorPolynomial) {
+        Preconditions.checkArgument(generatorPolynomial.getRowDimension() == 1);
+        Preconditions.checkArgument(generatorPolynomial.getColumnDimension() > 1);
         this.generatorPolynomial = generatorPolynomial;
+        this.generatorField = (GFP) generatorPolynomial.getField();
+        this.generatorFieldPrimitiveElement = primitiveElement(generatorField);
+        this.controlDigitsCount = generatorPolynomial.getColumnDimension() - 1;
     }
 
     public FieldMatrix<GFPElement> encode(FieldMatrix<GFPElement> message) {
-        return multiplyPolynomials(message, generatorPolynomial);
+        return PolyUtil.multiplyPolynomials(message, generatorPolynomial);
     }
 
-    private FieldMatrix<GFPElement> multiplyPolynomials(FieldMatrix<GFPElement> message, FieldMatrix<GFPElement> generatorPolynomial) {
-        return to(from(message).multiply(from(generatorPolynomial)));
+    public void decode(FieldMatrix<GFPElement> encoded) {
+        var erasureLocators = findErasureLocators(encoded);
     }
 
-
-    private UnivariatePolynomialZp64 from(FieldMatrix<GFPElement> message) {
-        var data = Stream.of(message.getRow(0))
-                .mapToLong(GFPElement::digitalRepresentation)
-                .toArray();
-        long modulo = ((GFP) message.getField()).prime();
-
-        return UnivariatePolynomialZp64.create(modulo, data);
-    }
-
-    private FieldMatrix<GFPElement> to(UnivariatePolynomialZp64 poly) {
-        return toFieldMatrixRow(poly.stream().toArray(), GFP.of(poly.modulus()));
+    @VisibleForTesting
+    List<GFPElement> findErasureLocators(FieldMatrix<GFPElement> message) {
+        var erasureLocators = new ArrayList<GFPElement>();
+        for (int i = 0; i < message.getColumnDimension(); i++) {
+            var elem = message.getEntry(0, i);
+            if (elem.equals(generatorField.getZero())) {
+                erasureLocators.add(generatorField.pow(generatorFieldPrimitiveElement, i));
+            }
+        }
+        return erasureLocators;
     }
 }
