@@ -28,4 +28,50 @@ class ReedSolomonCodeTest {
         assertEquals(expectedLocators, code.findErasureLocators(message));
     }
 
+    @Test
+    void testCalculateErasureLocatorsPolynomial() {
+        var code = new ReedSolomonCode(GF_11_R6);
+        var locators = List.of(GF11.getOfValue(5), GF11.getOfValue(7));
+        var expectedLocatorPolynomial = toFieldMatrixRow(new long[]{1, 10, 2}, GF11);
+        assertEquals(expectedLocatorPolynomial, code.calculateErasureLocatorsPolynomial(locators));
+    }
+
+    @Test
+    void testCorrectErrorsCount() {
+        var code = new ReedSolomonCode(GF_11_R6);
+        assertEquals(2, code.correctErrorsCount(2));
+    }
+
+    @Test
+    void testCalculateSyndromeElement() {
+        var code = new ReedSolomonCode(GF_11_R6);
+        var encoded = toFieldMatrixRow(new long[]{2, 7, 9, 8, 0, 3, 2, 0, 3}, GF11);
+        assertEquals(GF11.getOfValue(8), code.calculateSyndromeElement(1, encoded));
+    }
+
+    @Test
+    void testCalculateSyndrome() {
+        var code = new ReedSolomonCode(GF_11_R6);
+        var encoded = toFieldMatrixRow(new long[]{2, 7, 9, 8, 0, 3, 2, 0, 3}, GF11);
+
+        var expected = List.of(GF11.getOfValue(8), GF11.getOfValue(9),
+                GF11.getOfValue(7), GF11.getOfValue(0), GF11.getOfValue(9), GF11.getOfValue(1));
+
+        assertEquals(expected, code.calculateSyndrome(encoded));
+    }
+
+    @Test
+    void testSyndromePoly() {
+        var code = new ReedSolomonCode(GF_11_R6);
+        var encoded = toFieldMatrixRow(new long[]{2, 7, 9, 8, 0, 3, 2, 0, 3}, GF11);
+
+        var syndrome = List.of(GF11.getOfValue(8), GF11.getOfValue(9),
+                GF11.getOfValue(7), GF11.getOfValue(0), GF11.getOfValue(9), GF11.getOfValue(1));
+
+        var expected = toFieldMatrixRow(new long[]{1, 8, 9, 7, 0, 9, 1}, GF11);
+
+        assertEquals(expected, code.createSyndromePolynomial(syndrome));
+
+    }
+
 }
