@@ -3,6 +3,7 @@ package com.trident.math.reedsolomon;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
 import com.trident.math.PolyUtil;
+import com.trident.math.field.FiniteFieldEquation;
 import com.trident.math.field.GFP;
 import com.trident.math.field.GFPElement;
 import com.trident.math.matrix.FieldMatrixUtil;
@@ -65,8 +66,21 @@ public class ReedSolomonCode {
 
         var errorLocatorsPolynomial = calculateErrorLocatorsPolynomial(errorSyndrome, erasureLocatorsCount);
 
+        if (!errorLocatorsPolynomial.isPresent()) {
+            return ImmutableCorrectionResult.of(CorrectionStatus.MORE_THAN_XI_ERRORS);
+        }
+
+        var errorLocators = calculateErrorLocators(errorLocatorsPolynomial.get());
 
         return null;
+    }
+
+    @VisibleForTesting
+    List<GFPElement> calculateErrorLocators(FieldMatrix<GFPElement> errorLocatorsPolynomial) {
+        var equationRoots = FiniteFieldEquation.solveEquation(errorLocatorsPolynomial);
+        return equationRoots.stream()
+                .map(GFPElement::reciprocal)
+                .collect(Collectors.toList());
     }
 
     // Berleckamp-Messi

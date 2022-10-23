@@ -108,4 +108,13 @@ class ReedSolomonCodeTest {
         assertEquals(expected, code.calculateErrorLocatorsPolynomial(errorsSyndrome, 2).get());
     }
 
+    @Test
+    void testErrorLocators() {
+        var code = new ReedSolomonCode(GF_11_R6);
+
+        var errorLocatorsPoly = toFieldMatrixRow(new long[]{1, 8, 7}, GF11);
+
+        assertEquals(List.of(GF11.getOfValue(4), GF11.getOfValue(10)), code.calculateErrorLocators(errorLocatorsPoly));
+    }
+
 }

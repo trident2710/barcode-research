@@ -9,6 +9,7 @@ public interface CorrectionResult {
     CorrectionStatus status();
 
     enum CorrectionStatus {
-        TOO_MUCH_ERASURE
+        TOO_MUCH_ERASURE,
+        MORE_THAN_XI_ERRORS,
     }
 }
