@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static com.trident.math.PolyUtil.addPolynomials;
 import static com.trident.math.PolyUtil.multiplyPolynomials;
 import static com.trident.math.PolyUtil.polyToString;
+import static com.trident.math.PolyUtil.subtractPolynomials;
 import static com.trident.math.field.GaloisFields.GF11;
 import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrixRow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,6 +33,17 @@ class PolyUtilTest {
         var expected = toFieldMatrixRow(new long[]{-2, 2}, GF11);
 
         assertEquals(expected, addPolynomials(first, second));
+
+    }
+
+    @Test
+    void testSubtract() {
+        var first = toFieldMatrixRow(new long[]{1, 1}, GF11);
+        var second = toFieldMatrixRow(new long[]{0, 1}, GF11);
+
+        var expected = toFieldMatrixRow(new long[]{1}, GF11);
+
+        assertEquals(expected, subtractPolynomials(first, second));
 
     }
 

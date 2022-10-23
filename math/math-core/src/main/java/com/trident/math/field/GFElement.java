@@ -11,4 +11,8 @@ public interface GFElement<T extends GFElement<T>> extends FieldElement<T>, Comp
     // a2*x^2 + a1*x + a0 -> [a2 a1 a0] to decimal,
     // for example, for prime = 2: x^2 + x + 1  = 1*4 + 1*2 + 1*1 =  7
     long digitalRepresentation();
+
+    default boolean isZero() {
+        return this.equals(this.getField().getZero());
+    }
 }

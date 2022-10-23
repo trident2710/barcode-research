@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrixRow;
 
 public final class PolyUtil {
+
     public static String polyToString(long[] poly) {
         if (poly.length == 1) {
             return poly[0] == 0
@@ -51,6 +52,14 @@ public final class PolyUtil {
                         ? "x^" + exponent
                         : coefficient + "x^" + exponent;
         }
+    }
+
+    public static int degree(FieldMatrix<GFPElement> poly) {
+        return from(poly).degree();
+    }
+
+    public static FieldMatrix<GFPElement> subtractPolynomials(FieldMatrix<GFPElement> first, FieldMatrix<GFPElement> second) {
+        return to(from(first).subtract(from(second)));
     }
 
     public static FieldMatrix<GFPElement> addPolynomials(FieldMatrix<GFPElement> first, FieldMatrix<GFPElement> second) {
