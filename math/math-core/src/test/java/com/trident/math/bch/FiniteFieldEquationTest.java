@@ -2,9 +2,14 @@ package com.trident.math.bch;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
+import static com.trident.math.field.FiniteFieldEquation.solveEquation;
 import static com.trident.math.field.FiniteFieldEquation.solveLinearEquation;
+import static com.trident.math.field.GaloisFields.GF11;
 import static com.trident.math.field.GaloisFields.GF5;
 import static com.trident.math.field.GaloisFields.GF_3_2;
+import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrixRow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -33,5 +38,13 @@ class FiniteFieldEquationTest {
     void testZeros() {
         assertThrows(Exception.class, () -> solveLinearEquation(GF5, GF5.getZero(), GF5.getOne()));
         assertEquals(GF5.getZero(), solveLinearEquation(GF5, GF5.getOne(), GF5.getZero()));
+    }
+
+    @Test
+    void testSolveEquation() {
+        var equation = toFieldMatrixRow(new long[]{1, 8, 7}, GF11);
+        var expectedRoots = List.of(GF11.getOfValue(3), GF11.getOfValue(10));
+
+        assertEquals(expectedRoots, solveEquation(equation));
     }
 }
