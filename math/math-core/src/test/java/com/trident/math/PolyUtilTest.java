@@ -2,11 +2,38 @@ package com.trident.math;
 
 import org.junit.jupiter.api.Test;
 
+import static com.trident.math.PolyUtil.addPolynomials;
+import static com.trident.math.PolyUtil.multiplyPolynomials;
 import static com.trident.math.PolyUtil.polyToString;
+import static com.trident.math.field.GaloisFields.GF11;
+import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrixRow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class PolyUtilTest {
+
+
+    @Test
+    void testMultiply() {
+        var first = toFieldMatrixRow(new long[]{-1, 1}, GF11);
+        var second = toFieldMatrixRow(new long[]{-1, 1}, GF11);
+
+        var expected = toFieldMatrixRow(new long[]{1, -2, 1}, GF11);
+
+        assertEquals(expected, multiplyPolynomials(first, second));
+
+    }
+
+    @Test
+    void testAdd() {
+        var first = toFieldMatrixRow(new long[]{-1, 1}, GF11);
+        var second = toFieldMatrixRow(new long[]{-1, 1}, GF11);
+
+        var expected = toFieldMatrixRow(new long[]{-2, 2}, GF11);
+
+        assertEquals(expected, addPolynomials(first, second));
+
+    }
 
     @Test
     void testToString() {

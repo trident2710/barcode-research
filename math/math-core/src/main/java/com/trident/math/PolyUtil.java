@@ -53,6 +53,10 @@ public final class PolyUtil {
         }
     }
 
+    public static FieldMatrix<GFPElement> addPolynomials(FieldMatrix<GFPElement> first, FieldMatrix<GFPElement> second) {
+        return to(from(first).add(from(second)));
+    }
+
     public static FieldMatrix<GFPElement> multiplyPolynomials(FieldMatrix<GFPElement> first, FieldMatrix<GFPElement> second) {
         return to(from(first).multiply(from(second)));
     }
