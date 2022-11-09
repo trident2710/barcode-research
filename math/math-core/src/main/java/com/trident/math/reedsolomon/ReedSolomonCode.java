@@ -153,7 +153,18 @@ public class ReedSolomonCode {
     }
 
     private FieldMatrix<GFPElement> polyModulo(FieldMatrix<GFPElement> poly, int moduloPower) {
-        return FieldMatrixUtil.matrixRow(Arrays.copyOfRange(poly.getRow(0), 0, moduloPower));
+        int maxNonZeroElementIndex = maxNonZeroElementIndexFrom(poly, moduloPower - 1);
+        return FieldMatrixUtil.matrixRow(Arrays.copyOfRange(poly.getRow(0),
+                0, Math.min(moduloPower, Math.max(1, maxNonZeroElementIndex + 1))));
+    }
+
+    private int maxNonZeroElementIndexFrom(FieldMatrix<GFPElement> poly, int start) {
+        for (int i = start; i >= 0; i--) {
+            if (!poly.getEntry(0, i).equals(generatorField.getZero())) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @VisibleForTesting
@@ -209,5 +220,16 @@ public class ReedSolomonCode {
             }
         }
         return erasureLocators;
+    }
+
+
+    @VisibleForTesting
+    FieldMatrix<GFPElement> calculateMutationValuesPoly(FieldMatrix<GFPElement> errorLocatorsPoly, FieldMatrix<GFPElement> modifiedSyndromePoly) {
+        var V = modifiedSyndromePoly.copy();
+        V.setEntry(0, 0, generatorField.getOne());
+        var sigma = errorLocatorsPoly;
+        var poly = multiplyPolynomials(V, sigma);
+        var power = controlDigitsCount + 1;
+        return polyModulo(poly, power);
     }
 }

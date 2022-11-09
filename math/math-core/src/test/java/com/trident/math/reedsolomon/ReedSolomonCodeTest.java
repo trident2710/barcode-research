@@ -117,4 +117,17 @@ class ReedSolomonCodeTest {
         assertEquals(List.of(GF11.getOfValue(4), GF11.getOfValue(10)), code.calculateErrorLocators(errorLocatorsPoly));
     }
 
+    @Test
+    void testCalculateMutationValuesPoly() {
+        var code = new ReedSolomonCode(GF_11_R6);
+
+        var errorLocatorsPoly = toFieldMatrixRow(new long[]{1, 8, 7}, GF11);
+        var modifiedSyndromePoly = toFieldMatrixRow(new long[]{0, 7, 3, 3, 0, 1, 3}, GF11);
+
+        var expected = toFieldMatrixRow(new long[]{1, 4, 0, 10, 1}, GF11);
+
+
+        assertEquals(expected, code.calculateMutationValuesPoly(errorLocatorsPoly, modifiedSyndromePoly));
+    }
+
 }
