@@ -12,6 +12,7 @@ import org.apache.commons.math3.linear.FieldMatrix;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -231,5 +232,11 @@ public class ReedSolomonCode {
         var poly = multiplyPolynomials(V, sigma);
         var power = controlDigitsCount + 1;
         return polyModulo(poly, power);
+    }
+
+    List<GFPElement> mutationLocators(List<GFPElement> erasureLocators, List<GFPElement> errorLocators) {
+        return Stream.concat(erasureLocators.stream(), errorLocators.stream())
+                .sorted(Comparator.naturalOrder())
+                .collect(Collectors.toList());
     }
 }
