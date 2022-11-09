@@ -234,9 +234,35 @@ public class ReedSolomonCode {
         return polyModulo(poly, power);
     }
 
+    @VisibleForTesting
     List<GFPElement> mutationLocators(List<GFPElement> erasureLocators, List<GFPElement> errorLocators) {
         return Stream.concat(erasureLocators.stream(), errorLocators.stream())
                 .sorted(Comparator.naturalOrder())
                 .collect(Collectors.toList());
+    }
+
+    @VisibleForTesting
+    List<GFPElement> calculateMutationValues(FieldMatrix<GFPElement> mutationValuesPoly, List<GFPElement> mutationLocators) {
+        return mutationLocators.stream()
+                .map(locator -> calculateMutationValue(mutationValuesPoly, mutationLocators, locator))
+                .collect(Collectors.toList());
+    }
+
+    private GFPElement calculateMutationValue(FieldMatrix<GFPElement> mutationValuesPoly, List<GFPElement> mutationLocators, GFPElement locator) {
+        return calculateMutationValuesPolyValueFor(mutationValuesPoly, locator)
+                .divide(calculateMutationDiffs(locator, mutationLocators));
+    }
+
+    private GFPElement calculateMutationValuesPolyValueFor(FieldMatrix<GFPElement> mutationValuesPoly, GFPElement mutationLocator) {
+        return FiniteFieldEquation.calculatePolyValue(mutationValuesPoly, mutationLocator.reciprocal());
+    }
+
+    private GFPElement calculateMutationDiffs(GFPElement mutationLocator, List<GFPElement> mutationLocators) {
+        var otherMutationLocators = new ArrayList<>(mutationLocators);
+        otherMutationLocators.remove(mutationLocator);
+        return otherMutationLocators.stream()
+                .map(l -> generatorField.getOne().subtract(mutationLocator.reciprocal().multiply(l)))
+                .reduce(GFPElement::multiply)
+                .orElseThrow();
     }
 }

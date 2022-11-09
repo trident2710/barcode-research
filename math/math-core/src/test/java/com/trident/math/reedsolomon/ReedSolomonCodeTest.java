@@ -141,4 +141,15 @@ class ReedSolomonCodeTest {
         assertEquals(expected, code.mutationLocators(erasureLocators, errorLocators));
     }
 
+    @Test
+    void testCalculateMutationValues() {
+        var code = new ReedSolomonCode(GF_11_R6);
+        var mutationLocators = List.of(GF11.getOfValue(4), GF11.getOfValue(5), GF11.getOfValue(7), GF11.getOfValue(10));
+        var mutationValuesPoly = toFieldMatrixRow(new long[]{1, 4, 0, 10, 1}, GF11);
+
+
+        var expected = List.of(GF11.getOfValue(5), GF11.getOfValue(9), GF11.getOfValue(10), GF11.getOfValue(6));
+        assertEquals(expected, code.calculateMutationValues(mutationValuesPoly, mutationLocators));
+    }
+
 }
