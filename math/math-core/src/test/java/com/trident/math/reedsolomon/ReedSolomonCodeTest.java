@@ -1,5 +1,6 @@
 package com.trident.math.reedsolomon;
 
+import org.apache.commons.math3.util.Pair;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -150,6 +151,21 @@ class ReedSolomonCodeTest {
 
         var expected = List.of(GF11.getOfValue(5), GF11.getOfValue(9), GF11.getOfValue(10), GF11.getOfValue(6));
         assertEquals(expected, code.calculateMutationValues(mutationValuesPoly, mutationLocators));
+    }
+
+    @Test
+    void testCalculateCorrectionValues() {
+        var code = new ReedSolomonCode(GF_11_R6);
+        var mutationLocators = List.of(GF11.getOfValue(4), GF11.getOfValue(5), GF11.getOfValue(7), GF11.getOfValue(10));
+        var mutationValues = List.of(GF11.getOfValue(5), GF11.getOfValue(9), GF11.getOfValue(10), GF11.getOfValue(6));
+
+        var expected = List.of(
+                Pair.create(2, GF11.getOfValue(5)),
+                Pair.create(4, GF11.getOfValue(9)),
+                Pair.create(7, GF11.getOfValue(10)),
+                Pair.create(5, GF11.getOfValue(6)));
+
+        assertEquals(expected, code.calculateCorrectionValues(mutationValues, mutationLocators));
     }
 
 }

@@ -6,9 +6,11 @@ import com.trident.math.PolyUtil;
 import com.trident.math.field.FiniteFieldEquation;
 import com.trident.math.field.GFP;
 import com.trident.math.field.GFPElement;
+import com.trident.math.field.GFPUtil;
 import com.trident.math.matrix.FieldMatrixUtil;
 import com.trident.math.reedsolomon.CorrectionResult.CorrectionStatus;
 import org.apache.commons.math3.linear.FieldMatrix;
+import org.apache.commons.math3.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,7 +24,7 @@ import java.util.stream.Stream;
 import static com.trident.math.PolyUtil.degree;
 import static com.trident.math.PolyUtil.multiplyPolynomials;
 import static com.trident.math.PolyUtil.subtractPolynomials;
-import static com.trident.math.field.GFPSimplePrimitiveElementCalculator.primitiveElement;
+import static com.trident.math.field.GFPUtil.primitiveElement;
 import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrixRow;
 
 public class ReedSolomonCode {
@@ -65,13 +67,24 @@ public class ReedSolomonCode {
 
         var errorSyndrome = calculateErrorSyndrome(modifiedSyndromePolynomial, erasureLocatorsCount);
 
-        var errorLocatorsPolynomial = calculateErrorLocatorsPolynomial(errorSyndrome, erasureLocatorsCount);
+        var errorLocatorsPolyOptional = calculateErrorLocatorsPolynomial(errorSyndrome, erasureLocatorsCount);
 
-        if (!errorLocatorsPolynomial.isPresent()) {
+        if (errorLocatorsPolyOptional.isEmpty()) {
             return ImmutableCorrectionResult.of(CorrectionStatus.MORE_THAN_XI_ERRORS);
         }
 
-        var errorLocators = calculateErrorLocators(errorLocatorsPolynomial.get());
+        var errorLocatorsPoly = errorLocatorsPolyOptional.get();
+
+        var errorLocators = calculateErrorLocators(errorLocatorsPoly);
+
+        var mutationValuesPoly = calculateMutationValuesPoly(errorLocatorsPoly, modifiedSyndromePolynomial);
+
+        var mutationLocators = mutationLocators(erasureLocators, errorLocators);
+
+        var mutationValues = calculateMutationValues(mutationValuesPoly, mutationLocators);
+
+        var correctionValues = calculateCorrectionValues(mutationValues, mutationLocators);
+
 
         return null;
     }
@@ -264,5 +277,19 @@ public class ReedSolomonCode {
                 .map(l -> generatorField.getOne().subtract(mutationLocator.reciprocal().multiply(l)))
                 .reduce(GFPElement::multiply)
                 .orElseThrow();
+    }
+
+    @VisibleForTesting
+    List<Pair<Integer, GFPElement>> calculateCorrectionValues(List<GFPElement> mutationValues, List<GFPElement> mutationLocators) {
+        var correctionPositions = mutationLocators.stream()
+                .map(GFPUtil::powerOfPrimitive)
+                .collect(Collectors.toList());
+
+        var result = new ArrayList<Pair<Integer, GFPElement>>();
+        for (int i = 0; i < correctionPositions.size(); i++) {
+            result.add(Pair.create(correctionPositions.get(i), mutationValues.get(i)));
+        }
+
+        return result;
     }
 }
