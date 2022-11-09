@@ -10,6 +10,7 @@ import java.util.Objects;
 public final class GFP implements GF<GFPElement> {
 
     private final IntegersZp64 internal_field;
+    private GFPElement primitiveElement;
 
     private GFP(long prime) {
         this.internal_field = Rings.Zp64(prime);
@@ -17,6 +18,13 @@ public final class GFP implements GF<GFPElement> {
 
     public static GFP of(long prime) {
         return new GFP(prime);
+    }
+
+    public GFPElement primitiveElement() {
+        if (primitiveElement == null) {
+            primitiveElement = GFPUtil.primitiveElement(this);
+        }
+        return primitiveElement;
     }
 
     @Override
