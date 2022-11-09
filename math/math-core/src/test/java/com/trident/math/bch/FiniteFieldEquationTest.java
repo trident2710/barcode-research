@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static com.trident.math.field.FiniteFieldEquation.calculatePolyValue;
 import static com.trident.math.field.FiniteFieldEquation.solveEquation;
 import static com.trident.math.field.FiniteFieldEquation.solveLinearEquation;
 import static com.trident.math.field.GaloisFields.GF11;
@@ -46,5 +47,13 @@ class FiniteFieldEquationTest {
         var expectedRoots = List.of(GF11.getOfValue(3), GF11.getOfValue(10));
 
         assertEquals(expectedRoots, solveEquation(equation));
+    }
+
+    @Test
+    void testPolyValue() {
+        var poly = toFieldMatrixRow(new long[]{1, 4, 0, 10, 1}, GF11);
+        var x = GF11.getOfValue(4).reciprocal();
+
+        assertEquals(GF11.getOne(), calculatePolyValue(poly, x));
     }
 }

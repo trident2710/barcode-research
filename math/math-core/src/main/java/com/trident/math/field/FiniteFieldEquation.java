@@ -63,16 +63,22 @@ public final class FiniteFieldEquation {
 
         while (iterator.hasNext()) {
             var x = iterator.next();
-            FieldElem res = gf.getZero();
-            for (int i = 0; i < equationPoly.getColumnDimension(); i++) {
-                var coef = equationPoly.getEntry(0, i);
-                res = res.add(coef.multiply(gf.pow(x, i)));
-            }
+            FieldElem res = calculatePolyValue(equationPoly, x);
             if (res.isZero()) {
                 roots.add(x);
             }
         }
 
         return roots;
+    }
+
+    public static <FieldElem extends GFElement<FieldElem>> FieldElem calculatePolyValue(FieldMatrix<FieldElem> poly, FieldElem x) {
+        GF<FieldElem> gf = (GF<FieldElem>) poly.getField();
+        FieldElem res = gf.getZero();
+        for (int i = 0; i < poly.getColumnDimension(); i++) {
+            var coef = poly.getEntry(0, i);
+            res = res.add(coef.multiply(gf.pow(x, i)));
+        }
+        return res;
     }
 }
