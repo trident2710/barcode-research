@@ -25,6 +25,7 @@ import static com.trident.math.PolyUtil.degree;
 import static com.trident.math.PolyUtil.multiplyPolynomials;
 import static com.trident.math.PolyUtil.subtractPolynomials;
 import static com.trident.math.field.GFPUtil.primitiveElement;
+import static com.trident.math.matrix.FieldMatrixUtil.matrixRowOfValue;
 import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrixRow;
 
 public class ReedSolomonCode {
@@ -48,18 +49,16 @@ public class ReedSolomonCode {
         return PolyUtil.multiplyPolynomials(message, generatorPolynomial);
     }
 
-    public CorrectionResult decode(FieldMatrix<GFPElement> encoded) {
-        var erasureLocators = findErasureLocators(encoded);
+    public CorrectionResult decode(FieldMatrix<GFPElement> message) {
+        var erasureLocators = findErasureLocators(message);
         int erasureLocatorsCount = erasureLocators.size();
         if (erasureLocatorsCount > controlDigitsCount) {
-            return ImmutableCorrectionResult.of(CorrectionStatus.TOO_MUCH_ERASURE);
+            return ImmutableCorrectionResult.of(CorrectionStatus.TOO_MUCH_ERASURE, message, Optional.empty());
         }
 
         var erasureLocatorsPolynomial = calculateErasureLocatorsPolynomial(erasureLocators);
 
-        int correctErrorsCount = correctErrorsCount(erasureLocatorsCount);
-
-        var syndrome = calculateSyndrome(encoded);
+        var syndrome = calculateSyndrome(message);
 
         var syndromePolynomial = createSyndromePolynomial(syndrome);
 
@@ -70,7 +69,7 @@ public class ReedSolomonCode {
         var errorLocatorsPolyOptional = calculateErrorLocatorsPolynomial(errorSyndrome, erasureLocatorsCount);
 
         if (errorLocatorsPolyOptional.isEmpty()) {
-            return ImmutableCorrectionResult.of(CorrectionStatus.MORE_THAN_XI_ERRORS);
+            return ImmutableCorrectionResult.of(CorrectionStatus.MORE_THAN_XI_ERRORS, message, Optional.empty());
         }
 
         var errorLocatorsPoly = errorLocatorsPolyOptional.get();
@@ -85,8 +84,11 @@ public class ReedSolomonCode {
 
         var correctionValues = calculateCorrectionValues(mutationValues, mutationLocators);
 
+        var correction = matrixRowOfValue(generatorField.getZero(), message.getColumnDimension());
 
-        return null;
+        correctionValues.forEach(it -> correction.setEntry(0, it.getKey(), it.getValue()));
+
+        return ImmutableCorrectionResult.of(CorrectionStatus.SUCCESS, message, Optional.of(correction));
     }
 
     @VisibleForTesting

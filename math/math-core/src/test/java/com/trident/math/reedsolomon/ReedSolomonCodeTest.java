@@ -13,12 +13,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ReedSolomonCodeTest {
 
     @Test
-    void test() {
+    void testEncode() {
         var message = toFieldMatrixRow(new long[]{1, 5, 3}, GF11);
         var expected = toFieldMatrixRow(new long[]{2, 7, 4, 8, 2, 8, 2, 1, 3}, GF11);
         var code = new ReedSolomonCode(GF_11_R6);
 
         assertEquals(expected, code.encode(message));
+    }
+
+    @Test
+    void testDecode() {
+        var code = new ReedSolomonCode(GF_11_R6);
+        var message = toFieldMatrixRow(new long[]{2, 7, 9, 8, 0, 3, 2, 0, 3}, GF11);
+        var expectedDecoded = toFieldMatrixRow(new long[]{2, 7, 4, 8, 2, 8, 2, 1, 3}, GF11);
+
+        var correctionResult = code.decode(message);
+        var expectedCorrection = toFieldMatrixRow(new long[]{0, 0, 5, 0, 9, 6, 0, 10, 0}, GF11);
+        assertEquals(expectedCorrection, correctionResult.correctionVector().get());
+        assertEquals(expectedDecoded, correctionResult.correctedMessage().get());
     }
 
     @Test
