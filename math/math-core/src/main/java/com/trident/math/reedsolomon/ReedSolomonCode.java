@@ -52,15 +52,24 @@ public class ReedSolomonCode {
 
         var erasureLocatorsPolynomial = calculateErasureLocatorsPolynomial(erasureLocators);
 
+        int errorsMaxCount = (controlDigitsCount - erasureLocatorsCount) / 2;
+
         var syndrome = calculateSyndrome(message);
+
+        boolean isZeroSyndrome = syndrome.stream()
+                .allMatch(it -> it.equals(generatorField.getZero()));
+
+        if (isZeroSyndrome) {
+            return ImmutableCorrectionResult.of(CorrectionStatus.NO_ERROR, message, Optional.empty());
+        }
 
         var syndromePolynomial = createSyndromePolynomial(syndrome);
 
         var modifiedSyndromePolynomial = calculateModifiedSyndromePolynomial(erasureLocatorsPolynomial, syndromePolynomial);
 
-        var errorSyndrome = calculateErrorSyndrome(modifiedSyndromePolynomial, erasureLocatorsCount);
+        var errorSyndrome = calculateErrorSyndrome(modifiedSyndromePolynomial, errorsMaxCount);
 
-        var errorLocatorsPolyOptional = calculateErrorLocatorsPolynomial(errorSyndrome, erasureLocatorsCount);
+        var errorLocatorsPolyOptional = calculateErrorLocatorsPolynomial(errorSyndrome, errorsMaxCount);
 
         if (errorLocatorsPolyOptional.isEmpty()) {
             return ImmutableCorrectionResult.of(CorrectionStatus.MORE_THAN_XI_ERRORS, message, Optional.empty());
@@ -82,7 +91,7 @@ public class ReedSolomonCode {
 
         correctionValues.forEach(it -> correction.setEntry(0, it.getKey(), it.getValue()));
 
-        return ImmutableCorrectionResult.of(CorrectionStatus.SUCCESS, message, Optional.of(correction));
+        return ImmutableCorrectionResult.of(CorrectionStatus.ERROR_CORRECTED, message, Optional.of(correction));
     }
 
     @VisibleForTesting
@@ -153,10 +162,12 @@ public class ReedSolomonCode {
     }
 
     @VisibleForTesting
-    FieldMatrix<GFPElement> calculateModifiedSyndromePolynomial
-            (FieldMatrix<GFPElement> erasureLocatorsPolynomial, FieldMatrix<GFPElement> syndromePolynomial) {
+    FieldMatrix<GFPElement> calculateModifiedSyndromePolynomial(
+            Optional<FieldMatrix<GFPElement>> erasureLocatorsPolynomial, FieldMatrix<GFPElement> syndromePolynomial) {
         int moduloPower = controlDigitsCount + 1;
-        var poly = multiplyPolynomials(syndromePolynomial, erasureLocatorsPolynomial);
+        var poly = erasureLocatorsPolynomial
+                .map(it -> multiplyPolynomials(syndromePolynomial, it))
+                .orElse(syndromePolynomial);
         var moduled = polyModulo(poly, moduloPower);
         moduled.setEntry(0, 0, generatorField.getZero());
         return moduled;
@@ -213,11 +224,10 @@ public class ReedSolomonCode {
     }
 
     @VisibleForTesting
-    FieldMatrix<GFPElement> calculateErasureLocatorsPolynomial(List<GFPElement> erasureLocators) {
+    Optional<FieldMatrix<GFPElement>> calculateErasureLocatorsPolynomial(List<GFPElement> erasureLocators) {
         return erasureLocators.stream()
                 .map(locator -> FieldMatrixUtil.matrixRow(generatorField.getOne(), locator.negate()))
-                .reduce(PolyUtil::multiplyPolynomials)
-                .orElseThrow();
+                .reduce(PolyUtil::multiplyPolynomials);
     }
 
     @VisibleForTesting

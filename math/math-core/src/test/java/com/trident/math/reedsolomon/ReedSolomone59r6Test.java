@@ -13,12 +13,27 @@ public class ReedSolomone59r6Test {
 
     @Test
     void testEncode() {
-
         var message = toFieldMatrixRow(new long[]{4, 58, 12, 0, 28, 31}, GFP.of(59));
         var expectedEncoded = toFieldMatrixRow(new long[]{47, 48, 47, 41, 25, 18, 3, 15, 57, 36, 16, 31}, GFP.of(59));
         var code = new ReedSolomonCode(GF_59_R6);
 
-        assertEquals(expectedEncoded, code.encode(message));
+        var encoded = code.encode(message);
+        assertEquals(expectedEncoded, encoded);
+
+        var decoded = code.decode(encoded, List.of());
+        assertEquals(CorrectionResult.CorrectionStatus.NO_ERROR, decoded.status());
+    }
+
+    @Test
+    void testNoErasure() {
+        var encoded = toFieldMatrixRow(new long[]{47, 48, 18, 41, 25, 18, 3, 43, 57, 36, 16, 31}, GFP.of(59));
+        var code = new ReedSolomonCode(GF_59_R6);
+
+        var decoded = code.decode(encoded, List.of(5, 9));
+        assertEquals(CorrectionResult.CorrectionStatus.ERROR_CORRECTED, decoded.status());
+
+        var expectedCorrected = toFieldMatrixRow(new long[]{47, 48, 47, 41, 25, 18, 3, 15, 57, 36, 16, 31}, GFP.of(59));
+        assertEquals(expectedCorrected, decoded.correctedMessage().orElseThrow());
     }
 
     @Test
@@ -27,7 +42,7 @@ public class ReedSolomone59r6Test {
         var code = new ReedSolomonCode(GF_59_R6);
 
         var decoded = code.decode(encoded, List.of(5, 9));
-        assertEquals(CorrectionResult.CorrectionStatus.SUCCESS, decoded.status());
+        assertEquals(CorrectionResult.CorrectionStatus.ERROR_CORRECTED, decoded.status());
 
         var expectedCorrected = toFieldMatrixRow(new long[]{47, 48, 47, 41, 25, 18, 3, 15, 57, 36, 16, 31}, GFP.of(59));
         assertEquals(expectedCorrected, decoded.correctedMessage().orElseThrow());

@@ -4,6 +4,7 @@ import org.apache.commons.math3.util.Pair;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.trident.math.field.GaloisFields.GF11;
 import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrixRow;
@@ -18,7 +19,25 @@ class ReedSolomonCodeTest {
         var expected = toFieldMatrixRow(new long[]{2, 7, 4, 8, 2, 8, 2, 1, 3}, GF11);
         var code = new ReedSolomonCode(GF_11_R6);
 
-        assertEquals(expected, code.encode(message));
+        var encoded = code.encode(message);
+        assertEquals(expected, encoded);
+
+        var decoded = code.decode(encoded, List.of());
+        assertEquals(CorrectionResult.CorrectionStatus.NO_ERROR, decoded.status());
+    }
+
+    @Test
+    void testNoErasure() {
+        var message = toFieldMatrixRow(new long[]{2, 7, 9, 8, 2, 3, 2, 1, 3}, GF11);
+        var code = new ReedSolomonCode(GF_11_R6);
+        var expectedDecoded = toFieldMatrixRow(new long[]{2, 7, 4, 8, 2, 8, 2, 1, 3}, GF11);
+
+
+        var correctionResult = code.decode(message, List.of());
+        var expectedCorrection = toFieldMatrixRow(new long[]{0, 0, 5, 0, 0, 6, 0, 0, 0}, GF11);
+        assertEquals(expectedCorrection, correctionResult.correctionVector().get());
+        assertEquals(expectedDecoded, correctionResult.correctedMessage().get());
+
     }
 
     @Test
@@ -45,7 +64,7 @@ class ReedSolomonCodeTest {
         var code = new ReedSolomonCode(GF_11_R6);
         var locators = List.of(GF11.getOfValue(5), GF11.getOfValue(7));
         var expectedLocatorPolynomial = toFieldMatrixRow(new long[]{1, 10, 2}, GF11);
-        assertEquals(expectedLocatorPolynomial, code.calculateErasureLocatorsPolynomial(locators));
+        assertEquals(Optional.of(expectedLocatorPolynomial), code.calculateErasureLocatorsPolynomial(locators));
     }
 
     @Test
@@ -95,7 +114,7 @@ class ReedSolomonCodeTest {
 
         var expected = toFieldMatrixRow(new long[]{0, 7, 3, 3, 0, 1, 3}, GF11);
 
-        assertEquals(expected, code.calculateModifiedSyndromePolynomial(erasureLocatorsPoly, syndromePoly));
+        assertEquals(expected, code.calculateModifiedSyndromePolynomial(Optional.of(erasureLocatorsPoly), syndromePoly));
     }
 
     @Test

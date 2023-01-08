@@ -31,7 +31,9 @@ public interface CorrectionResult {
 
     enum CorrectionStatus {
 
-        SUCCESS,
+        ERROR_CORRECTED,
+
+        NO_ERROR,
         TOO_MUCH_ERASURE,
         MORE_THAN_XI_ERRORS,
     }
