@@ -12,18 +12,12 @@ import com.trident.math.reedsolomon.CorrectionResult.CorrectionStatus;
 import org.apache.commons.math3.linear.FieldMatrix;
 import org.apache.commons.math3.util.Pair;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static com.trident.math.PolyUtil.degree;
-import static com.trident.math.PolyUtil.multiplyPolynomials;
-import static com.trident.math.PolyUtil.subtractPolynomials;
+import static com.trident.math.PolyUtil.*;
 import static com.trident.math.field.GFPUtil.primitiveElement;
 import static com.trident.math.matrix.FieldMatrixUtil.matrixRowOfValue;
 import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrixRow;
@@ -49,8 +43,8 @@ public class ReedSolomonCode {
         return PolyUtil.multiplyPolynomials(message, generatorPolynomial);
     }
 
-    public CorrectionResult decode(FieldMatrix<GFPElement> message) {
-        var erasureLocators = findErasureLocators(message);
+    public CorrectionResult decode(FieldMatrix<GFPElement> message, List<Integer> erasurePositions) {
+        var erasureLocators = findErasureLocators(erasurePositions);
         int erasureLocatorsCount = erasureLocators.size();
         if (erasureLocatorsCount > controlDigitsCount) {
             return ImmutableCorrectionResult.of(CorrectionStatus.TOO_MUCH_ERASURE, message, Optional.empty());
@@ -227,13 +221,10 @@ public class ReedSolomonCode {
     }
 
     @VisibleForTesting
-    List<GFPElement> findErasureLocators(FieldMatrix<GFPElement> message) {
+    List<GFPElement> findErasureLocators(List<Integer> erasurePositions) {
         var erasureLocators = new ArrayList<GFPElement>();
-        for (int i = 0; i < message.getColumnDimension(); i++) {
-            var elem = message.getEntry(0, i);
-            if (elem.equals(generatorField.getZero())) {
-                erasureLocators.add(generatorField.pow(generatorFieldPrimitiveElement, i));
-            }
+        for (int i = 0; i < erasurePositions.size(); i++) {
+            erasureLocators.add(generatorField.pow(generatorFieldPrimitiveElement, erasurePositions.get(i)));
         }
         return erasureLocators;
     }
