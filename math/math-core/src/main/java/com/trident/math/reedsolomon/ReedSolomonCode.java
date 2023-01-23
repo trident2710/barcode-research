@@ -43,7 +43,7 @@ public class ReedSolomonCode {
         return PolyUtil.multiplyPolynomials(message, generatorPolynomial);
     }
 
-    public CorrectionResult decode(FieldMatrix<GFPElement> message, List<Integer> erasurePositions) {
+    public CorrectionResult correct(FieldMatrix<GFPElement> message, List<Integer> erasurePositions) {
         var erasureLocators = findErasureLocators(erasurePositions);
         int erasureLocatorsCount = erasureLocators.size();
         if (erasureLocatorsCount > controlDigitsCount) {
