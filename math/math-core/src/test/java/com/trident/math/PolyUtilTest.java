@@ -1,14 +1,13 @@
 package com.trident.math;
 
+import org.apache.commons.math3.util.Pair;
 import org.junit.jupiter.api.Test;
 
-import static com.trident.math.PolyUtil.addPolynomials;
-import static com.trident.math.PolyUtil.multiplyPolynomials;
-import static com.trident.math.PolyUtil.polyToString;
-import static com.trident.math.PolyUtil.subtractPolynomials;
+import static com.trident.math.PolyUtil.*;
 import static com.trident.math.field.GaloisFields.GF11;
 import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrixRow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 class PolyUtilTest {
@@ -23,6 +22,41 @@ class PolyUtilTest {
 
         assertEquals(expected, multiplyPolynomials(first, second));
 
+    }
+
+    @Test
+    void testDivide() {
+        var first = toFieldMatrixRow(new long[]{2, 7, 4, 8, 2, 8, 2, 1, 3}, GF11);
+        var second = toFieldMatrixRow(new long[]{2, 8, 2, 7, 5, 6, 1}, GF11);
+        var expected = toFieldMatrixRow(new long[]{1, 5, 3}, GF11);
+
+        assertEquals(Pair.create(expected, toFieldMatrixRow(new long[]{0}, GF11)), dividePolynomialsWithRest(first, second));
+    }
+
+    @Test
+    void testDivide_self() {
+        var first = toFieldMatrixRow(new long[]{2, 7, 4, 8, 2, 8, 2, 1, 3}, GF11);
+        var second = toFieldMatrixRow(new long[]{2, 7, 4, 8, 2, 8, 2, 1, 3}, GF11);
+        var expected = toFieldMatrixRow(new long[]{1}, GF11);
+
+        assertEquals(Pair.create(expected, toFieldMatrixRow(new long[]{0}, GF11)), dividePolynomialsWithRest(first, second));
+    }
+
+    @Test
+    void testDivide_one() {
+        var first = toFieldMatrixRow(new long[]{2, 7, 4, 8, 2, 8, 2, 1, 3}, GF11);
+        var second = toFieldMatrixRow(new long[]{1}, GF11);
+        var expected = toFieldMatrixRow(new long[]{2, 7, 4, 8, 2, 8, 2, 1, 3}, GF11);
+
+        assertEquals(Pair.create(expected, toFieldMatrixRow(new long[]{0}, GF11)), dividePolynomialsWithRest(first, second));
+    }
+
+    @Test
+    void testDivide_higherDegree() {
+        var first = toFieldMatrixRow(new long[]{2, 7, 4, 8, 2, 8, 2, 1, 3}, GF11);
+        var second = toFieldMatrixRow(new long[]{2, 7, 4, 8, 2, 8, 2, 1, 3, 1}, GF11);
+
+        assertThrows(Exception.class, () -> dividePolynomialsWithRest(first, second));
     }
 
     @Test
