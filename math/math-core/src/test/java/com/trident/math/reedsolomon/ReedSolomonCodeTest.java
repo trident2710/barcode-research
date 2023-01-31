@@ -22,8 +22,10 @@ class ReedSolomonCodeTest {
         var encoded = code.encode(message);
         assertEquals(expected, encoded);
 
-        var decoded = code.correct(encoded, List.of());
-        assertEquals(CorrectionResult.CorrectionStatus.NO_ERROR, decoded.status());
+        var corrected = code.correct(encoded, List.of());
+        assertEquals(CorrectionResult.CorrectionStatus.NO_ERROR, corrected.status());
+
+        assertEquals(message, code.decode(corrected.message()));
     }
 
     @Test
@@ -35,8 +37,8 @@ class ReedSolomonCodeTest {
 
         var correctionResult = code.correct(message, List.of());
         var expectedCorrection = toFieldMatrixRow(new long[]{0, 0, 5, 0, 0, 6, 0, 0, 0}, GF11);
-        assertEquals(expectedCorrection, correctionResult.correctionVector().get());
-        assertEquals(expectedDecoded, correctionResult.correctedMessage().get());
+        assertEquals(expectedCorrection, correctionResult.correctionVector().orElseThrow());
+        assertEquals(expectedDecoded, correctionResult.correctedMessage().orElseThrow());
 
     }
 
@@ -44,12 +46,16 @@ class ReedSolomonCodeTest {
     void testDecode() {
         var code = new ReedSolomonCode(GF_11_R6);
         var message = toFieldMatrixRow(new long[]{2, 7, 9, 8, 0, 3, 2, 0, 3}, GF11);
-        var expectedDecoded = toFieldMatrixRow(new long[]{2, 7, 4, 8, 2, 8, 2, 1, 3}, GF11);
+        var expectedCorrected = toFieldMatrixRow(new long[]{2, 7, 4, 8, 2, 8, 2, 1, 3}, GF11);
 
         var correctionResult = code.correct(message, List.of(4, 7));
         var expectedCorrection = toFieldMatrixRow(new long[]{0, 0, 5, 0, 9, 6, 0, 10, 0}, GF11);
-        assertEquals(expectedCorrection, correctionResult.correctionVector().get());
-        assertEquals(expectedDecoded, correctionResult.correctedMessage().get());
+        assertEquals(expectedCorrection, correctionResult.correctionVector().orElseThrow());
+        assertEquals(expectedCorrected, correctionResult.correctedMessage().orElseThrow());
+
+
+        var expectedDecoded = toFieldMatrixRow(new long[]{1, 5, 3}, GF11);
+        assertEquals(expectedDecoded, code.decode(correctionResult.correctedMessage().orElseThrow()));
     }
 
     @Test
@@ -136,7 +142,7 @@ class ReedSolomonCodeTest {
 
         var expected = toFieldMatrixRow(new long[]{1, 8, 7}, GF11);
 
-        assertEquals(expected, code.calculateErrorLocatorsPolynomial(errorsSyndrome, 2).get());
+        assertEquals(expected, code.calculateErrorLocatorsPolynomial(errorsSyndrome, 2).orElseThrow());
     }
 
     @Test

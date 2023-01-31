@@ -19,6 +19,7 @@ import java.util.stream.Stream;
 
 import static com.trident.math.PolyUtil.*;
 import static com.trident.math.field.GFPUtil.primitiveElement;
+import static com.trident.math.matrix.FieldMatrixUtil.isZero;
 import static com.trident.math.matrix.FieldMatrixUtil.matrixRowOfValue;
 import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrixRow;
 
@@ -41,6 +42,12 @@ public class ReedSolomonCode {
 
     public FieldMatrix<GFPElement> encode(FieldMatrix<GFPElement> message) {
         return PolyUtil.multiplyPolynomials(message, generatorPolynomial);
+    }
+
+    public FieldMatrix<GFPElement> decode(FieldMatrix<GFPElement> encoded) {
+        var divisionResult = PolyUtil.dividePolynomialsWithRest(encoded, generatorPolynomial);
+        Preconditions.checkArgument(isZero(divisionResult.getSecond()));
+        return divisionResult.getFirst();
     }
 
     public CorrectionResult correct(FieldMatrix<GFPElement> message, List<Integer> erasurePositions) {
