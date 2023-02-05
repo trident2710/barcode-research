@@ -6,6 +6,8 @@ import org.apache.commons.math3.linear.Array2DRowFieldMatrix;
 import org.apache.commons.math3.linear.FieldMatrix;
 import org.apache.commons.math3.linear.MatrixUtils;
 
+import java.util.List;
+
 @SuppressWarnings("unused")
 public final class FieldMatrixUtil {
     private FieldMatrixUtil() {
@@ -76,6 +78,16 @@ public final class FieldMatrixUtil {
     public static <FieldElem extends FieldElement<FieldElem>> FieldMatrix<FieldElem> matrixRow(FieldElem... elements) {
         return MatrixUtils.createRowFieldMatrix(elements);
     }
+
+    public static <FieldElem extends FieldElement<FieldElem>> FieldMatrix<FieldElem> matrixRow(List<FieldElem> elements) {
+        Preconditions.checkArgument(elements.size() > 0);
+        var row = new Array2DRowFieldMatrix<>(elements.get(0).getField(), 1, elements.size());
+        for (int i = 0; i < elements.size(); i++) {
+            row.addToEntry(0, i, elements.get(i));
+        }
+        return row;
+    }
+
 
     /**
      * Creates matrix row with given elements and appends with zeros if size > elements.length
