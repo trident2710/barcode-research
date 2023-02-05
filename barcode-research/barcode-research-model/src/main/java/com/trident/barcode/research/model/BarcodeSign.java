@@ -1,8 +1,7 @@
-package com.trident.barcode.research;
+package com.trident.barcode.research.model;
 
 import org.immutables.value.Value;
 
-import java.util.List;
 import java.util.Optional;
 
 @Value.Immutable
@@ -18,7 +17,7 @@ public interface BarcodeSign {
     Optional<BarcodeCharsetType> switchesTo();
 
     @Value.Parameter
-    List<Integer> codeRepresentation();
+    Code codeRepresentation();
 
     @Value.Parameter
     int digitalRepresentation();

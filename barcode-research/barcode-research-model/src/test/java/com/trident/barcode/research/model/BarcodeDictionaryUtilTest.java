@@ -1,10 +1,10 @@
-package com.trident.barcode.research;
+package com.trident.barcode.research.model;
 
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.trident.barcode.research.BarcodeDictionaryUtil.fromCodeString;
+import static com.trident.barcode.research.model.BarcodeDictionaryUtil.fromCodeString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BarcodeDictionaryUtilTest {

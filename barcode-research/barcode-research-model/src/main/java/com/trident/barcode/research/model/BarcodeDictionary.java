@@ -1,4 +1,4 @@
-package com.trident.barcode.research;
+package com.trident.barcode.research.model;
 
 import org.immutables.value.Value;
 
@@ -8,9 +8,6 @@ import java.util.stream.Collectors;
 
 @Value.Immutable
 public interface BarcodeDictionary {
-
-    @Value.Parameter
-    BarcodeSignEncoding encoding();
 
     @Value.Parameter
     List<BarcodeSign> signs();

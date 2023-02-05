@@ -1,4 +1,4 @@
-package com.trident.barcode.research;
+package com.trident.barcode.research.model;
 
 import org.immutables.value.Value;
 
