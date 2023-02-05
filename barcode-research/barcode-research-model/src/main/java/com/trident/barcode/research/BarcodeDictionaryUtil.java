@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.trident.barcode.research.BarcodeSignType.REGULAR;
 import static com.trident.barcode.research.BarcodeSignType.SWITCHER;
 
 public final class BarcodeDictionaryUtil {
@@ -17,7 +18,7 @@ public final class BarcodeDictionaryUtil {
 
     private static final List<BarcodeCharsetType> CHARSET_TYPES = List.of(CHARSET_A, CHARSET_B, CHARSET_C, CHARSET_D);
 
-    public static final BarcodeDictionary DEFAULT_DICTIONARY = dictionaryFromCharsets(List.of(
+    public static final BarcodeDictionary BASE_59 = dictionaryFromCharsets(List.of(
             charset(CHARSET_A, List.of(
                     regularSymbol(CHARSET_A, 0, "A", "001221131"),
                     regularSymbol(CHARSET_A, 1, "B", "002332212"),
@@ -261,17 +262,16 @@ public final class BarcodeDictionaryUtil {
                     specialSymbol(CHARSET_D, 56, "setA", "333231311", CHARSET_A),
                     specialSymbol(CHARSET_D, 57, "setB", "330322032", CHARSET_B),
                     specialSymbol(CHARSET_D, 58, "setС", "331103103", CHARSET_C)
-            )))
-    );
+            ))), BarcodeSignEncoding.BCH_9_3);
 
-    public static BarcodeDictionary dictionaryFromCharsets(List<BarcodeCharset> charsets) {
-        return ImmutableBarcodeDictionary.of(charsets.stream()
+    public static BarcodeDictionary dictionaryFromCharsets(List<BarcodeCharset> charsets, BarcodeSignEncoding encoding) {
+        return ImmutableBarcodeDictionary.of(encoding, charsets.stream()
                 .flatMap(it -> it.signs().stream())
                 .collect(Collectors.toList()));
     }
 
-    public static BarcodeDictionary dictionary(List<BarcodeSign> signs) {
-        return ImmutableBarcodeDictionary.of(signs);
+    public static BarcodeDictionary dictionary(List<BarcodeSign> signs, BarcodeSignEncoding encoding) {
+        return ImmutableBarcodeDictionary.of(encoding, signs);
     }
 
     public static BarcodeCharset charset(BarcodeCharsetType charsetType, List<BarcodeSign> signs) {
@@ -283,7 +283,7 @@ public final class BarcodeDictionaryUtil {
     }
 
     public static BarcodeSign regularSymbol(BarcodeCharsetType charset, int digitalRepresentation, String stringRepresentation, List<Integer> codeRepresentation) {
-        return ImmutableBarcodeSign.of(charset, SWITCHER, Optional.empty(), codeRepresentation, digitalRepresentation, stringRepresentation);
+        return ImmutableBarcodeSign.of(charset, REGULAR, Optional.empty(), codeRepresentation, digitalRepresentation, stringRepresentation);
     }
 
     public static BarcodeSign regularSymbol(BarcodeCharsetType charset, int digitalRepresentation, String stringRepresentation, String codeStr) {
@@ -298,7 +298,7 @@ public final class BarcodeDictionaryUtil {
         return specialSymbol(charset, digitalRepresentation, stringRepresentation, fromCodeString(codeStr), switchesTo);
     }
 
-    private static List<Integer> fromCodeString(String codeStr) {
+    static List<Integer> fromCodeString(String codeStr) {
         return Optional.of(codeStr.chars().boxed().collect(Collectors.toList()))
                 .map(Lists::reverse)
                 .orElseThrow()

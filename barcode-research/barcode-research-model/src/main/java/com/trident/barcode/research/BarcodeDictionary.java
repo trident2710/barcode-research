@@ -10,6 +10,9 @@ import java.util.stream.Collectors;
 public interface BarcodeDictionary {
 
     @Value.Parameter
+    BarcodeSignEncoding encoding();
+
+    @Value.Parameter
     List<BarcodeSign> signs();
 
     default List<BarcodeSign> specialSigns() {
