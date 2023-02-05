@@ -44,5 +44,8 @@ class BCH_8_3CodeTest {
         var expectedCorrection = toFieldMatrixRow(new long[]{0, 0, 0, 0, 0, 2, 0, 0}, GF3);
         assertEquals(expectedCorrection, syndrome.getCorrectionResult().getCorrection());
         assertEquals(1, syndrome.getCorrectionResult().getErrorCount());
+
+        var expectedCorrected = toFieldMatrixRow(new long[]{2, 0, 2, 1, 1, 0, 1, 2}, GF3);
+        assertEquals(expectedCorrected, syndrome.getCorrectionResult().correctedMessage().orElseThrow());
     }
 }
