@@ -23,5 +23,5 @@ public interface BarcodeSign {
     int digitalRepresentation();
 
     @Value.Parameter
-    String stringRepresentation();
+    String sign();
 }
