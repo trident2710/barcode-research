@@ -12,5 +12,6 @@
     <modules>
 
         <module>barcode-research-model</module>
+        <module>barcode-image-generator</module>
     </modules>
 </project>
