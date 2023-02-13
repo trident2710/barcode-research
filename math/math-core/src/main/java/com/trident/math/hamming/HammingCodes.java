@@ -5,12 +5,7 @@ import com.trident.math.field.GFPElement;
 import com.trident.math.field.GFPMSimple;
 import com.trident.math.field.GFPMSimpleElement;
 
-import static com.trident.math.field.GaloisFields.GF3;
-import static com.trident.math.field.GaloisFields.GF5;
-import static com.trident.math.field.GaloisFields.GF7;
-import static com.trident.math.field.GaloisFields.GF_2_2;
-import static com.trident.math.field.GaloisFields.GF_2_3;
-import static com.trident.math.field.GaloisFields.GF_3_2;
+import static com.trident.math.field.GaloisFields.*;
 import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrix;
 
 @SuppressWarnings("unused")
@@ -79,6 +74,28 @@ public final class HammingCodes {
                     new long[]{0, 0, 0, 0, 1},
                     new long[]{1, 1, 1, 1, 0},
                     new long[]{1, 2, 3, 4, 1}
+            }, GF5));
+
+    public static final HammingCode<GFPElement, GFP> HAMMING_7_4_GF_5 =
+            new HammingCode<>(toFieldMatrix(new long[][]{
+                    new long[]{1, 1, 1, 1},
+                    new long[]{4, 4, 4, 4},
+                    new long[]{1, 2, 3, 4}
+            }, GF5));
+
+    public static final HammingCode<GFPElement, GFP> HAMMING_6_3_GF_5 =
+            new HammingCode<>(toFieldMatrix(new long[][]{
+                    new long[]{1, 1, 1},
+                    new long[]{4, 4, 4},
+                    new long[]{1, 2, 3}
+            }, GF5));
+
+
+    public static final HammingCode<GFPElement, GFP> HAMMING_5_2_GF_5 =
+            new HammingCode<>(toFieldMatrix(new long[][]{
+                    new long[]{1, 1},
+                    new long[]{4, 4},
+                    new long[]{1, 2}
             }, GF5));
 
     public static final HammingCode<GFPElement, GFP> HAMMING_6_4_GF_5 =
