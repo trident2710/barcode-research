@@ -71,10 +71,10 @@ public final class BarcodeDictionaries {
                     regularSymbol(CHARSET_A, 52, "@", "302302121"),
                     regularSymbol(CHARSET_A, 53, "#", "301211202"),
                     regularSymbol(CHARSET_A, 54, "%", "300030333"),
-                    regularSymbol(CHARSET_A, 55, "{pad}", "332010220"), // TODO: what does it do?
-                    specialSymbol(CHARSET_A, 56, "{setB}", "333231311", CHARSET_B),
-                    specialSymbol(CHARSET_A, 57, "{setC}", "330322032", CHARSET_C),
-                    specialSymbol(CHARSET_A, 58, "{setD}", "331103103", CHARSET_D)
+                    padding(CHARSET_A, 55, "{pad}", "332010220"),
+                    switcher(CHARSET_A, 56, "{setB}", "333231311", CHARSET_B),
+                    switcher(CHARSET_A, 57, "{setC}", "330322032", CHARSET_C),
+                    switcher(CHARSET_A, 58, "{setD}", "331103103", CHARSET_D)
             )),
             charset(CHARSET_B, List.of(
                     regularSymbol(CHARSET_B, 0, "a", "001221131"),
@@ -132,10 +132,10 @@ public final class BarcodeDictionaries {
                     regularSymbol(CHARSET_B, 52, "@", "302302121"),
                     regularSymbol(CHARSET_B, 53, "#", "301211202"),
                     regularSymbol(CHARSET_B, 54, "%", "300030333"),
-                    regularSymbol(CHARSET_B, 55, "{pad}", "332010220"),
-                    specialSymbol(CHARSET_B, 56, "{setA}", "333231311", CHARSET_A),
-                    specialSymbol(CHARSET_B, 57, "{setC}", "330322032", CHARSET_C),
-                    specialSymbol(CHARSET_B, 58, "{setD}", "331103103", CHARSET_D)
+                    padding(CHARSET_B, 55, "{pad}", "332010220"),
+                    switcher(CHARSET_B, 56, "{setA}", "333231311", CHARSET_A),
+                    switcher(CHARSET_B, 57, "{setC}", "330322032", CHARSET_C),
+                    switcher(CHARSET_B, 58, "{setD}", "331103103", CHARSET_D)
             )),
             charset(CHARSET_C, List.of(
                     regularSymbol(CHARSET_C, 0, "А", "001221131"),
@@ -193,10 +193,10 @@ public final class BarcodeDictionaries {
                     regularSymbol(CHARSET_C, 52, "@", "302302121"),
                     regularSymbol(CHARSET_C, 53, "#", "301211202"),
                     regularSymbol(CHARSET_C, 54, "%", "300030333"),
-                    regularSymbol(CHARSET_C, 55, "{pad}", "332010220"),
-                    specialSymbol(CHARSET_C, 56, "{setA}", "333231311", CHARSET_A),
-                    specialSymbol(CHARSET_C, 57, "{setB}", "330322032", CHARSET_B),
-                    specialSymbol(CHARSET_C, 58, "{setD}", "331103103", CHARSET_D)
+                    padding(CHARSET_C, 55, "{pad}", "332010220"),
+                    switcher(CHARSET_C, 56, "{setA}", "333231311", CHARSET_A),
+                    switcher(CHARSET_C, 57, "{setB}", "330322032", CHARSET_B),
+                    switcher(CHARSET_C, 58, "{setD}", "331103103", CHARSET_D)
             )),
             charset(CHARSET_D, List.of(
                     regularSymbol(CHARSET_D, 0, "а", "001221131"),
@@ -254,10 +254,10 @@ public final class BarcodeDictionaries {
                     regularSymbol(CHARSET_D, 52, "@", "302302121"),
                     regularSymbol(CHARSET_D, 53, "#", "301211202"),
                     regularSymbol(CHARSET_D, 54, "%", "300030333"),
-                    regularSymbol(CHARSET_D, 55, "{pad}", "332010220"),
-                    specialSymbol(CHARSET_D, 56, "{setA}", "333231311", CHARSET_A),
-                    specialSymbol(CHARSET_D, 57, "{setB}", "330322032", CHARSET_B),
-                    specialSymbol(CHARSET_D, 58, "{setС}", "331103103", CHARSET_C)
+                    padding(CHARSET_D, 55, "{pad}", "332010220"),
+                    switcher(CHARSET_D, 56, "{setA}", "333231311", CHARSET_A),
+                    switcher(CHARSET_D, 57, "{setB}", "330322032", CHARSET_B),
+                    switcher(CHARSET_D, 58, "{setС}", "331103103", CHARSET_C)
             ))));
 
     private BarcodeDictionaries() {

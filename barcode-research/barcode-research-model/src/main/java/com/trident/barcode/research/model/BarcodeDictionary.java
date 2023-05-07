@@ -13,7 +13,7 @@ public interface BarcodeDictionary {
     @Value.Parameter
     List<BarcodeSign> signs();
 
-    default List<BarcodeSign> specialSigns() {
+    default List<BarcodeSign> switchers() {
         return signs().stream()
                 .filter(it -> it.type() == BarcodeSignType.SWITCHER)
                 .collect(Collectors.toList());
@@ -45,9 +45,15 @@ public interface BarcodeDictionary {
     }
 
     default Optional<BarcodeSign> switcher(BarcodeCharsetType from, BarcodeCharsetType to) {
-        return specialSigns().stream()
+        return switchers().stream()
                 .filter(it -> it.charset().equals(from))
                 .filter(it -> it.switchesTo().orElseThrow().equals(to))
+                .findFirst();
+    }
+
+    default Optional<BarcodeSign> padding(BarcodeCharsetType charset) {
+        return charset(charset).signs().stream()
+                .filter(it -> it.type() == BarcodeSignType.PADDING)
                 .findFirst();
     }
 }

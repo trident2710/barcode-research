@@ -38,12 +38,20 @@ public final class BarcodeDictionaryUtil {
         return regularSymbol(charset, digitalRepresentation, stringRepresentation, fromCodeString(codeStr));
     }
 
-    public static BarcodeSign specialSymbol(BarcodeCharsetType charset, int digitalRepresentation, String stringRepresentation, List<Integer> codeRepresentation, BarcodeCharsetType switchesTo) {
+    public static BarcodeSign switcher(BarcodeCharsetType charset, int digitalRepresentation, String stringRepresentation, List<Integer> codeRepresentation, BarcodeCharsetType switchesTo) {
         return ImmutableBarcodeSign.of(charset, SWITCHER, Optional.of(switchesTo), ImmutableCode.of(codeRepresentation), digitalRepresentation, stringRepresentation);
     }
 
-    public static BarcodeSign specialSymbol(BarcodeCharsetType charset, int digitalRepresentation, String stringRepresentation, String codeStr, BarcodeCharsetType switchesTo) {
-        return specialSymbol(charset, digitalRepresentation, stringRepresentation, fromCodeString(codeStr), switchesTo);
+    public static BarcodeSign switcher(BarcodeCharsetType charset, int digitalRepresentation, String stringRepresentation, String codeStr, BarcodeCharsetType switchesTo) {
+        return switcher(charset, digitalRepresentation, stringRepresentation, fromCodeString(codeStr), switchesTo);
+    }
+
+    public static BarcodeSign padding(BarcodeCharsetType charset, int digitalRepresentation, String stringRepresentation, List<Integer> codeRepresentation) {
+        return ImmutableBarcodeSign.of(charset, BarcodeSignType.PADDING, Optional.empty(), ImmutableCode.of(codeRepresentation), digitalRepresentation, stringRepresentation);
+    }
+
+    public static BarcodeSign padding(BarcodeCharsetType charset, int digitalRepresentation, String stringRepresentation, String codeStr) {
+        return padding(charset, digitalRepresentation, stringRepresentation, fromCodeString(codeStr));
     }
 
     static List<Integer> fromCodeString(String codeStr) {

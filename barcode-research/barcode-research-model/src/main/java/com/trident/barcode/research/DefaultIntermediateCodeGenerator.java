@@ -1,6 +1,6 @@
 package com.trident.barcode.research;
 
-import com.google.common.annotations.VisibleForTesting;
+import com.trident.barcode.research.model.BarcodeCharsetType;
 import com.trident.barcode.research.model.BarcodeDictionary;
 import com.trident.barcode.research.model.BarcodeSign;
 
@@ -10,9 +10,12 @@ import java.util.List;
 public class DefaultIntermediateCodeGenerator implements IntermediateCodeGenerator {
 
     private final BarcodeDictionary barcodeDictionary;
+    private final PaddingStrategy paddingStrategy;
 
-    public DefaultIntermediateCodeGenerator(BarcodeDictionary barcodeDictionary) {
+    public DefaultIntermediateCodeGenerator(BarcodeDictionary barcodeDictionary,
+                                            PaddingStrategy paddingStrategy) {
         this.barcodeDictionary = barcodeDictionary;
+        this.paddingStrategy = paddingStrategy;
     }
 
     @Override
@@ -36,6 +39,17 @@ public class DefaultIntermediateCodeGenerator implements IntermediateCodeGenerat
                 intermediateCode.add(signInCurrentCharset.get());
             }
         }
+
+        addPadding(intermediateCode, currentCharset);
+
         return intermediateCode;
+    }
+
+    private void addPadding(List<BarcodeSign> intermediateCode, BarcodeCharsetType currentCharset) {
+        int paddingCount = paddingStrategy.getPaddingCount(intermediateCode.size());
+
+        for (int i = 0; i < paddingCount; i++) {
+            intermediateCode.add(barcodeDictionary.padding(currentCharset).orElseThrow());
+        }
     }
 }
