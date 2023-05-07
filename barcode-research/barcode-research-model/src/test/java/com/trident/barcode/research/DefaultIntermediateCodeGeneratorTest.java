@@ -23,7 +23,7 @@ class DefaultIntermediateCodeGeneratorTest {
 
     @Test
     void testPadding() {
-        var generator = new DefaultIntermediateCodeGenerator(BarcodeDictionaries.BASE_59, new FixedSizePaddingStrategy(5));
+        var generator = new DefaultIntermediateCodeGenerator(BarcodeDictionaries.BASE_59, new NearestSquarePaddingStrategy());
         var expected = "H{setB}e{setA}L{setB}l{setA}O, {setC}С{setD}віт{setA}!{pad}{pad}{pad}{pad}{pad}{pad}";
 
         var intermediateCode = generator.buildIntermediateCode("HeLlO, Світ!");
