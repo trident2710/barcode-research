@@ -101,6 +101,14 @@ public class ReedSolomonCode {
         return ImmutableCorrectionResult.of(CorrectionStatus.ERROR_CORRECTED, message, Optional.of(correction));
     }
 
+    public GFP getGeneratorField() {
+        return generatorField;
+    }
+
+    public int getControlDigitsCount() {
+        return controlDigitsCount;
+    }
+
     @VisibleForTesting
     List<GFPElement> calculateErrorLocators(FieldMatrix<GFPElement> errorLocatorsPolynomial) {
         var equationRoots = FiniteFieldEquation.solveEquation(errorLocatorsPolynomial);

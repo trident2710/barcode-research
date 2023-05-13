@@ -3,6 +3,7 @@ package com.trident.barcode;
 import com.trident.barcode.model.BarcodeCharsetType;
 import com.trident.barcode.model.BarcodeDictionary;
 import com.trident.barcode.model.BarcodeSign;
+import com.trident.barcode.padding.PaddingStrategy;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -29,6 +29,12 @@ public interface BarcodeDictionary {
                 .findFirst();
     }
 
+    default Optional<BarcodeSign> findSign(int digitalRepresentation) {
+        return signs().stream()
+                .filter(it -> it.digitalRepresentation() == digitalRepresentation)
+                .findFirst();
+    }
+
     default BarcodeCharsetType defaultCharset() {
         return signs().stream()
                 .map(BarcodeSign::charset)

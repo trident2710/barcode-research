@@ -2,9 +2,10 @@ package com.trident.barcode;
 
 import com.trident.barcode.model.BarcodeDictionaries;
 import com.trident.barcode.model.BarcodeSign;
+import com.trident.barcode.padding.NearestSquarePaddingStrategy;
 import org.junit.jupiter.api.Test;
 
-import static com.trident.barcode.PaddingStrategy.NO_PADDING;
+import static com.trident.barcode.padding.PaddingStrategy.NO_PADDING;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DefaultIntermediateCodeGeneratorTest {

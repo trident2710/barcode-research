@@ -1,6 +1,7 @@
 package com.trident.barcode;
 
 import com.trident.barcode.model.BarcodeDictionaries;
+import com.trident.barcode.padding.NearestSquarePaddingStrategy;
 
 public class BarcodeCodecFactory {
 

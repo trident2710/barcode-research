@@ -1,4 +1,4 @@
-package com.trident.barcode;
+package com.trident.barcode.padding;
 
 public class NearestSquarePaddingStrategy implements PaddingStrategy {
 
