@@ -1,7 +1,9 @@
 package com.trident.barcode;
 
+import com.trident.barcode.codec.DefaultBarcodeEncoder;
 import com.trident.barcode.model.BarcodeDictionaries;
 import com.trident.barcode.padding.PaddingStrategy;
+import com.trident.barcode.transform.DefaultIntermediateCodeGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

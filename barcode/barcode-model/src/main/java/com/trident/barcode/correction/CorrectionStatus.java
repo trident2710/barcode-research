@@ -1,4 +1,4 @@
-package com.trident.barcode.bch;
+package com.trident.barcode.correction;
 
 public enum CorrectionStatus {
     NO_ERROR,

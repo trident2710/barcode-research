@@ -1,4 +1,4 @@
-package com.trident.barcode;
+package com.trident.barcode.codec;
 
 import com.trident.barcode.model.Code;
 

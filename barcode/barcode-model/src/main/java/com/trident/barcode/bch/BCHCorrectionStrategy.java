@@ -1,5 +1,9 @@
 package com.trident.barcode.bch;
 
+import com.trident.barcode.correction.Correction;
+import com.trident.barcode.correction.CorrectionStatus;
+import com.trident.barcode.correction.CorrectionStrategy;
+import com.trident.barcode.correction.ImmutableCorrection;
 import com.trident.barcode.model.Code;
 import com.trident.barcode.model.ImmutableCode;
 import com.trident.math.bch.BCHCode;

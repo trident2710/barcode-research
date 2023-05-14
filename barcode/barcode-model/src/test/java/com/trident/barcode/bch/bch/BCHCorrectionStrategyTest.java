@@ -1,12 +1,12 @@
 package com.trident.barcode.bch.bch;
 
-import com.trident.barcode.bch.CorrectionStatus;
+import com.trident.barcode.correction.CorrectionStatus;
 import com.trident.barcode.model.ImmutableCode;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.trident.barcode.bch.CorrectionStrategies.BCH_9_3;
+import static com.trident.barcode.correction.CorrectionStrategies.BCH_9_3;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

@@ -1,4 +1,4 @@
-package com.trident.barcode;
+package com.trident.barcode.transform;
 
 import com.trident.barcode.model.BarcodeCharsetType;
 import com.trident.barcode.model.BarcodeDictionary;
@@ -8,6 +8,7 @@ import com.trident.barcode.padding.PaddingStrategy;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public class DefaultIntermediateCodeGenerator implements IntermediateCodeGenerator {
 
     private final BarcodeDictionary barcodeDictionary;

@@ -1,5 +1,6 @@
-package com.trident.barcode;
+package com.trident.barcode.codec;
 
+import com.trident.barcode.transform.DefaultIntermediateCodeGenerator;
 import com.trident.barcode.model.BarcodeDictionaries;
 import com.trident.barcode.padding.NearestSquarePaddingStrategy;
 import com.trident.barcode.reedsolomon.ReedSolomonEncoder;

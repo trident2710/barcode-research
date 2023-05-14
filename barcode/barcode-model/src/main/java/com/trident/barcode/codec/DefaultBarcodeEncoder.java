@@ -1,5 +1,6 @@
-package com.trident.barcode;
+package com.trident.barcode.codec;
 
+import com.trident.barcode.transform.IntermediateCodeGenerator;
 import com.trident.barcode.model.Code;
 import com.trident.barcode.model.ImmutableCode;
 

@@ -1,5 +1,7 @@
-package com.trident.barcode.bch;
+package com.trident.barcode.correction;
 
+import com.trident.barcode.bch.BCHCorrectionStrategy;
+import com.trident.barcode.correction.CorrectionStrategy;
 import com.trident.math.bch.BCHCodes;
 
 public final class CorrectionStrategies {

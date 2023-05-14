@@ -1,6 +1,6 @@
 package com.trident.barcode.image;
 
-import com.trident.barcode.BarcodeCodec;
+import com.trident.barcode.codec.BarcodeCodec;
 
 public class BarcodeImageGenerator {
 

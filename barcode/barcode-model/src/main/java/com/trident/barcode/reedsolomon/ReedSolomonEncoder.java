@@ -1,6 +1,6 @@
 package com.trident.barcode.reedsolomon;
 
-import com.trident.barcode.BarcodeEncoder;
+import com.trident.barcode.codec.BarcodeEncoder;
 import com.trident.barcode.BarcodeRawExtractor;
 import com.trident.barcode.model.BarcodeDictionary;
 import com.trident.barcode.model.BarcodeSign;

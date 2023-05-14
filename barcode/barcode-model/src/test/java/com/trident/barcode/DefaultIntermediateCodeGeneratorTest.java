@@ -3,6 +3,7 @@ package com.trident.barcode;
 import com.trident.barcode.model.BarcodeDictionaries;
 import com.trident.barcode.model.BarcodeSign;
 import com.trident.barcode.padding.NearestSquarePaddingStrategy;
+import com.trident.barcode.transform.DefaultIntermediateCodeGenerator;
 import org.junit.jupiter.api.Test;
 
 import static com.trident.barcode.padding.PaddingStrategy.NO_PADDING;
