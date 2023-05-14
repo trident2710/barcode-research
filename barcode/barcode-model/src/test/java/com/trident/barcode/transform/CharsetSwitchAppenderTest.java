@@ -20,4 +20,16 @@ class CharsetSwitchAppenderTest {
                 .reduce("", String::concat);
         assertEquals(expected, actual);
     }
+
+    @Test
+    void testCharsetSwitchFirst() {
+        var expected = "{setB}he{setA}L{setB}l{setA}O, {setC}С{setD}віт{setA}!";
+
+        var intermediateCode = new CharsetSwitchAppender()
+                .transform(new BarcodeRawExtractor(BarcodeDictionaries.BASE_59).extract("heLlO, Світ!")).signs();
+        var actual = intermediateCode.stream()
+                .map(BarcodeSign::sign)
+                .reduce("", String::concat);
+        assertEquals(expected, actual);
+    }
 }
