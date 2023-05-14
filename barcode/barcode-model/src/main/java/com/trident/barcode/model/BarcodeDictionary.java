@@ -26,6 +26,13 @@ public interface BarcodeDictionary {
         return findSign(sign).filter(it -> it.charset().equals(charsetType));
     }
 
+    default Optional<BarcodeSign> findSignInCharset(BarcodeCharsetType charsetType, Code signCode) {
+        return signs().stream()
+                .filter(it -> it.charset().equals(charsetType))
+                .filter(it -> it.codeRepresentation().equals(signCode))
+                .findFirst();
+    }
+
     default Optional<BarcodeSign> findSign(String sign) {
         return signs().stream()
                 .filter(it -> it.sign().equals(sign))
@@ -35,12 +42,6 @@ public interface BarcodeDictionary {
     default Optional<BarcodeSign> findSign(int digitalRepresentation) {
         return signs().stream()
                 .filter(it -> it.digitalRepresentation() == digitalRepresentation)
-                .findFirst();
-    }
-
-    default Optional<BarcodeSign> findSign(Code codeRepresentation) {
-        return signs().stream()
-                .filter(it -> it.codeRepresentation().equals(codeRepresentation))
                 .findFirst();
     }
 

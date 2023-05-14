@@ -1,20 +1,19 @@
-package com.trident.barcode;
+package com.trident.barcode.codec;
 
-import com.trident.barcode.codec.DefaultBarcodeEncoder;
+import com.trident.barcode.correction.CorrectionStrategies;
 import com.trident.barcode.model.BarcodeDictionaries;
-import com.trident.barcode.padding.PaddingStrategy;
-import com.trident.barcode.transform.DefaultIntermediateCodeGenerator;
-import org.junit.jupiter.api.Assertions;
+import com.trident.barcode.model.ImmutableCode;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-class DefaultBarcodeEncoderTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class SignCorrectingDecoderTest {
 
     @Test
     void test() {
-        var encoder = new DefaultBarcodeEncoder(new DefaultIntermediateCodeGenerator(BarcodeDictionaries.BASE_59, PaddingStrategy.NO_PADDING));
-        var expected = List.of(
+        var code = ImmutableCode.of(List.of(
                 0, 2, 1, 2, 2, 3, 3, 2, 0,
                 1, 1, 3, 1, 3, 2, 3, 3, 3,
                 1, 2, 2, 0, 3, 0, 3, 1, 0,
@@ -34,10 +33,11 @@ class DefaultBarcodeEncoderTest {
                 2, 0, 0, 0, 3, 0, 2, 3, 1,
                 1, 1, 3, 1, 3, 2, 3, 3, 3,
                 1, 2, 0, 1, 1, 2, 0, 2, 2
-        );
+        ));
 
-        var code = encoder.encode("HeLlO, Світ!");
-        Assertions.assertEquals(expected, code.data());
+        var decoder = new SignCorrectingDecoder(BarcodeDictionaries.BASE_59, CorrectionStrategies.BCH_9_3);
+
+        assertEquals("HeLlO, Світ!", decoder.decode(code));
     }
 
 }
