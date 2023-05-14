@@ -14,13 +14,13 @@ import com.trident.math.reedsolomon.ReedSolomonCode;
 
 import java.util.stream.Stream;
 
-public class BarcodeWithReedSolomonErrorCorrectionEncoder implements BarcodeEncoder {
+public class ReedSolomonEncoder implements BarcodeEncoder {
 
     private final BarcodeDictionary barcodeDictionary;
     private final ReedSolomonCode reedSolomonCode;
 
-    public BarcodeWithReedSolomonErrorCorrectionEncoder(BarcodeDictionary barcodeDictionary,
-                                                        ReedSolomonCode reedSolomonCode) {
+    public ReedSolomonEncoder(BarcodeDictionary barcodeDictionary,
+                              ReedSolomonCode reedSolomonCode) {
         this.barcodeDictionary = barcodeDictionary;
         this.reedSolomonCode = reedSolomonCode;
     }

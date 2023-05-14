@@ -11,6 +11,9 @@ import java.util.stream.Collectors;
 public interface BarcodeDictionary {
 
     @Value.Parameter
+    int signCodeLength();
+
+    @Value.Parameter
     List<BarcodeSign> signs();
 
     default List<BarcodeSign> switchers() {
@@ -32,6 +35,12 @@ public interface BarcodeDictionary {
     default Optional<BarcodeSign> findSign(int digitalRepresentation) {
         return signs().stream()
                 .filter(it -> it.digitalRepresentation() == digitalRepresentation)
+                .findFirst();
+    }
+
+    default Optional<BarcodeSign> findSign(Code codeRepresentation) {
+        return signs().stream()
+                .filter(it -> it.codeRepresentation().equals(codeRepresentation))
                 .findFirst();
     }
 

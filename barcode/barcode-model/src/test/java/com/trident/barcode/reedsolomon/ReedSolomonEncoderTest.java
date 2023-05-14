@@ -10,10 +10,10 @@ import java.util.List;
 import static com.trident.math.reedsolomon.ReedSolomonGeneratorPolynomials.GF_59_R6;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class BarcodeWithReedSolomonErrorCorrectionEncoderTest {
+class ReedSolomonEncoderTest {
     @Test
     void test() {
-        var actual = new BarcodeWithReedSolomonErrorCorrectionEncoder(BarcodeDictionaries.BASE_59,
+        var actual = new ReedSolomonEncoder(BarcodeDictionaries.BASE_59,
                 new ReedSolomonCode(GF_59_R6))
                 .encode("HeLo, Світ!");
 

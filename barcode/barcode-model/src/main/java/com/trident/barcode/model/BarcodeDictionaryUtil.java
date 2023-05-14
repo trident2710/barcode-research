@@ -9,14 +9,14 @@ import java.util.stream.Collectors;
 public final class BarcodeDictionaryUtil {
 
 
-    public static BarcodeDictionary dictionaryFromCharsets(List<BarcodeCharset> charsets) {
-        return ImmutableBarcodeDictionary.of(charsets.stream()
+    public static BarcodeDictionary dictionaryFromCharsets(List<BarcodeCharset> charsets, int signCodeLength) {
+        return ImmutableBarcodeDictionary.of(signCodeLength, charsets.stream()
                 .flatMap(it -> it.signs().stream())
                 .collect(Collectors.toList()));
     }
 
-    public static BarcodeDictionary dictionary(List<BarcodeSign> signs) {
-        return ImmutableBarcodeDictionary.of(signs);
+    public static BarcodeDictionary dictionary(List<BarcodeSign> signs, int signCodeLength) {
+        return ImmutableBarcodeDictionary.of(signCodeLength, signs);
     }
 
     public static BarcodeCharset charset(BarcodeCharsetType charsetType, List<BarcodeSign> signs) {

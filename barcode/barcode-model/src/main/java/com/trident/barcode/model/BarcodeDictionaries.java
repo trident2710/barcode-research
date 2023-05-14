@@ -256,7 +256,7 @@ public final class BarcodeDictionaries {
                     BarcodeDictionaryUtil.switcher(CHARSET_D, 56, "{setA}", "333231311", CHARSET_A),
                     BarcodeDictionaryUtil.switcher(CHARSET_D, 57, "{setB}", "330322032", CHARSET_B),
                     BarcodeDictionaryUtil.switcher(CHARSET_D, 58, "{setС}", "331103103", CHARSET_C)
-            ))));
+            ))), 9);
 
     private BarcodeDictionaries() {
     }

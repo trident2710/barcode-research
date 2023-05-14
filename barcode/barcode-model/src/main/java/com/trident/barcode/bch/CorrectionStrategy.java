@@ -1,4 +1,4 @@
-package com.trident.barcode.correction;
+package com.trident.barcode.bch;
 
 import com.trident.barcode.model.Code;
 
