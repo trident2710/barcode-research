@@ -27,16 +27,15 @@ public class ReedSolomonEncoder implements BarcodeEncoder {
 
     @Override
     public Code encode(String message) {
+        PaddingStrategy paddingStrategy = length ->
+                new NearestSquarePaddingStrategy().getPaddingCount(length + reedSolomonCode.getControlDigitsCount());
         return Stream.of(new BarcodeRawExtractor(barcodeDictionary).extract(message))
-                .map(barcode -> new ReedSolomonErrorCorrectingCodeGenerator(reedSolomonCode).transform(barcode))
                 .map(barcode -> new CharsetSwitchAppender().transform(barcode))
-                .map(barcode -> new PaddingAppender(new NearestSquarePaddingStrategy()).transform(barcode))
+                .map(barcode -> new PaddingAppender(paddingStrategy).transform(barcode))
+                .map(barcode -> new ReedSolomonErrorCorrectingCodeGenerator(reedSolomonCode).transform(barcode))
                 .flatMap(barcode -> barcode.signs().stream()
                         .map(BarcodeSign::codeRepresentation))
-                .reduce((first, second) -> ImmutableCode.builder()
-                        .addAllData(first.data())
-                        .addAllData(second.data())
-                        .build())
+                .reduce((first, second) -> ImmutableCode.builder().addAllData(first.data()).addAllData(second.data()).build())
                 .orElseThrow();
     }
 }
