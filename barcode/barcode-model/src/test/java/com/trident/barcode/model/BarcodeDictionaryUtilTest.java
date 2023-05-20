@@ -11,7 +11,7 @@ class BarcodeDictionaryUtilTest {
 
     @Test
     void testFromCodeString() {
-        assertEquals(List.of(1, 3, 1, 1, 2, 2, 1, 0, 0), fromCodeString("001221131"));
+        assertEquals(List.of(0, 0, 1, 2, 2, 1, 1, 3, 1), fromCodeString("001221131"));
     }
 
 }

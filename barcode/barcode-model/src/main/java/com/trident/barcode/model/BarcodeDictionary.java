@@ -39,10 +39,16 @@ public interface BarcodeDictionary {
                 .findFirst();
     }
 
-    default Optional<BarcodeSign> findSign(int digitalRepresentation) {
+    default List<BarcodeSign> findSigns(int digitalRepresentation) {
         return signs().stream()
                 .filter(it -> it.digitalRepresentation() == digitalRepresentation)
-                .findFirst();
+                .collect(Collectors.toList());
+    }
+
+    default List<BarcodeSign> findSigns(Code codeRepresentation) {
+        return signs().stream()
+                .filter(it -> it.codeRepresentation().equals(codeRepresentation))
+                .collect(Collectors.toList());
     }
 
     default BarcodeCharsetType defaultCharset() {

@@ -50,7 +50,7 @@ public class ReedSolomonErrorCorrectingCodeGenerator implements BarcodeTransform
     private List<BarcodeSign> toBarcodeSigns(BarcodeDictionary dictionary, FieldMatrix<GFPElement> fieldMatrix) {
         return Arrays.stream(fieldMatrix.getRow(0))
                 .map(GFPElement::digitalRepresentation)
-                .map(it -> dictionary.findSign(it.intValue()))
+                .map(it -> dictionary.findSigns(it.intValue()).stream().findFirst())
                 .flatMap(Optional::stream)
                 .collect(Collectors.toList());
     }

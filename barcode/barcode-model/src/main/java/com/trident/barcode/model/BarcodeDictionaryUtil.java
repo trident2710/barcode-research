@@ -53,7 +53,6 @@ public final class BarcodeDictionaryUtil {
 
     static List<Integer> fromCodeString(String codeStr) {
         return Optional.of(codeStr.chars().boxed().collect(Collectors.toList()))
-                .map(Lists::reverse)
                 .orElseThrow()
                 .stream()
                 .map(it -> Integer.parseInt(String.valueOf((char) it.intValue())))

@@ -36,7 +36,7 @@ public class SignCorrectingDecoder implements BarcodeDecoder {
         for (int i = 0; i < signsCount; i++) {
             var signData = code.data().subList(i * barcodeDictionary.signCodeLength(), (i + 1) * barcodeDictionary.signCodeLength());
             var signCode = ImmutableCode.of(signData);
-            var correction = correctSign(signCode);
+            var correction = signCorrectionStrategy.correct(signCode);
 
             var codeAfterCorrection = tryCorrect(signCode, correction);
 
@@ -85,9 +85,5 @@ public class SignCorrectingDecoder implements BarcodeDecoder {
             default:
                 return signCode;
         }
-    }
-
-    private Correction correctSign(Code sign) {
-        return signCorrectionStrategy.correct(sign);
     }
 }
