@@ -78,7 +78,7 @@ public class SimpleDecoder implements BarcodeDecoder {
                 .reduce("", String::concat);
     }
 
-    private static Code tryCorrect(ImmutableCode signCode, Correction correction) {
+    private static Code tryCorrect(Code signCode, Correction correction) {
         switch (correction.status()) {
             case ERROR_CORRECTED:
                 return correction.correctedCode().orElseThrow();
