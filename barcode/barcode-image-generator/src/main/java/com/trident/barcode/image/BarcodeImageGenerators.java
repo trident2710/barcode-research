@@ -6,7 +6,7 @@ public final class BarcodeImageGenerators {
 
     public static BarcodeImageGenerator base59(String path) {
         return new BarcodeImageGenerator(
-                BarcodeCodecs.BASE59,
+                BarcodeCodecs.BASE_59,
                 new BarcodeBitmapGenerator(),
                 new BitmapImageWriterImpl(ColorSchemes.DEFAULT_5_COLORS, path),
                 ImmutableBarcodeParams.of(9, 30)
@@ -15,7 +15,7 @@ public final class BarcodeImageGenerators {
 
     public static BarcodeImageGenerator base59ReedSolomon(String path) {
         return new BarcodeImageGenerator(
-                BarcodeCodecs.BASE59_REED_SOLOMON,
+                BarcodeCodecs.BASE_59_REED_SOLOMON,
                 new BarcodeBitmapGenerator(),
                 new BitmapImageWriterImpl(ColorSchemes.DEFAULT_5_COLORS, path),
                 ImmutableBarcodeParams.of(9, 30)
