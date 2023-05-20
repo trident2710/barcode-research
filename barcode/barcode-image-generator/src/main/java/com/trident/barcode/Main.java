@@ -1,4 +1,7 @@
-package com.trident.barcode.image;
+package com.trident.barcode;
+
+import com.trident.barcode.image.BarcodeImageGenerators;
+import com.trident.barcode.image.BufferedImageFileWriter;
 
 public class Main {
     public static void main(String[] args) {
