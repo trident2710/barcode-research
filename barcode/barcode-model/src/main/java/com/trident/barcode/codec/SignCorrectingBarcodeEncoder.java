@@ -1,15 +1,15 @@
 package com.trident.barcode.codec;
 
-import com.trident.barcode.transform.IntermediateCodeGenerator;
 import com.trident.barcode.model.Code;
 import com.trident.barcode.model.ImmutableCode;
+import com.trident.barcode.transform.IntermediateCodeGenerator;
 
 import java.util.stream.Collectors;
 
-public class DefaultBarcodeEncoder implements BarcodeEncoder {
+public class SignCorrectingBarcodeEncoder implements BarcodeEncoder {
     private final IntermediateCodeGenerator intermediateCodeGenerator;
 
-    public DefaultBarcodeEncoder(IntermediateCodeGenerator intermediateCodeGenerator) {
+    public SignCorrectingBarcodeEncoder(IntermediateCodeGenerator intermediateCodeGenerator) {
         this.intermediateCodeGenerator = intermediateCodeGenerator;
     }
 

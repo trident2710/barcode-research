@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-class DefaultBarcodeEncoderTest {
+class SignCorrectingBarcodeEncoderTest {
 
     @Test
     void test() {
-        var encoder = new DefaultBarcodeEncoder(new DefaultIntermediateCodeGenerator(BarcodeDictionaries.BASE_59, PaddingStrategy.NO_PADDING));
+        var encoder = new SignCorrectingBarcodeEncoder(new DefaultIntermediateCodeGenerator(BarcodeDictionaries.BASE_59, PaddingStrategy.NO_PADDING));
         var expected = List.of(
                 0, 2, 3, 3, 2, 2, 1, 2, 0,
                 3, 3, 3, 2, 3, 1, 3, 1, 1,
