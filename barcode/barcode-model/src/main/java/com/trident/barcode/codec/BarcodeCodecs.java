@@ -8,6 +8,7 @@ import com.trident.barcode.reedsolomon.ReedSolomonEncoder;
 import com.trident.barcode.transform.DefaultIntermediateCodeGenerator;
 import com.trident.math.reedsolomon.ReedSolomonCode;
 
+import static com.trident.math.reedsolomon.ReedSolomonGeneratorPolynomials.GF_41_R6;
 import static com.trident.math.reedsolomon.ReedSolomonGeneratorPolynomials.GF_59_R6;
 
 public final class BarcodeCodecs {
@@ -29,6 +30,16 @@ public final class BarcodeCodecs {
             ),
             new ReedSolomonDecoder(BarcodeDictionaries.BASE_59,
                     new ReedSolomonCode(GF_59_R6),
+                    CorrectionStrategies.BCH_9_3)
+    );
+
+    public static BarcodeCodec BASE_41_RS = new BarcodeCodecImpl(
+            new ReedSolomonEncoder(
+                    BarcodeDictionaries.BASE_41,
+                    new ReedSolomonCode(GF_41_R6)
+            ),
+            new ReedSolomonDecoder(BarcodeDictionaries.BASE_41,
+                    new ReedSolomonCode(GF_41_R6),
                     CorrectionStrategies.BCH_9_3)
     );
 }
