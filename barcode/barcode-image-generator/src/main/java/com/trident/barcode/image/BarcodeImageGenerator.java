@@ -2,26 +2,28 @@ package com.trident.barcode.image;
 
 import com.trident.barcode.codec.BarcodeCodec;
 
+import java.awt.image.BufferedImage;
+
 public class BarcodeImageGenerator {
 
     private final BarcodeCodec codec;
     private final BarcodeBitmapGenerator bitmapGenerator;
-    private final BitmapImageWriter imageWriter;
+    private final BitmapBufferedImageGenerator bufferedImageGenerator;
     private final BarcodeParams params;
 
     public BarcodeImageGenerator(BarcodeCodec codec,
                                  BarcodeBitmapGenerator bitmapGenerator,
-                                 BitmapImageWriter imageWriter,
+                                 BitmapBufferedImageGenerator bufferedImageGenerator,
                                  BarcodeParams params) {
         this.codec = codec;
         this.bitmapGenerator = bitmapGenerator;
-        this.imageWriter = imageWriter;
+        this.bufferedImageGenerator = bufferedImageGenerator;
         this.params = params;
     }
 
-    public void generateBarcodeImage(String message) {
+    public BufferedImage generateBarcodeImage(String message) {
         var code = codec.encode(message);
         var bitmap = bitmapGenerator.generateBarcodeBitmap(code, params);
-        imageWriter.write(bitmap);
+        return bufferedImageGenerator.generate(bitmap);
     }
 }

@@ -1,24 +1,18 @@
 package com.trident.barcode.image;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-public class BitmapImageWriterImpl implements BitmapImageWriter {
+public class BitmapBufferedImageGeneratorImpl implements BitmapBufferedImageGenerator {
 
     private final ColorScheme colorScheme;
-    private final String path;
 
-    public BitmapImageWriterImpl(ColorScheme colorScheme, String path) {
+    public BitmapBufferedImageGeneratorImpl(ColorScheme colorScheme) {
         this.colorScheme = colorScheme;
-        this.path = path;
     }
 
     @Override
-    public void write(Bitmap bitmap) {
-        var image = toBufferedImage(bitmap);
-        savePNG(image, path);
+    public BufferedImage generate(Bitmap bitmap) {
+        return toBufferedImage(bitmap);
     }
 
     private BufferedImage toBufferedImage(Bitmap bitmap) {
@@ -32,13 +26,5 @@ public class BitmapImageWriterImpl implements BitmapImageWriter {
             }
         }
         return res;
-    }
-
-    private static void savePNG(final BufferedImage bi, final String path) {
-        try {
-            ImageIO.write(bi, "bmp", new File(path));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
