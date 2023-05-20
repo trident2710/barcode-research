@@ -42,4 +42,12 @@ public final class BarcodeCodecs {
                     new ReedSolomonCode(GF_41_R6),
                     CorrectionStrategies.BCH_9_3)
     );
+
+    public static BarcodeCodec BASE_41_SBRSP = new BarcodeCodecImpl(
+            new ReedSolomonEncoder(
+                    BarcodeDictionaries.BASE_41,
+                    new ReedSolomonCode(GF_41_R6)
+            ),
+            x -> null
+    );
 }
