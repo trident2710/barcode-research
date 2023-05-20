@@ -6,10 +6,10 @@ import com.trident.barcode.transform.IntermediateCodeGenerator;
 
 import java.util.stream.Collectors;
 
-public class SignCorrectingBarcodeEncoder implements BarcodeEncoder {
+public class SimpleEncoder implements BarcodeEncoder {
     private final IntermediateCodeGenerator intermediateCodeGenerator;
 
-    public SignCorrectingBarcodeEncoder(IntermediateCodeGenerator intermediateCodeGenerator) {
+    public SimpleEncoder(IntermediateCodeGenerator intermediateCodeGenerator) {
         this.intermediateCodeGenerator = intermediateCodeGenerator;
     }
 

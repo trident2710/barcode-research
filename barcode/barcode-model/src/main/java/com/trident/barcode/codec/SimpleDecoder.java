@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class SignCorrectingDecoder implements BarcodeDecoder {
+public class SimpleDecoder implements BarcodeDecoder {
 
     private final BarcodeDictionary barcodeDictionary;
     private final CorrectionStrategy signCorrectionStrategy;
 
-    public SignCorrectingDecoder(BarcodeDictionary barcodeDictionary,
-                                 CorrectionStrategy signCorrectionStrategy) {
+    public SimpleDecoder(BarcodeDictionary barcodeDictionary,
+                         CorrectionStrategy signCorrectionStrategy) {
         this.barcodeDictionary = barcodeDictionary;
         this.signCorrectionStrategy = signCorrectionStrategy;
     }

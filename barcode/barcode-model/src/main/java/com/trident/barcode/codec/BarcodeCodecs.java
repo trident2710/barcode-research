@@ -14,13 +14,13 @@ import static com.trident.math.reedsolomon.ReedSolomonGeneratorPolynomials.GF_59
 public final class BarcodeCodecs {
 
     public static BarcodeCodec BASE_59_SIMPLE = new BarcodeCodecImpl(
-            new SignCorrectingBarcodeEncoder(
+            new SimpleEncoder(
                     new DefaultIntermediateCodeGenerator(
                             BarcodeDictionaries.BASE_59,
                             new NearestSquarePaddingStrategy()
                     )
             ),
-            new SignCorrectingDecoder(BarcodeDictionaries.BASE_59, CorrectionStrategies.BCH_9_3)
+            new SimpleDecoder(BarcodeDictionaries.BASE_59, CorrectionStrategies.BCH_9_3)
     );
 
     public static BarcodeCodec BASE_59_RS = new BarcodeCodecImpl(

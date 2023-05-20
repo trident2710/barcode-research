@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class SignCorrectingDecoderTest {
+class SimpleDecoderTest {
 
     @Test
     void test() {
@@ -35,7 +35,7 @@ class SignCorrectingDecoderTest {
                 2, 2, 0, 2, 1, 1, 0, 2, 1
         ));
 
-        var decoder = new SignCorrectingDecoder(BarcodeDictionaries.BASE_59, CorrectionStrategies.BCH_9_3);
+        var decoder = new SimpleDecoder(BarcodeDictionaries.BASE_59, CorrectionStrategies.BCH_9_3);
 
         assertEquals("HeLlO, Світ!", decoder.decode(code));
     }
