@@ -258,7 +258,7 @@ public final class BarcodeDictionaries {
                     switcher(CHARSET_D, 56, "{setA}", "333231311", CHARSET_A),
                     switcher(CHARSET_D, 57, "{setB}", "330322032", CHARSET_B),
                     switcher(CHARSET_D, 58, "{setС}", "331103103", CHARSET_C)
-            ))), 9);
+            ))));
 
     public static final BarcodeDictionary BASE_41 = dictionary(List.of(
             regularSymbol(CHARSET_A, 0, "A", "013030221"),
@@ -386,7 +386,7 @@ public final class BarcodeDictionaries {
             padding(CHARSET_C, 38, "{pad}", "332010220"),
             switcher(CHARSET_C, 39, "{setA}", "330322032", CHARSET_A),
             switcher(CHARSET_C, 40, "{setB}", "331103103", CHARSET_B)
-            ), 9);
+            ));
 
     private BarcodeDictionaries() {
     }

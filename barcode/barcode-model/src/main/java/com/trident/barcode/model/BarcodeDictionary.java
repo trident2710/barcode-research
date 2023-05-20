@@ -11,10 +11,11 @@ import java.util.stream.Collectors;
 public interface BarcodeDictionary {
 
     @Value.Parameter
-    int signCodeLength();
-
-    @Value.Parameter
     List<BarcodeSign> signs();
+
+    default int signCodeLength() {
+        return signs().get(0).codeRepresentation().data().size();
+    }
 
     default List<BarcodeSign> switchers() {
         return signs().stream()
