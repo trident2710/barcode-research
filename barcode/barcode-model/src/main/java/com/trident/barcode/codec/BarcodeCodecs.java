@@ -2,10 +2,8 @@ package com.trident.barcode.codec;
 
 import com.trident.barcode.correction.CorrectionStrategies;
 import com.trident.barcode.model.BarcodeDictionaries;
-import com.trident.barcode.padding.NearestSquarePaddingStrategy;
 import com.trident.barcode.reedsolomon.ReedSolomonDecoder;
 import com.trident.barcode.reedsolomon.ReedSolomonEncoder;
-import com.trident.barcode.transform.DefaultIntermediateCodeGenerator;
 import com.trident.math.reedsolomon.ReedSolomonCode;
 
 import static com.trident.math.reedsolomon.ReedSolomonGeneratorPolynomials.GF_41_R6;
@@ -14,12 +12,7 @@ import static com.trident.math.reedsolomon.ReedSolomonGeneratorPolynomials.GF_59
 public final class BarcodeCodecs {
 
     public static BarcodeCodec BASE_59_SIMPLE = new BarcodeCodecImpl(
-            new SimpleEncoder(
-                    new DefaultIntermediateCodeGenerator(
-                            BarcodeDictionaries.BASE_59,
-                            new NearestSquarePaddingStrategy()
-                    )
-            ),
+            new SimpleEncoderNew(BarcodeDictionaries.BASE_59),
             new SimpleDecoder(BarcodeDictionaries.BASE_59, CorrectionStrategies.BCH_9_3)
     );
 
