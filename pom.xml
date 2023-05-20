@@ -29,6 +29,7 @@
         <module>math</module>
         <module>correction-research</module>
         <module>barcode</module>
+        <module>barcode-generation-service</module>
     </modules>
 
     <dependencyManagement>
