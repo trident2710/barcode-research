@@ -8,19 +8,19 @@ import java.util.stream.Stream;
 public class BarcodeEncoderImpl implements BarcodeEncoder {
 
     private final BarcodeDictionary barcodeDictionary;
-    private final BarcodeIntermediateCodeStrategy intermediateCodeStrategy;
+    private final CodingStrategy codingStrategy;
 
     public BarcodeEncoderImpl(BarcodeDictionary barcodeDictionary,
-                              BarcodeIntermediateCodeStrategy intermediateCodeStrategy) {
+                              CodingStrategy codingStrategy) {
         this.barcodeDictionary = barcodeDictionary;
-        this.intermediateCodeStrategy = intermediateCodeStrategy;
+        this.codingStrategy = codingStrategy;
     }
 
     @Override
     public Code encode(String message) {
         return Stream.of(message)
                 .map(this::extractBarcode)
-                .map(intermediateCodeStrategy::buildIntermediateCode)
+                .map(codingStrategy::apply)
                 .flatMap(BarcodeEncoderImpl::toCode)
                 .reduce(BarcodeEncoderImpl::merge)
                 .orElseThrow();

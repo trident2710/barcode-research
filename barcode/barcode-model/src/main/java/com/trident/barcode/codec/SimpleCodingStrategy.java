@@ -7,10 +7,10 @@ import com.trident.barcode.transform.PaddingAppender;
 
 import java.util.Optional;
 
-public class SimpleIntermediateCodeStrategy implements BarcodeIntermediateCodeStrategy {
+public class SimpleCodingStrategy implements CodingStrategy {
 
     @Override
-    public Barcode buildIntermediateCode(Barcode code) {
+    public Barcode apply(Barcode code) {
         return Optional.of(code)
                 .map(barcode -> new CharsetSwitchAppender().transform(barcode))
                 .map(barcode -> new PaddingAppender(new NearestSquarePaddingStrategy()).transform(barcode))

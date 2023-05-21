@@ -16,7 +16,7 @@ class ReedSolomonEncoderTest {
     @Test
     void testBase59() {
         var actual = new BarcodeEncoderImpl(BarcodeDictionaries.BASE_59,
-                new ReedSolomonIntermediateCodeStrategy(new ReedSolomonCode(GF_59_R6)))
+                new RSCodingStrategy(new ReedSolomonCode(GF_59_R6)))
                 .encode("HeLo, Світ!");
 
         assertEquals(ImmutableCode.of(List.of(
@@ -51,7 +51,7 @@ class ReedSolomonEncoderTest {
     @Test
     void testBase41() {
         var actual = new BarcodeEncoderImpl(BarcodeDictionaries.BASE_41,
-                new ReedSolomonIntermediateCodeStrategy(new ReedSolomonCode(GF_41_R6)))
+                new RSCodingStrategy(new ReedSolomonCode(GF_41_R6)))
                 .encode("52AM'Ю");
 
         assertEquals(ImmutableCode.of(List.of(

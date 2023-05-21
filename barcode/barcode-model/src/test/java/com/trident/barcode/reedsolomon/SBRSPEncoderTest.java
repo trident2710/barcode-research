@@ -19,7 +19,7 @@ class SBRSPEncoderTest {
         var message = "52AM'Ю";
 
         var encoder = new BarcodeEncoderImpl(BarcodeDictionaries.BASE_41,
-                new SBRSPIntermediateCodeStrategy(BarcodeDictionaries.BASE_41, new ReedSolomonCode(GF_41_R6)));
+                new SBRSPCodingStrategy(BarcodeDictionaries.BASE_41, new ReedSolomonCode(GF_41_R6)));
 
         var encoded = encoder.encode(message);
 
