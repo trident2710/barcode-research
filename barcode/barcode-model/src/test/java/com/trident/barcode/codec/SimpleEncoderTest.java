@@ -10,7 +10,7 @@ class SimpleEncoderTest {
 
     @Test
     void test() {
-        var encoder = new SimpleEncoder(BarcodeDictionaries.BASE_59);
+        var encoder = new BarcodeEncoderImpl(BarcodeDictionaries.BASE_59, new SimpleIntermediateCodeStrategy());
         var expected = List.of(
                 0, 2, 3, 3, 2, 2, 1, 2, 0,
                 3, 3, 3, 2, 3, 1, 3, 1, 1,

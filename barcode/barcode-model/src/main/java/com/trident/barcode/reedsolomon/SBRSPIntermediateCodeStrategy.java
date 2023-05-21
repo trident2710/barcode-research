@@ -1,41 +1,34 @@
 package com.trident.barcode.reedsolomon;
 
-import com.trident.barcode.BarcodeRawExtractor;
-import com.trident.barcode.codec.BarcodeEncoder;
+import com.trident.barcode.codec.BarcodeIntermediateCodeStrategy;
+import com.trident.barcode.model.Barcode;
 import com.trident.barcode.model.BarcodeDictionary;
-import com.trident.barcode.model.BarcodeSign;
-import com.trident.barcode.model.Code;
-import com.trident.barcode.model.ImmutableCode;
 import com.trident.barcode.padding.NearestSquarePaddingStrategy;
 import com.trident.barcode.transform.CharsetSwitchAppender;
 import com.trident.barcode.transform.CodeSizeAppender;
 import com.trident.barcode.transform.PaddingAppender;
 import com.trident.math.reedsolomon.ReedSolomonCode;
 
-import java.util.stream.Stream;
+import java.util.Optional;
 
-public class SBRSPEncoder implements BarcodeEncoder {
+public class SBRSPIntermediateCodeStrategy implements BarcodeIntermediateCodeStrategy {
 
     private final BarcodeDictionary barcodeDictionary;
     private final ReedSolomonCode reedSolomonCode;
 
-    public SBRSPEncoder(BarcodeDictionary barcodeDictionary,
-                        ReedSolomonCode reedSolomonCode) {
+    public SBRSPIntermediateCodeStrategy(BarcodeDictionary barcodeDictionary,
+                                         ReedSolomonCode reedSolomonCode) {
         this.barcodeDictionary = barcodeDictionary;
         this.reedSolomonCode = reedSolomonCode;
     }
 
     @Override
-    public Code encode(String message) {
-        return Stream.of(new BarcodeRawExtractor(barcodeDictionary).extract(message))
+    public Barcode buildIntermediateCode(Barcode code) {
+        return Optional.of(code)
                 .map(barcode -> new CharsetSwitchAppender().transform(barcode))
                 .map(barcode -> new ReedSolomonErrorCorrectingCodeGenerator(reedSolomonCode).transform(barcode))
                 .map(barcode -> new CodeSizeAppender(barcodeDictionary).transform(barcode))
                 .map(barcode -> new PaddingAppender(new NearestSquarePaddingStrategy()).transform(barcode))
-                .flatMap(barcode -> barcode.signs().stream()
-                        .map(BarcodeSign::codeRepresentation))
-                .reduce((first, second) -> ImmutableCode.builder().addAllData(first.data()).addAllData(second.data()).build())
                 .orElseThrow();
     }
-
 }

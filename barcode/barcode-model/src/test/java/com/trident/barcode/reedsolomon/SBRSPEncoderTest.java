@@ -1,5 +1,6 @@
 package com.trident.barcode.reedsolomon;
 
+import com.trident.barcode.codec.BarcodeEncoderImpl;
 import com.trident.barcode.model.BarcodeDictionaries;
 import com.trident.barcode.model.ImmutableCode;
 import com.trident.math.reedsolomon.ReedSolomonCode;
@@ -9,7 +10,6 @@ import java.util.List;
 
 import static com.trident.math.reedsolomon.ReedSolomonGeneratorPolynomials.GF_41_R6;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SBRSPEncoderTest {
 
@@ -18,7 +18,8 @@ class SBRSPEncoderTest {
     void test() {
         var message = "52AM'Ю";
 
-        var encoder = new SBRSPEncoder(BarcodeDictionaries.BASE_41, new ReedSolomonCode(GF_41_R6));
+        var encoder = new BarcodeEncoderImpl(BarcodeDictionaries.BASE_41,
+                new SBRSPIntermediateCodeStrategy(BarcodeDictionaries.BASE_41, new ReedSolomonCode(GF_41_R6)));
 
         var encoded = encoder.encode(message);
 

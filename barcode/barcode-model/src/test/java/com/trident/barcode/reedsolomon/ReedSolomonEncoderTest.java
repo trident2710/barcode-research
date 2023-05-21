@@ -1,5 +1,6 @@
 package com.trident.barcode.reedsolomon;
 
+import com.trident.barcode.codec.BarcodeEncoderImpl;
 import com.trident.barcode.model.BarcodeDictionaries;
 import com.trident.barcode.model.ImmutableCode;
 import com.trident.math.reedsolomon.ReedSolomonCode;
@@ -14,8 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ReedSolomonEncoderTest {
     @Test
     void testBase59() {
-        var actual = new ReedSolomonEncoder(BarcodeDictionaries.BASE_59,
-                new ReedSolomonCode(GF_59_R6))
+        var actual = new BarcodeEncoderImpl(BarcodeDictionaries.BASE_59,
+                new ReedSolomonIntermediateCodeStrategy(new ReedSolomonCode(GF_59_R6)))
                 .encode("HeLo, Світ!");
 
         assertEquals(ImmutableCode.of(List.of(
@@ -49,8 +50,8 @@ class ReedSolomonEncoderTest {
 
     @Test
     void testBase41() {
-        var actual = new ReedSolomonEncoder(BarcodeDictionaries.BASE_41,
-                new ReedSolomonCode(GF_41_R6))
+        var actual = new BarcodeEncoderImpl(BarcodeDictionaries.BASE_41,
+                new ReedSolomonIntermediateCodeStrategy(new ReedSolomonCode(GF_41_R6)))
                 .encode("52AM'Ю");
 
         assertEquals(ImmutableCode.of(List.of(
