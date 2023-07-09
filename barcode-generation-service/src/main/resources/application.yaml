@@ -3,3 +3,4 @@ management:
     web:
       exposure:
         include: "health,info,prometheus"
+  metrics.web.server.request.autotime.percentiles: 0.99,0.95,0.5
