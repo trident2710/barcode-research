@@ -17,3 +17,8 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ['192.168.88.252:8080']
+remote_write:
+  - url: https://prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom/push
+    basic_auth:
+      username: 1046423
+      password: glc_eyJvIjoiODgxNjA5IiwibiI6InBoZC1yZXNlYXJjaCIsImsiOiJGb2NRb25rczEzMWg4MGkzNnoya1UxejUiLCJtIjp7InIiOiJwcm9kLWV1LXdlc3QtMiJ9fQ==

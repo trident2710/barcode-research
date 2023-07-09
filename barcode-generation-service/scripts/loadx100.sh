@@ -2,7 +2,7 @@
 
 for (( i = 0; i < 10000; i++ )); do
 
-    random_number=$(( RANDOM % 10000 + 1 ))
+    random_number=$(( RANDOM % 100 + 1 ))
 
     # Sleep for the random number of milliseconds
     sleep_time=$(echo "scale=3; $random_number / 1000" | bc)
