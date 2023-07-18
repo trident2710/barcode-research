@@ -14,11 +14,19 @@ public class BarcodeCodecImpl implements BarcodeCodec {
 
     @Override
     public String decode(Code code) {
-        return decoder.decode(code);
+        try {
+            return decoder.decode(code);
+        } catch (Exception ex) {
+            throw new RuntimeException("Unable to decode: " + code, ex);
+        }
     }
 
     @Override
     public Code encode(String message) {
-        return encoder.encode(message);
+        try {
+            return encoder.encode(message);
+        } catch (Exception ex) {
+            throw new RuntimeException("Unable to encode message: " + message, ex);
+        }
     }
 }

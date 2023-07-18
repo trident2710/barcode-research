@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 class SimpleEncoderTest {
 
     @Test
@@ -43,4 +46,12 @@ class SimpleEncoderTest {
         Assertions.assertEquals(expected, code.data());
     }
 
+    @Test
+    void testUnexpectedSign() {
+        var encoder = new BarcodeEncoderImpl(BarcodeDictionaries.BASE_41, new SimpleCodingStrategy());
+
+        assertDoesNotThrow(() -> encoder.encode("HELLO"));
+
+        assertThrows(Exception.class, () -> encoder.encode("HELLo"));
+    }
 }

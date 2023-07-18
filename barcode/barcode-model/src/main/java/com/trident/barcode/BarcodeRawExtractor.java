@@ -23,7 +23,7 @@ public class BarcodeRawExtractor {
                 .boxed()
                 .map(chr -> String.valueOf((char) chr.intValue()))
                 .map(dictionary::findSign)
-                .flatMap(Optional::stream)
+                .map(Optional::orElseThrow)
                 .collect(Collectors.toList());
         return ImmutableBarcode.of(dictionary, signs);
     }
