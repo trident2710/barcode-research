@@ -1,6 +1,6 @@
 #!/bin/bash
 
-msg_length=100
+msg_length=500
 
 for (( i = 0; i < 500000; i++ )); do
 

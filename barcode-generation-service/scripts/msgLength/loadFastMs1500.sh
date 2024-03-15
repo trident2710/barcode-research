@@ -1,8 +1,8 @@
 #!/bin/bash
 
-msg_length=100
+msg_length=1500
 
-for (( i = 0; i < 500000; i++ )); do
+for (( i = 0; i < 10000; i++ )); do
 
     msg=$(cat /dev/urandom | env LC_ALL=C tr -dc 'A-Z0-9' | fold -w $msg_length | head -n 1)
 
