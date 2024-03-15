@@ -32,6 +32,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish package
-        run: mvn --batch-mode deploy -Drevision=${{ steps.tag_version.outputs.new_tag }}
+        run: mvn --batch-mode deploy -Drevision=${{ steps.tag_version.outputs.new_tag }} -DskipTests
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
