@@ -119,4 +119,16 @@
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <!-- ... Some other Distribution repository definitions -->
+
+        <repository>
+            <id>repsy</id>
+            <name>Private Maven Repository on Repsy</name>
+            <url>https://repo.repsy.io/mvn/trident2710/default</url>
+        </repository>
+
+        <!-- ... Some other Distribution repository definitions -->
+    </distributionManagement>
 </project>

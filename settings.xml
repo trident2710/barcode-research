@@ -2,4 +2,12 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
                           http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+    <servers>
+        <server>
+            <id>repsy</id>
+            <username>trident2710</username>
+            <password>tank_fads6_5Ceil_9Uncross_0Hazily</password>
+        </server>
+    </servers>
 </settings>
