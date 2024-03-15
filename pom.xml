@@ -13,7 +13,7 @@
     </parent>
 
     <groupId>com.trident</groupId>
-    <artifactId>phdResearch</artifactId>
+    <artifactId>barcode-research</artifactId>
     <packaging>pom</packaging>
     <version>${revision}</version>
 
