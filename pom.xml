@@ -30,6 +30,7 @@
         <module>correction-research</module>
         <module>barcode</module>
         <module>barcode-generation-service</module>
+        <module>jhipster-sample</module>
     </modules>
 
     <dependencyManagement>
