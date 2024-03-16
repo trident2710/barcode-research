@@ -2,6 +2,10 @@ name: Deploy to Heroku
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: "Select tag"
+        required: true
 
 jobs:
   build:
@@ -10,10 +14,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - name: Download jar
+        run: 'wget -d --header="Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://maven.pkg.github.com/trident2710/barcode-research/com/trident/barcode-generation-service/${{ inputs.version }}/barcode-generation-service-${{ inputs.version }}.jar'
       - name: Deploy to Heroku
-        uses: akhileshns/heroku-deploy@v3.13.15
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "barcode-research"
-          heroku_email: "andriydychka@gmail.com"
-          appdir: "jhipster-sample"
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_TOKEN }}
+        run: heroku login && heroku deploy:jar barcode-generation-service-${{ inputs.version }}.jar --app barcode-research
