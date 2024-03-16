@@ -3,10 +3,10 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.trident</groupId>
-        <artifactId>barcode-research</artifactId>
+        <artifactId>barcode-research-service</artifactId>
         <version>${revision}</version>
     </parent>
-    <artifactId>barcode-generation-service</artifactId>
+    <artifactId>barcode-research-service-server</artifactId>
 
     <dependencies>
         <dependency>

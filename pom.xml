@@ -11,7 +11,6 @@
         <version>3.2.0</version>
         <relativePath/>
     </parent>
-
     <groupId>com.trident</groupId>
     <artifactId>barcode-research</artifactId>
     <packaging>pom</packaging>
@@ -63,7 +62,7 @@
         <module>math</module>
         <module>correction-research</module>
         <module>barcode</module>
-        <module>barcode-generation-service</module>
+        <module>barcode-research-service</module>
     </modules>
 
     <dependencyManagement>
