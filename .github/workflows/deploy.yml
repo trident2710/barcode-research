@@ -16,7 +16,13 @@ jobs:
       - uses: actions/checkout@v3
       - name: Download jar
         run: 'wget -d --header="Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://maven.pkg.github.com/trident2710/barcode-research/com/trident/barcode-generation-service/${{ inputs.version }}/barcode-generation-service-${{ inputs.version }}.jar'
+      - name: Install cli deploy plugin
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku plugins:install heroku-cli-deploy
+      - name: Make system.properties file
+        run: echo 'java.runtime.version=17' > system.properties
       - name: Deploy to Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku plugins:install heroku-cli-deploy && heroku deploy:jar barcode-generation-service-${{ inputs.version }}.jar --app barcode-research
+        run: heroku deploy:jar barcode-generation-service-${{ inputs.version }}.jar --app barcode-research
