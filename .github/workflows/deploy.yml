@@ -19,4 +19,4 @@ jobs:
       - name: Deploy to Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku login && heroku deploy:jar barcode-generation-service-${{ inputs.version }}.jar --app barcode-research
+        run: heroku deploy:jar barcode-generation-service-${{ inputs.version }}.jar --app barcode-research
