@@ -1,0 +1,13 @@
+<h2>Знаходження оберненого елемента в полі GF(p)</h2>
+<div>
+  <label for="fieldValueInput">Елемент поля:</label>
+  <input id="fieldValueInput" type="text" [(ngModel)]="fieldValue">
+
+  <label for="fieldInput">Поле за модулем:</label>
+  <input id="fieldInput" type="text" [(ngModel)]="field">
+
+  <button (click)="findInverse()">Знайти обернений елемент</button>
+
+  <label for="inverseInput">Обернений елемент:</label>
+  <input id="inverseInput" type="text" [value]="inverse" readonly>
+</div>

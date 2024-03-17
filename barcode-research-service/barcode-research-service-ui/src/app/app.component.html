@@ -1,12 +1,1 @@
-<div>
-  <label for="fieldValueInput">Елемент поля:</label>
-  <input id="fieldValueInput" type="text" [value]="fieldValue" (change)="onFieldValueChange($event)">
-
-  <label for="fieldInput">Поле за модулем:</label>
-  <input id="fieldInput" type="text" [value]="field" (change)="onFieldChange($event)">
-
-  <button (click)="findInverse()">Знайти обернений елемент</button>
-
-  <label for="inverseInput">Обернений елемент:</label>
-  <input id="inverseInput" type="text" [value]="inverse" readonly>
-</div>
+<gfp-inverse></gfp-inverse>
