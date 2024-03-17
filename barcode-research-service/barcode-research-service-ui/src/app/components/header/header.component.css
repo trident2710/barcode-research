@@ -1,0 +1,43 @@
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo img {
+  height: 60px;
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+}
+
+.menu li {
+  margin-right: 20px;
+}
+
+.menu li:last-child {
+  margin-right: 0;
+}
+
+.menu li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 20px;
+  transition: color 0.3s; /* Add transition effect */
+}
+
+.menu li a:hover {
+  color: #ffcc00; /* Change color on hover */
+}
+
+.menu li.active a {
+  color: #ffcc00; /* Change color for active link */
+}

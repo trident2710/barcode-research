@@ -1,11 +1,12 @@
 import {Component} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {GfpInverseComponent} from "./components/gfp-inverse/gfp-inverse.component";
+import {HeaderComponent} from "./components/header/header.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, GfpInverseComponent],
+  imports: [RouterOutlet, GfpInverseComponent, HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
