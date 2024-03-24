@@ -27,4 +27,10 @@ public class FiniteFieldCalculationsController {
         var field = GFP.of(fieldPrime);
         return ResponseEntity.ok(field.pow(field.getOfValue(fieldElement), exp).digitalRepresentation());
     }
+
+    @RequestMapping(path = "/finite-fields/gfp/mul", method = RequestMethod.GET)
+    public ResponseEntity<Long> findMul(@RequestParam int fieldPrime, @RequestParam int fieldFirstElement, @RequestParam int fieldSecondElement) {
+        var field = GFP.of(fieldPrime);
+        return ResponseEntity.ok(field.mul(field.getOfValue(fieldFirstElement), field.getOfValue(fieldSecondElement)).digitalRepresentation());
+    }
 }

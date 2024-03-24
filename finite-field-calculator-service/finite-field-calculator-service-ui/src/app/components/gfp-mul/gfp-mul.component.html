@@ -1,0 +1,18 @@
+<h2>Множення елементів в полі GF(p)</h2>
+<div class="frame">
+  <div>
+    <label for="fieldFirstArgumentInput">Елемент поля 1:</label>
+    <input id="fieldFirstArgumentInput" type="text" [(ngModel)]="fieldFirstArgument">
+
+    <label for="fieldSecondArgumentInput">Елемент поля 2:</label>
+    <input id="fieldSecondArgumentInput" type="text" [(ngModel)]="fieldSecondArgument">
+
+    <label for="fieldInput">Поле за модулем:</label>
+    <input id="fieldInput" type="text" [(ngModel)]="field">
+
+    <button (click)="findMul()">Помножити елементи</button>
+
+    <label for="mulInput">Результат:</label>
+    <input id="mulInput" type="text" [value]="res" readonly>
+  </div>
+</div>

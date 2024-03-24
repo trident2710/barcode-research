@@ -20,4 +20,8 @@ export class GfOperationsService {
   getGfpExp(fieldPrime: number, fieldElement: number, exp: number) {
     return this.http.get<number>(`/finite-fields/gfp/exp?fieldPrime=${fieldPrime}&fieldElement=${fieldElement}&exp=${exp}`);
   }
+
+  getGfpMul(fieldPrime: number, fieldFirstElement: number, fieldSecondElement: number) {
+    return this.http.get<number>(`/finite-fields/gfp/mul?fieldPrime=${fieldPrime}&fieldFirstElement=${fieldFirstElement}&fieldSecondElement=${fieldSecondElement}`);
+  }
 }
