@@ -33,4 +33,10 @@ public class FiniteFieldCalculationsController {
         var field = GFP.of(fieldPrime);
         return ResponseEntity.ok(field.mul(field.getOfValue(fieldFirstElement), field.getOfValue(fieldSecondElement)).digitalRepresentation());
     }
+
+    @RequestMapping(path = "/finite-fields/gfp/neg", method = RequestMethod.GET)
+    public ResponseEntity<Long> findNeg(@RequestParam int fieldPrime, @RequestParam int fieldElement) {
+        var field = GFP.of(fieldPrime);
+        return ResponseEntity.ok(field.neg(field.getOfValue(fieldElement)).digitalRepresentation());
+    }
 }

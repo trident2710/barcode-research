@@ -15,7 +15,7 @@ export class GfpMulComponent {
   fieldFirstArgument: number = 2;
   fieldSecondArgument: number = 4;
   field: number = 5;
-  res: number = 1;
+  res: number = 3;
 
   constructor(private gfOperationsService: GfOperationsService) { }
 

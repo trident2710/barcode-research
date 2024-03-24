@@ -24,4 +24,8 @@ export class GfOperationsService {
   getGfpMul(fieldPrime: number, fieldFirstElement: number, fieldSecondElement: number) {
     return this.http.get<number>(`/finite-fields/gfp/mul?fieldPrime=${fieldPrime}&fieldFirstElement=${fieldFirstElement}&fieldSecondElement=${fieldSecondElement}`);
   }
+
+  getGfpNeg(fieldPrime: number, fieldElement: number) {
+    return this.http.get<number>(`/finite-fields/gfp/neg?fieldPrime=${fieldPrime}&fieldElement=${fieldElement}`);
+  }
 }

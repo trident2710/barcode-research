@@ -1,0 +1,15 @@
+<h2>Знаходження протилежного елемента в полі GF(p)</h2>
+<div class="frame">
+  <div>
+    <label for="fieldElementInput">Елемент поля:</label>
+    <input id="fieldElementInput" type="text" [(ngModel)]="fieldElement">
+
+    <label for="fieldInput">Поле за модулем:</label>
+    <input id="fieldInput" type="text" [(ngModel)]="field">
+
+    <button (click)="findNeg()">Знайти протилежний елемент</button>
+
+    <label for="resultInput">Протилежний елемент:</label>
+    <input id="resultInput" type="text" [value]="result" readonly>
+  </div>
+</div>
