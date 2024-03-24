@@ -15,6 +15,31 @@ import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrixRow;
 
 public final class PolyUtil {
 
+    public static long[] stringToPoly(String polynomial) {
+        var terms = polynomial.replaceAll("\\s+", "").split("\\+");
+        long[] coefficients = new long[getMaxDegree(terms) + 1];
+        Stream.of(terms).forEach(term -> coefficients[getDegree(term)] = getCoefficient(term));
+
+        return coefficients;
+    }
+
+    private static int getMaxDegree(String[] terms) {
+        return Stream.of(terms)
+                .map(PolyUtil::getDegree)
+                .max(Integer::compareTo)
+                .orElseThrow();
+    }
+
+    private static int getDegree(String term) {
+        return term.contains("x")
+                ? term.contains("^") ? Integer.parseInt(term.split("\\^")[1]) : 1
+                : 0;
+    }
+
+    private static long getCoefficient(String term) {
+        return Long.parseLong(term.split("\\^")[0].replace("x",""));
+    }
+
     public static String polyToString(long[] poly) {
         if (poly.length == 1) {
             return poly[0] == 0

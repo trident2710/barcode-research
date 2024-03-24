@@ -6,12 +6,35 @@ import org.junit.jupiter.api.Test;
 import static com.trident.math.PolyUtil.*;
 import static com.trident.math.field.GaloisFields.GF11;
 import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrixRow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class PolyUtilTest {
 
+    @Test
+    public void testParsePolynomial() {
+        assertArrayEquals(new long[]{2, 3, 0, 0, 5}, stringToPoly("5x^4+3x+2"));
+    }
+
+    @Test
+    public void testParsePolynomial_spaces() {
+        assertArrayEquals(new long[]{2, 3, 0, 0, 5}, stringToPoly(" 5x^4 + 3x + 2 "));
+    }
+
+    @Test
+    public void testParsePolynomial_monomial_degree0() {
+        assertArrayEquals(new long[]{3}, stringToPoly("3"));
+    }
+
+    @Test
+    public void testParsePolynomial_monomial_degree1() {
+        assertArrayEquals(new long[]{0, 3}, stringToPoly("3x"));
+    }
+
+    @Test
+    public void testParsePolynomial_monomial_degree2() {
+        assertArrayEquals(new long[]{0, 0, 3}, stringToPoly("3x^2"));
+    }
 
     @Test
     void testMultiply() {
