@@ -17,6 +17,11 @@ class PolyUtilTest {
     }
 
     @Test
+    public void testParsePolynomial_noCoefficient() {
+        assertArrayEquals(new long[]{1, 1}, stringToPoly("x+1"));
+    }
+
+    @Test
     public void testParsePolynomial_spaces() {
         assertArrayEquals(new long[]{2, 3, 0, 0, 5}, stringToPoly(" 5x^4 + 3x + 2 "));
     }

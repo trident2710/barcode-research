@@ -28,4 +28,16 @@ export class GfOperationsService {
   getGfpNeg(fieldPrime: number, fieldElement: number) {
     return this.http.get<number>(`/finite-fields/gfp/neg?fieldPrime=${fieldPrime}&fieldElement=${fieldElement}`);
   }
+
+  getGfpMulPoly(fieldPrime: number, firstPoly: string, secondPoly: string) {
+    return this.http.post<MulPolyResponse>(`/finite-fields/gfp/mul-poly`, {
+      fieldPrime: fieldPrime,
+      polyFirst: firstPoly,
+      polySecond: secondPoly
+    });
+  }
+}
+
+export class MulPolyResponse {
+  res?: string
 }

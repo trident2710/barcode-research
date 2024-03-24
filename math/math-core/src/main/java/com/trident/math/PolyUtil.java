@@ -8,6 +8,7 @@ import com.trident.math.matrix.FieldMatrixUtil;
 import org.apache.commons.math3.linear.FieldMatrix;
 import org.apache.commons.math3.util.Pair;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import static com.trident.math.matrix.FieldMatrixUtil.isZero;
@@ -37,7 +38,11 @@ public final class PolyUtil {
     }
 
     private static long getCoefficient(String term) {
-        return Long.parseLong(term.split("\\^")[0].replace("x",""));
+        return Optional.of(term)
+                .map(x -> x.split("\\^")[0])
+                .map(x -> x.replace("x", ""))
+                .map(x -> x.isEmpty() ? 1 : Long.parseLong(x))
+                .orElseThrow();
     }
 
     public static String polyToString(long[] poly) {
@@ -129,10 +134,14 @@ public final class PolyUtil {
         return first.getEntry(0, first.getColumnDimension() - 1);
     }
 
-    public static UnivariatePolynomialZp64 from(FieldMatrix<GFPElement> poly) {
-        var data = Stream.of(poly.getRow(0))
+    public static long[] toLongArray(FieldMatrix<GFPElement> poly) {
+        return Stream.of(poly.getRow(0))
                 .mapToLong(GFPElement::digitalRepresentation)
                 .toArray();
+    }
+
+    public static UnivariatePolynomialZp64 from(FieldMatrix<GFPElement> poly) {
+        var data = toLongArray(poly);
         long modulo = ((GFP) poly.getField()).prime();
 
         return UnivariatePolynomialZp64.create(modulo, data);
