@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.trident</groupId>
-        <artifactId>barcode-research-service</artifactId>
+        <artifactId>finite-field-calculator-service</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>barcode-research-service-ui</artifactId>
+    <artifactId>finite-field-calculator-service-ui</artifactId>
 
     <build>
         <plugins>

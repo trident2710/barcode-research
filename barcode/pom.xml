@@ -13,5 +13,6 @@
 
         <module>barcode-model</module>
         <module>barcode-image-generator</module>
+        <module>barcode-generator-service</module>
     </modules>
 </project>

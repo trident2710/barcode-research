@@ -62,7 +62,7 @@
         <module>math</module>
         <module>correction-research</module>
         <module>barcode</module>
-        <module>barcode-research-service</module>
+        <module>finite-field-calculator-service</module>
     </modules>
 
     <dependencyManagement>

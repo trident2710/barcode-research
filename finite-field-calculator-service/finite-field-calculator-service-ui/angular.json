@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "barcode-research-service-ui": {
+    "finite-field-calculator-service-ui": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -57,10 +57,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "barcode-research-service-ui:build:production"
+              "buildTarget": "finite-field-calculator-service-ui:build:production"
             },
             "development": {
-              "buildTarget": "barcode-research-service-ui:build:development"
+              "buildTarget": "finite-field-calculator-service-ui:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -68,7 +68,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "barcode-research-service-ui:build"
+            "buildTarget": "finite-field-calculator-service-ui:build"
           }
         },
         "test": {

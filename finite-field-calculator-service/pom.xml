@@ -11,11 +11,11 @@
 
     <packaging>pom</packaging>
 
-    <artifactId>barcode-research-service</artifactId>
+    <artifactId>finite-field-calculator-service</artifactId>
 
     <modules>
-        <module>barcode-research-service-server</module>
-        <module>barcode-research-service-ui</module>
+        <module>finite-field-calculator-service-server</module>
+        <module>finite-field-calculator-service-ui</module>
     </modules>
 
 </project>

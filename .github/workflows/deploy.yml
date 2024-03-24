@@ -1,4 +1,4 @@
-name: Deploy to Heroku
+name: Deploy finite-field-calculator-service to Heroku
 
 on:
   workflow_dispatch:
@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Download jar
-        run: 'wget -d --header="Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://maven.pkg.github.com/trident2710/barcode-research/com/trident/barcode-research-service-server/${{ inputs.version }}/barcode-research-service-server-${{ inputs.version }}.jar'
+        run: 'wget -d --header="Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://maven.pkg.github.com/trident2710/barcode-research/com/trident/finite-field-calculator-service-server/${{ inputs.version }}/finite-field-calculator-service-server-${{ inputs.version }}.jar'
       - name: Install cli deploy plugin
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
@@ -25,4 +25,4 @@ jobs:
       - name: Deploy to Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku deploy:jar barcode-research-service-server-${{ inputs.version }}.jar --app barcode-research
+        run: heroku deploy:jar finite-field-calculator-service-server${{ inputs.version }}.jar --app finite-field-calculator
