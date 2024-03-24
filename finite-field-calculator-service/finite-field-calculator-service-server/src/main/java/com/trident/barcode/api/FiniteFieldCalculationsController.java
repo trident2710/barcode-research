@@ -41,15 +41,26 @@ public class FiniteFieldCalculationsController {
     }
 
     @RequestMapping(path = "/finite-fields/gfp/mul-poly", method = RequestMethod.POST)
-    public MulPolyResponse mulPoly(@RequestBody PolyMulBody polyMulBody) {
-        System.out.println(polyMulBody);
-        var field = GFP.of(polyMulBody.fieldPrime());
-        var firstPoly = toFieldMatrixRow(stringToPoly(polyMulBody.polyFirst()), field);
-        var secondPoly = toFieldMatrixRow(stringToPoly(polyMulBody.polySecond()), field);
+    public MulPolyResponse mulPoly(@RequestBody MulPolyRequest mulPolyRequest) {
+        var field = GFP.of(mulPolyRequest.fieldPrime());
+        var firstPoly = toFieldMatrixRow(stringToPoly(mulPolyRequest.polyFirst()), field);
+        var secondPoly = toFieldMatrixRow(stringToPoly(mulPolyRequest.polySecond()), field);
         return new MulPolyResponse(polyToString(toLongArray(multiplyPolynomials(firstPoly, secondPoly))));
     }
 
-    private record PolyMulBody(int fieldPrime, String polyFirst, String polySecond) {}
+    @RequestMapping(path = "/finite-fields/gfp/div-poly", method = RequestMethod.POST)
+    public DivPolyResponse divPoly(@RequestBody DivPolyRequest divPolyRequest) {
+        var field = GFP.of(divPolyRequest.fieldPrime());
+        var divisible = toFieldMatrixRow(stringToPoly(divPolyRequest.divisible()), field);
+        var divisor = toFieldMatrixRow(stringToPoly(divPolyRequest.divisor()), field);
+        var result = dividePolynomialsWithRest(divisible, divisor);
+        return new DivPolyResponse(polyToString(toLongArray(result.getFirst())), polyToString(toLongArray(result.getSecond())));
+    }
 
+    private record MulPolyRequest(int fieldPrime, String polyFirst, String polySecond) {}
     private record MulPolyResponse(String res) {}
+
+    private record DivPolyRequest(int fieldPrime, String divisible, String divisor) {}
+
+    private record DivPolyResponse(String result, String rest) {}
 }

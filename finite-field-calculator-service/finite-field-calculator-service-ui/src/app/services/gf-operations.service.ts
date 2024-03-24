@@ -36,8 +36,21 @@ export class GfOperationsService {
       polySecond: secondPoly
     });
   }
+
+  getGfpDivPoly(fieldPrime: number, divisible: string, divisor: string) {
+    return this.http.post<DivPolyResponse>(`/finite-fields/gfp/div-poly`, {
+      fieldPrime: fieldPrime,
+      divisible:  divisible,
+      divisor: divisor
+    });
+  }
 }
 
 export class MulPolyResponse {
   res?: string
+}
+
+export class DivPolyResponse {
+  result?: string
+  rest?: string
 }

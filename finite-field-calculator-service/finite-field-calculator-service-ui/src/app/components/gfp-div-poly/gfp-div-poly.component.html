@@ -1,0 +1,21 @@
+<h2>Ділення многочленів в полі GF(p)</h2>
+<div class="frame">
+  <div>
+    <label for="divisibleInput">Ділене:</label>
+    <input id="divisibleInput" type="text" [(ngModel)]="divisible">
+
+    <label for="divisorInput">Дільник:</label>
+    <input id="divisorInput" type="text" [(ngModel)]="divisor">
+
+    <label for="fieldInput">Поле за модулем:</label>
+    <input id="fieldInput" type="text" [(ngModel)]="field">
+
+    <button (click)="findMul()">Поділити многочлени</button>
+
+    <label for="resInput">Результат:</label>
+    <input id="resInput" type="text" [value]="result" readonly>
+
+    <label for="restInput">Частка:</label>
+    <input id="restInput" type="text" [value]="rest" readonly>
+  </div>
+</div>
