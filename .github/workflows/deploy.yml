@@ -25,4 +25,4 @@ jobs:
       - name: Deploy to Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku deploy:jar finite-field-calculator-service-server${{ inputs.version }}.jar --app finite-field-calculator
+        run: heroku deploy:jar finite-field-calculator-service-server-${{ inputs.version }}.jar --app finite-field-calculator
