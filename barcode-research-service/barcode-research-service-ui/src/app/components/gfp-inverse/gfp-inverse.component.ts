@@ -15,21 +15,12 @@ export class GfpInverseComponent {
   field: number = 5;
   inverse: number = 3;
 
-  constructor(private gfInverseService: GfOperationsService) { }
+  constructor(private gfOperationsService: GfOperationsService) { }
 
   findInverse() {
-    this.gfInverseService.getGfpInverse(this.field, this.fieldValue).subscribe({
+    this.gfOperationsService.getGfpInverse(this.field, this.fieldValue).subscribe({
       next: value => this.inverse = value,
       error: err => console.error('Error while calculating inverse: ' + err)
     });
-
-  }
-
-  onFieldValueChange(event: Event) {
-    this.fieldValue = Number.parseInt((event.target as HTMLInputElement).value);
-  }
-
-  onFieldChange(event: Event) {
-    this.field = Number.parseInt((event.target as HTMLInputElement).value);
   }
 }

@@ -1,0 +1,18 @@
+<h2>Знаходження суми елементів в полі GF(p)</h2>
+<div class="frame">
+  <div>
+    <label for="fieldSumFirstArgumentInput">Елемент поля 1:</label>
+    <input id="fieldSumFirstArgumentInput" type="text" [(ngModel)]="fieldSumFirstArgument">
+
+    <label for="fieldSumSecondArgumentInput">Елемент поля 2:</label>
+    <input id="fieldSumSecondArgumentInput" type="text" [(ngModel)]="fieldSumSecondArgument">
+
+    <label for="fieldInput">Поле за модулем:</label>
+    <input id="fieldInput" type="text" [(ngModel)]="field">
+
+    <button (click)="findSum()">Знайти cуму</button>
+
+    <label for="sumInput">Сума за модулем:</label>
+    <input id="sumInput" type="text" [value]="sum" readonly>
+  </div>
+</div>

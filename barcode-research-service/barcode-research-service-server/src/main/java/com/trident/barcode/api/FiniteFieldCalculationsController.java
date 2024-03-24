@@ -15,4 +15,10 @@ public class FiniteFieldCalculationsController {
         var field = GFP.of(fieldPrime);
         return ResponseEntity.ok(field.inv(field.getOfValue(fieldElement)).digitalRepresentation());
     }
+
+    @RequestMapping(path = "/finite-fields/gfp/sum", method = RequestMethod.GET)
+    public ResponseEntity<Long> findInverse(@RequestParam int fieldPrime, @RequestParam int fieldFirstElement, @RequestParam int fieldSecondElement) {
+        var field = GFP.of(fieldPrime);
+        return ResponseEntity.ok(field.add(field.getOfValue(fieldFirstElement), field.getOfValue(fieldSecondElement)).digitalRepresentation());
+    }
 }

@@ -4,9 +4,13 @@ header {
   padding: 20px 0;
 }
 
+h1 {
+  margin: 10px;
+}
+
 nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   align-items: center;
 }
 
@@ -40,4 +44,12 @@ nav {
 
 .menu li.active a {
   color: #ffcc00; /* Change color for active link */
+}
+
+.menu.title li {
+  font-size: 30px;
+}
+
+nav {
+  text-align: center;
 }
