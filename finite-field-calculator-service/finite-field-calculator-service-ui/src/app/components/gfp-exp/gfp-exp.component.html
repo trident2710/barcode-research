@@ -1,0 +1,18 @@
+<h2>Піднесення елемента до степеня в полі GF(p)</h2>
+<div class="frame">
+  <div>
+    <label for="fieldElementInput">Елемент поля:</label>
+    <input id="fieldElementInput" type="text" [(ngModel)]="fieldElement">
+
+    <label for="expInput">Показник степеня:</label>
+    <input id="expInput" type="text" [(ngModel)]="exp">
+
+    <label for="fieldInput">Поле за модулем:</label>
+    <input id="fieldInput" type="text" [(ngModel)]="field">
+
+    <button (click)="findExp()">Піднести до степеня</button>
+
+    <label for="resultInput">Степінь елемента:</label>
+    <input id="resultInput" type="text" [value]="result" readonly>
+  </div>
+</div>

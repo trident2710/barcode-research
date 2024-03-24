@@ -16,4 +16,8 @@ export class GfOperationsService {
   getGfpSum(fieldPrime: number, fieldFirstElement: number, fieldSecondElement: number) {
     return this.http.get<number>(`/finite-fields/gfp/sum?fieldPrime=${fieldPrime}&fieldFirstElement=${fieldFirstElement}&fieldSecondElement=${fieldSecondElement}`);
   }
+
+  getGfpExp(fieldPrime: number, fieldElement: number, exp: number) {
+    return this.http.get<number>(`/finite-fields/gfp/exp?fieldPrime=${fieldPrime}&fieldElement=${fieldElement}&exp=${exp}`);
+  }
 }
