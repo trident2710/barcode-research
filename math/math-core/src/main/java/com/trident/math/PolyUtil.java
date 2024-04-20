@@ -100,6 +100,17 @@ public final class PolyUtil {
         return to(from(first).add(from(second)));
     }
 
+    public static FieldMatrix<GFPElement> multiplyPolynomialsByModulo(FieldMatrix<GFPElement> first, FieldMatrix<GFPElement> second, FieldMatrix<GFPElement> modulo) {
+        var multiplied = multiplyPolynomials(first, second);
+
+        if (getHighestDegree(modulo) > getHighestDegree(multiplied)) {
+            return multiplied;
+        }
+
+        var dividedByModulo = dividePolynomialsWithRest(multiplied, modulo);
+        return dividedByModulo.getSecond();
+    }
+
     public static FieldMatrix<GFPElement> multiplyPolynomials(FieldMatrix<GFPElement> first, FieldMatrix<GFPElement> second) {
         return to(from(first).multiply(from(second)));
     }
@@ -114,7 +125,7 @@ public final class PolyUtil {
         var rest = divisible;
         var result = FieldMatrixUtil.matrixRow(divisible.getField().getZero());
         while (!isZero(rest) && (degree(rest) >= degree(divisor))) {
-            var multiplyCoefficient = getHighestDegree(rest).divide(getHighestDegree(divisor));
+            var multiplyCoefficient = getHighestDegreeElement(rest).divide(getHighestDegreeElement(divisor));
             var degree = degree(rest) - degree(divisor);
             var monomial = monomial(multiplyCoefficient, degree);
             var multiplication = multiplyPolynomials(divisor, monomial);
@@ -124,14 +135,17 @@ public final class PolyUtil {
         return Pair.create(result, rest);
     }
 
-    private static FieldMatrix<GFPElement> monomial(GFPElement coefficient, int degree) {
+    public static FieldMatrix<GFPElement> monomial(GFPElement coefficient, int degree) {
         return to(UnivariatePolynomialZp64.monomial(
                 coefficient.getField().prime(), coefficient.digitalRepresentation(), degree));
     }
 
-
-    private static GFPElement getHighestDegree(FieldMatrix<GFPElement> first) {
+    public static GFPElement getHighestDegreeElement(FieldMatrix<GFPElement> first) {
         return first.getEntry(0, first.getColumnDimension() - 1);
+    }
+
+    public static long getHighestDegree(FieldMatrix<GFPElement> first) {
+        return first.getColumnDimension() - 1;
     }
 
     public static long[] toLongArray(FieldMatrix<GFPElement> poly) {

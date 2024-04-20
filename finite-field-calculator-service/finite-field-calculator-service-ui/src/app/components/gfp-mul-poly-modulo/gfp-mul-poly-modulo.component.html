@@ -1,0 +1,21 @@
+<h2>Множення многочленів в полі GF(p) за модулем многочлена</h2>
+<div class="frame">
+  <div>
+    <label for="firstPolyInput">Многочлен 1:</label>
+    <input id="firstPolyInput" type="text" [(ngModel)]="firstPoly">
+
+    <label for="secondPolyInput">Многочлен 2:</label>
+    <input id="secondPolyInput" type="text" [(ngModel)]="secondPoly">
+
+    <label for="fieldInput">Поле за модулем:</label>
+    <input id="fieldInput" type="text" [(ngModel)]="field">
+
+    <label for="moduloInput">Модуль:</label>
+    <input id="moduloInput" type="text" [(ngModel)]="modulo">
+
+    <button (click)="findMulByModulo()">Помножити многочлени за модулем</button>
+
+    <label for="mulInput">Результат:</label>
+    <input id="mulInput" type="text" [value]="res" readonly>
+  </div>
+</div>

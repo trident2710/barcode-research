@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {GfOperationsService} from "../../services/gf-operations.service";
 import {FormsModule} from "@angular/forms";
-import {throwError} from "rxjs";
 
 @Component({
   selector: 'gfp-mul-poly',

@@ -49,6 +49,15 @@ public class FiniteFieldCalculationsController {
         return new MulPolyResponse(polyToString(toLongArray(multiplyPolynomials(firstPoly, secondPoly))));
     }
 
+    @RequestMapping(path = "/finite-fields/gfp/mul-poly-by-modulo", method = RequestMethod.POST)
+    public MulPolyResponse mulPolyByModulo(@RequestBody MulPolyByModuloRequest request) {
+        var field = GFP.of(request.fieldPrime());
+        var firstPoly = toFieldMatrixRow(stringToPoly(request.polyFirst()), field);
+        var secondPoly = toFieldMatrixRow(stringToPoly(request.polySecond()), field);
+        var modulo = toFieldMatrixRow(stringToPoly(request.modulo()), field);
+        return new MulPolyResponse(polyToString(toLongArray(multiplyPolynomialsByModulo(firstPoly, secondPoly, modulo))));
+    }
+
     @RequestMapping(path = "/finite-fields/gfp/div-poly", method = RequestMethod.POST)
     public DivPolyResponse divPoly(@RequestBody DivPolyRequest divPolyRequest) {
         var field = GFP.of(divPolyRequest.fieldPrime());
@@ -66,7 +75,11 @@ public class FiniteFieldCalculationsController {
         return result.digitalRepresentation();
     }
 
+
     private record MulPolyRequest(int fieldPrime, String polyFirst, String polySecond) {}
+
+    private record MulPolyByModuloRequest(int fieldPrime, String polyFirst, String polySecond, String modulo) {}
+
     private record MulPolyResponse(String res) {}
 
     private record DivPolyRequest(int fieldPrime, String divisible, String divisor) {}

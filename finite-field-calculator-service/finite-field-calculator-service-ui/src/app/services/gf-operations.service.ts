@@ -38,6 +38,15 @@ export class GfOperationsService {
     });
   }
 
+  getGfpMulPolyByModulo(fieldPrime: number, firstPoly: string, secondPoly: string, modulo: string) {
+    return this.http.post<MulPolyResponse>(`/finite-fields/gfp/mul-poly-by-modulo`, {
+      fieldPrime: fieldPrime,
+      polyFirst: firstPoly,
+      polySecond: secondPoly,
+      modulo: modulo
+    });
+  }
+
   getGfpDivPoly(fieldPrime: number, divisible: string, divisor: string) {
     return this.http.post<DivPolyResponse>(`/finite-fields/gfp/div-poly`, {
       fieldPrime: fieldPrime,

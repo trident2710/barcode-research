@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import {GfpMulPolyComponent} from "../gpf-mul-poly/gfp-mul-poly.component";
+import {GfpMulPolyComponent} from "../gfp-mul-poly/gfp-mul-poly.component";
 import {GfpDivPolyComponent} from "../gfp-div-poly/gfp-div-poly.component";
 import {GfpPolyValueComponent} from "../gfp-poly-value/gfp-poly-value.component";
+import {GfpMulPolyModuloComponent} from "../gfp-mul-poly-modulo/gfp-mul-poly-modulo.component";
 
 @Component({
   selector: 'app-polynom-operations',
@@ -9,7 +10,8 @@ import {GfpPolyValueComponent} from "../gfp-poly-value/gfp-poly-value.component"
   imports: [
     GfpMulPolyComponent,
     GfpDivPolyComponent,
-    GfpPolyValueComponent
+    GfpPolyValueComponent,
+    GfpMulPolyModuloComponent
   ],
   templateUrl: './polynom-operations.component.html',
   styleUrl: './polynom-operations.component.css'
