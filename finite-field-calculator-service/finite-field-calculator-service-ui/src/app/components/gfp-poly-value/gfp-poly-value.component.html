@@ -1,0 +1,20 @@
+<h2>Знаходження значення многочлена в точці в полі GF(p)</h2>
+<div class="frame">
+  <div>
+    <label for="divisibleInput">Многочлен:</label>
+    <input id="divisibleInput" type="text" [(ngModel)]="poly">
+
+    <label for="divisorInput">Точка:</label>
+    <input id="divisorInput" type="text" [(ngModel)]="point">
+
+    <label for="fieldInput">Поле за модулем:</label>
+    <input id="fieldInput" type="text" [(ngModel)]="field">
+
+
+    <button (click)="findPolyVal()">Знайти значення многочлена в точці</button>
+
+    <label for="resInput">Результат:</label>
+    <input id="resInput" type="text" [value]="result" readonly>
+
+  </div>
+</div>

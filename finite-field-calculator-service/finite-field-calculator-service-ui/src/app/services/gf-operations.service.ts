@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +43,14 @@ export class GfOperationsService {
       fieldPrime: fieldPrime,
       divisible:  divisible,
       divisor: divisor
+    });
+  }
+
+  getGfpPolyValue(fieldPrime: number, poly: string, point: number): Observable<number> {
+    return this.http.post<number>(`/finite-fields/gfp/poly-val`,  {
+      fieldPrime: fieldPrime,
+      point:  point,
+      poly: poly
     });
   }
 }

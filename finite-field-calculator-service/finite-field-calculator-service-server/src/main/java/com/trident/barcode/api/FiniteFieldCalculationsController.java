@@ -1,5 +1,6 @@
 package com.trident.barcode.api;
 
+import com.trident.math.field.FiniteFieldEquation;
 import com.trident.math.field.GFP;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,10 +58,20 @@ public class FiniteFieldCalculationsController {
         return new DivPolyResponse(polyToString(toLongArray(result.getFirst())), polyToString(toLongArray(result.getSecond())));
     }
 
+    @RequestMapping(path = "/finite-fields/gfp/poly-val", method = RequestMethod.POST)
+    public Long polyVal(@RequestBody PolyValueRequest request) {
+        var field = GFP.of(request.fieldPrime);
+        var polynom = toFieldMatrixRow(stringToPoly(request.poly), field);
+        var result = FiniteFieldEquation.calculatePolyValue(polynom, field.getOfValue(request.point));
+        return result.digitalRepresentation();
+    }
+
     private record MulPolyRequest(int fieldPrime, String polyFirst, String polySecond) {}
     private record MulPolyResponse(String res) {}
 
     private record DivPolyRequest(int fieldPrime, String divisible, String divisor) {}
 
     private record DivPolyResponse(String result, String rest) {}
+
+    private record PolyValueRequest(int fieldPrime, int point, String poly) {}
 }
