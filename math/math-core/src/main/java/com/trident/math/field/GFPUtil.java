@@ -16,7 +16,7 @@ public final class GFPUtil {
                 .orElseThrow();
     }
 
-    private static boolean checkForPrimitive(long primeNumber, GFP field) {
+    public static boolean checkForPrimitive(long primeNumber, GFP field) {
         var members = new HashSet<Long>();
         for (int i = 1; i < field.elementsCount(); i++) {
             var powered = field.pow(field.getOfValue(primeNumber), i);

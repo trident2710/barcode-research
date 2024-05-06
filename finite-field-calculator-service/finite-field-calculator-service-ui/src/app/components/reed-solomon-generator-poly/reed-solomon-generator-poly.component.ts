@@ -19,7 +19,7 @@ export class ReedSolomonGeneratorPolyComponent {
 
   constructor(private reedSolomonOperationsService: ReedSolomonOperationsService) { }
 
-  findPolyVal() {
+  findGeneratorPoly() {
     this.reedSolomonOperationsService.getReedSolomonGeneratorPoly(this.field, this.primitiveElement, this.power).subscribe({
       next: value => {
         this.result = value.poly ?? 'error'

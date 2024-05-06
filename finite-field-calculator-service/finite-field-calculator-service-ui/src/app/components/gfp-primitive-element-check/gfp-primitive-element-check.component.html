@@ -1,0 +1,17 @@
+<h2>Перевірка на примітивність елемента поля GF(p)</h2>
+<div class="frame">
+  <div>
+    <label for="fieldElementInput">Елемент:</label>
+    <input id="fieldElementInput" type="text" [(ngModel)]="fieldElement">
+
+    <label for="fieldInput">Поле за модулем:</label>
+    <input id="fieldInput" type="text" [(ngModel)]="field">
+
+
+    <button (click)="checkPrimitive()">Перевірити на примітивність</button>
+
+    <label for="resInput">Результат:</label>
+    <input id="resInput" type="text" [value]="result" readonly>
+
+  </div>
+</div>

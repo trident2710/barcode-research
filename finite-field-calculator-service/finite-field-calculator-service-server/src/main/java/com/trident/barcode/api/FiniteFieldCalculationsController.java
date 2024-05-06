@@ -2,6 +2,7 @@ package com.trident.barcode.api;
 
 import com.trident.math.field.FiniteFieldEquation;
 import com.trident.math.field.GFP;
+import com.trident.math.field.GFPUtil;
 import org.springframework.web.bind.annotation.*;
 
 import static com.trident.math.PolyUtil.*;
@@ -75,6 +76,12 @@ public class FiniteFieldCalculationsController {
         return result.digitalRepresentation();
     }
 
+    @RequestMapping(path = "/finite-fields/gfp/check-primitive", method = RequestMethod.GET)
+    public CheckPrimitivityResponse checkPrimitivity(@RequestParam int fieldPrime, @RequestParam int fieldElement) {
+        var field = GFP.of(fieldPrime);
+        return new CheckPrimitivityResponse(GFPUtil.checkForPrimitive(fieldElement, field));
+    }
+
 
     private record MulPolyRequest(int fieldPrime, String polyFirst, String polySecond) {}
 
@@ -87,4 +94,6 @@ public class FiniteFieldCalculationsController {
     private record DivPolyResponse(String result, String rest) {}
 
     private record PolyValueRequest(int fieldPrime, int point, String poly) {}
+
+    private record CheckPrimitivityResponse(boolean isPrimitive) {}
 }

@@ -62,6 +62,14 @@ export class GfOperationsService {
       poly: poly
     });
   }
+
+  checkGfpElementPrimitivity(fieldPrime: number, fieldElement: number) {
+    return this.http.get<FiniteFieldPrimitivityCheckResult>(`/finite-fields/gfp/check-primitive?fieldPrime=${fieldPrime}&fieldElement=${fieldElement}`);
+  }
+}
+
+export class FiniteFieldPrimitivityCheckResult {
+  isPrimitive?: boolean
 }
 
 export class MulPolyResponse {
