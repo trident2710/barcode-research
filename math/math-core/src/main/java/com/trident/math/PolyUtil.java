@@ -16,6 +16,10 @@ import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrixRow;
 
 public final class PolyUtil {
 
+    public static FieldMatrix<GFPElement> poly(GFP generatorField, long... elems) {
+        return toFieldMatrixRow(elems, generatorField);
+    }
+
     public static long[] stringToPoly(String polynomial) {
         var terms = polynomial.replaceAll("\\s+", "").split("\\+");
         long[] coefficients = new long[getMaxDegree(terms) + 1];
