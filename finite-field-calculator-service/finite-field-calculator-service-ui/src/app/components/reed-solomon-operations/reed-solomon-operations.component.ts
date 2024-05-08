@@ -3,13 +3,17 @@ import {ReedSolomonGeneratorPolyComponent} from "../reed-solomon-generator-poly/
 import {
     ReedSolomonErasureLocatorsPolyComponent
 } from "../reed-solomon-erasure-locators-poly/reed-solomon-erasure-locators-poly.component";
+import {
+    ReedSolomonErrorLocatorsPolyComponent
+} from "../reed-solomon-error-locators-poly/reed-solomon-error-locators-poly.component";
 
 @Component({
   selector: 'reed-solomon-operations',
   standalone: true,
     imports: [
         ReedSolomonGeneratorPolyComponent,
-        ReedSolomonErasureLocatorsPolyComponent
+        ReedSolomonErasureLocatorsPolyComponent,
+        ReedSolomonErrorLocatorsPolyComponent
     ],
   templateUrl: './reed-solomon-operations.component.html',
   styleUrl: './reed-solomon-operations.component.css'

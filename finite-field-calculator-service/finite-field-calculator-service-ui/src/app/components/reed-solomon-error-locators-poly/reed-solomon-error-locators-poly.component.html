@@ -1,0 +1,19 @@
+<h2>Знаходження многочлена локаторів помилок методом Берлекемпа-Мессі</h2>
+<div class="frame">
+  <div>
+    <label for="fieldInput">Поле за модулем:</label>
+    <input id="fieldInput" type="text" [(ngModel)]="field">
+
+    <label for="errorsCountInput">Кількість помилок:</label>
+    <input id="errorsCountInput" type="text" [(ngModel)]="errorsCount">
+
+    <label for="errorsSyndromeInput">Синдром помилок:</label>
+    <input id="errorsSyndromeInput" type="text" [(ngModel)]="errorsSyndrome">
+
+    <button (click)="findErrorLocatorsPoly()">Знайти многочлен локаторів помилок</button>
+
+    <label for="resInput">Результат:</label>
+    <input id="resInput" type="text" [value]="result" readonly>
+
+  </div>
+</div>

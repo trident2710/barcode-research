@@ -20,6 +20,14 @@ export class ReedSolomonOperationsService {
       erasurePositions: erasurePositions
     });
   }
+
+  getErrorLocatorsPoly(fieldPrime: number, errorsSyndrome: number[], errorsCount: number) {
+    return this.http.post<PolyResponse>(`/reed-solomon/error-locators-poly`,  {
+      fieldPrime: fieldPrime,
+      errorsSyndrome: errorsSyndrome,
+      errorsCount: errorsCount
+    });
+  }
 }
 
 export class PolyResponse {
