@@ -1,0 +1,19 @@
+<h2>Знаходження многочлена локаторів стирань коду Ріда-Соломона</h2>
+<div class="frame">
+  <div>
+    <label for="primitiveElementInput">Примітивний елемент поля:</label>
+    <input id="primitiveElementInput" type="text" [(ngModel)]="primitiveElement">
+
+    <label for="fieldInput">Поле за модулем:</label>
+    <input id="fieldInput" type="text" [(ngModel)]="field">
+
+    <label for="erasurePositionsInput">Позиції стирань:</label>
+    <input id="erasurePositionsInput" type="text" [(ngModel)]="erasurePositions">
+
+    <button (click)="findErasureLocatorsPoly()">Знайти многочлен локаторів стирань</button>
+
+    <label for="resInput">Результат:</label>
+    <input id="resInput" type="text" [value]="result" readonly>
+
+  </div>
+</div>
