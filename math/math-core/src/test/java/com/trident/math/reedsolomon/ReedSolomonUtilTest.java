@@ -90,7 +90,6 @@ public class ReedSolomonUtilTest {
 
     @Test
     void testCalculateMutationValuesPoly() {
-
         var errorLocatorsPoly = toFieldMatrixRow(new long[]{1, 8, 7}, GF11);
         var modifiedSyndromePoly = toFieldMatrixRow(new long[]{0, 7, 3, 3, 0, 1, 3}, GF11);
 

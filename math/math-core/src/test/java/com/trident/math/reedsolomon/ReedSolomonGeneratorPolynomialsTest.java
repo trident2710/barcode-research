@@ -29,6 +29,4 @@ class ReedSolomonGeneratorPolynomialsTest {
         var expected = toFieldMatrixRow(new long[]{34, 24, 13, 34, 8, 12, 1}, gf41);
         assertEquals(expected, generatorPolynomial(gf41.primitiveElement(), 6));
     }
-
-
 }

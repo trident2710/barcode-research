@@ -188,7 +188,6 @@ public final class ReedSolomonUtil {
                 .collect(Collectors.toList());
     }
 
-    @VisibleForTesting
     public static List<GFPElement> mutationLocators(List<GFPElement> erasureLocators, List<GFPElement> errorLocators) {
         return Stream.concat(erasureLocators.stream(), errorLocators.stream())
                 .sorted(Comparator.naturalOrder())

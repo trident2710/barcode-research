@@ -1,10 +1,8 @@
 package com.trident.math.reedsolomon;
 
-import org.apache.commons.math3.util.Pair;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Optional;
 
 import static com.trident.math.field.GaloisFields.GF11;
 import static com.trident.math.matrix.GaloisFieldMatrixUtil.toFieldMatrixRow;
